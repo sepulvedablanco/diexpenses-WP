@@ -1,0 +1,51 @@
+﻿<base:ViewBase
+    x:Class="diexpenses.Views.SignupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    DataContext="{Binding SignupPageVM, Source={StaticResource Locator}}"
+    xmlns:local="using:diexpenses.Views"
+    xmlns:base="using:diexpenses.Views.Base"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="20,15,20,0">
+
+            <!--Title-->
+            <TextBlock Text="Create account" Foreground="Black" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,20" />
+
+            <!--Name-->
+            <TextBlock Text="Name" Foreground="Black" FontSize="30"/>
+            <TextBox x:Name="NameTextBox" BorderBrush="LightGray" Text="{Binding Name, Mode=TwoWay}" Margin="0,0,0,10" />
+
+            <!--Username-->
+            <TextBlock Text="Username" Foreground="Black" FontSize="30"/>
+            <TextBox x:Name="UsernameTextBox" BorderBrush="LightGray" Text="{Binding Username, Mode=TwoWay}" Margin="0,0,0,10" />
+
+            <!--Password-->
+            <TextBlock Foreground="Black" Text="Password" FontSize="30"/>
+            <PasswordBox x:Name="PasswordTextBox" BorderBrush="LightGray" PasswordChanged="PasswordBox_PasswordChanged" Margin="0,0,0,20" />
+
+            <!--Confirm password-->
+            <TextBlock Foreground="Black" Text="Confirm Password" FontSize="30"/>
+            <PasswordBox x:Name="ConfirmPasswordTextBox" BorderBrush="LightGray" PasswordChanged="ConfirmPasswordTextBox_PasswordChanged" Margin="0,0,0,20" />
+
+            <!--Create Account Button-->
+            <Button x:Name="CreateAccountButton" Content="Create account" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding CreateAccountCommand}" Margin="0,0,0,20" Width="320" Height="40" />
+
+            <!--  Registration Button-->
+            <Button x:Name="LoginButton" Content="Have an account? Login now" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding LoginCommand}" Margin="0,0,0,20" Width="320" Height="40" />
+
+        </StackPanel>
+        
+    </Grid>
+
+</base:ViewBase>

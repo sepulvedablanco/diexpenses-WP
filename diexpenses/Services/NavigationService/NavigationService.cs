@@ -23,5 +23,13 @@ namespace diexpenses.Services
             }
         }
 
+        public void NavigateToSignupPage<T>(T parameters)
+        {
+            if (AppFrame != null)
+            {
+                AppFrame.Navigate(typeof(SignupPage), parameters);
+            }
+        }
+        
     }
 }

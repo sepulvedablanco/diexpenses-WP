@@ -76,8 +76,7 @@ namespace diexpenses.ViewModels
         private void NavigateToSingupExecute()
         {
             Debug.WriteLine("Navigating to Signup view");
-            // Navigate to signup view
-            //this.navigationService.NavegarPaginaDos(this.texto1);
+            this.navigationService.NavigateToSignupPage<Object>(null);
         }
 
         public void DoLogin()
