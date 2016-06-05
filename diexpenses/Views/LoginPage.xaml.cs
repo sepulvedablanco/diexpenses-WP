@@ -1,9 +1,10 @@
 ﻿namespace diexpenses.Views
 {
+    using Base;
     using ViewModels;
     using Windows.UI.Xaml;
 
-    public sealed partial class LoginPage
+    public sealed partial class LoginPage : ViewBase
     {
         public LoginPage()
         {
