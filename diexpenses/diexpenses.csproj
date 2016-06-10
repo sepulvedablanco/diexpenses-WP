@@ -121,6 +121,9 @@
     <Compile Include="ViewModels\SignupPageViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="Views\Base\MenuBottomViewBase.xaml.cs">
+      <DependentUpon>MenuBottomViewBase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Base\ViewBase.cs" />
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -156,6 +159,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Base\MenuBottomViewBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HomePage.xaml">
       <Generator>MSBuild:Compile</Generator>

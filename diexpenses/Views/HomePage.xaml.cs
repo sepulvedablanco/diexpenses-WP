@@ -2,7 +2,7 @@
 {
     using Base;
 
-    public sealed partial class HomePage : ViewBase
+    public sealed partial class HomePage : MenuBottomViewBase
     {
         public HomePage()
         {
