@@ -20,6 +20,7 @@
             builder.RegisterType<HomePageViewModel>();
             builder.RegisterType<BankAccountDetailsPageViewModel>();
             builder.RegisterType<NewMovementPageViewModel>();
+            builder.RegisterType<MovementDetailsPageViewModel>();
 
             this.container = builder.Build();
         }
@@ -52,6 +53,11 @@
         public NewMovementPageViewModel NewMovementPageVM
         {
             get { return this.container.Resolve<NewMovementPageViewModel>(); }
+        }
+
+        public MovementDetailsPageViewModel MovementDetailsPageVM
+        {
+            get { return this.container.Resolve<MovementDetailsPageViewModel>(); }
         }
     }
 }
