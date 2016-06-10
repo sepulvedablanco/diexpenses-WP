@@ -17,6 +17,7 @@
             builder.RegisterType<MainPageViewModel>();
             builder.RegisterType<LoginPageViewModel>();
             builder.RegisterType<SignupPageViewModel>();
+            builder.RegisterType<HomePageViewModel>();
 
             this.container = builder.Build();
         }
@@ -34,6 +35,11 @@
         public SignupPageViewModel SignupPageVM
         {
             get { return this.container.Resolve<SignupPageViewModel>();  }
+        }
+
+        public HomePageViewModel HomePageVM
+        {
+            get { return this.container.Resolve<HomePageViewModel>(); }
         }
     }
 }

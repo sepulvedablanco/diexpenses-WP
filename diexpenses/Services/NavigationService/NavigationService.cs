@@ -30,6 +30,13 @@ namespace diexpenses.Services
                 AppFrame.Navigate(typeof(SignupPage), parameters);
             }
         }
-        
+
+        public void NavigateToHomePage<T>(T parameters)
+        {
+            if (AppFrame != null)
+            {
+                AppFrame.Navigate(typeof(HomePage), parameters);
+            }
+        }
     }
 }

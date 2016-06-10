@@ -27,7 +27,7 @@
             <TextBox x:Name="UsernameTextBox" BorderBrush="LightGray" Text="{Binding Username, Mode=TwoWay}" Margin="0,0,0,10" />
 
             <!--Password-->
-            <TextBlock Foreground="Black" Text="Password" Margin="9,-7,0,0" FontSize="30"/>
+            <TextBlock Foreground="Black" Text="Password" FontSize="30"/>
             <PasswordBox x:Name="PasswordTextBox" BorderBrush="LightGray" PasswordChanged="PasswordBox_PasswordChanged" Margin="0,0,0,20" />
 
             <!--Login Button-->

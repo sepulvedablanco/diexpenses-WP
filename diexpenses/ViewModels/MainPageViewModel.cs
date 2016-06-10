@@ -32,14 +32,12 @@
             if (isLogged == null || !Boolean.Parse(isLogged.ToString()))
             {
                 Debug.WriteLine("User is NOT logged in the APP");
-
                 navigationService.NavigateToLoginPage<Object>(null);
             }
             else
             {
                 Debug.WriteLine("User is logged in the APP");
-                // TODO Crear la HomePage
-                //this.navigationService.NavigateToHomePage<Object>(null);
+                navigationService.NavigateToHomePage<Object>(null);
             }
         }
     }
