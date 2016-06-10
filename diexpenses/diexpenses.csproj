@@ -106,7 +106,11 @@
     <Compile Include="Entities\NewUser.cs" />
     <Compile Include="Entities\Subkind.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="ViewModels\NewMovementPageViewModel.cs" />
     <Compile Include="ViewModels\BankAccountDetailsPageViewModel.cs" />
+    <Compile Include="Views\NewMovementPage.xaml.cs">
+      <DependentUpon>NewMovementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BankAccountDetailsPage.xaml.cs">
       <DependentUpon>BankAccountDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -160,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\NewMovementPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\BankAccountDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
