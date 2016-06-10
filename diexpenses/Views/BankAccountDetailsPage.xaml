@@ -1,0 +1,60 @@
+﻿<base:MenuBottomViewBase
+    x:Class="diexpenses.Views.BanckAccountDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    DataContext="{Binding BankAccountDetailsPageVM, Source={StaticResource Locator}}"
+    xmlns:local="using:diexpenses.Views"
+    xmlns:base="using:diexpenses.Views.Base"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="20,15,20,0">
+
+            <!--Title-->
+            <TextBlock Text="Bank Account Details" Foreground="Black" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,10" />
+
+            <!--Description-->
+            <TextBlock Text="Description" Foreground="Black" FontSize="30"/>
+            <TextBox BorderBrush="LightGray" Text="{Binding Description, Mode=TwoWay}" Margin="0,0,0,10" />
+
+            <!--IBAN-->
+            <TextBlock Foreground="Black" Text="IBAN" FontSize="30"/>
+            <TextBox BorderBrush="LightGray" Text="{Binding IBAN, Mode=TwoWay}" Margin="0,0,0,20" />
+
+            <!--Entity-->
+            <TextBlock Foreground="Black" Text="Entity" FontSize="30"/>
+            <TextBox BorderBrush="LightGray" Text="{Binding Entity, Mode=TwoWay}" Margin="0,0,0,20" />
+
+            <!--Office-->
+            <TextBlock Foreground="Black" Text="Office" FontSize="30"/>
+            <TextBox BorderBrush="LightGray" Text="{Binding Office, Mode=TwoWay}" Margin="0,0,0,20" />
+
+            <!--ControlDigit-->
+            <TextBlock Foreground="Black" Text="Control digit" FontSize="30"/>
+            <TextBox BorderBrush="LightGray" Text="{Binding ControlDigit, Mode=TwoWay}" Margin="0,0,0,20" />
+
+            <!--AccountNumber-->
+            <TextBlock Foreground="Black" Text="Account number" FontSize="30"/>
+            <TextBox BorderBrush="LightGray" Text="{Binding AccountNumber, Mode=TwoWay}" Margin="0,0,0,20" />
+
+            <!--Balance-->
+            <TextBlock Foreground="Black" Text="Balance" FontSize="30"/>
+            <TextBox BorderBrush="LightGray" Text="{Binding Balance, Mode=TwoWay}" Margin="0,0,0,20" />
+
+            <!--Action Button-->
+            <Button x:Name="ActionButton" Content="" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding ActionCommand}" Margin="0,0,0,20" Width="320" Height="40" />
+
+        </StackPanel>
+        
+    </Grid>
+
+</base:MenuBottomViewBase>

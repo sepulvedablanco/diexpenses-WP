@@ -18,6 +18,7 @@
             builder.RegisterType<LoginPageViewModel>();
             builder.RegisterType<SignupPageViewModel>();
             builder.RegisterType<HomePageViewModel>();
+            builder.RegisterType<BankAccountDetailsPageViewModel>();
 
             this.container = builder.Build();
         }
@@ -40,6 +41,11 @@
         public HomePageViewModel HomePageVM
         {
             get { return this.container.Resolve<HomePageViewModel>(); }
+        }
+
+        public BankAccountDetailsPageViewModel BankAccountDetailsPageVM
+        {
+            get { return this.container.Resolve<BankAccountDetailsPageViewModel>(); }
         }
     }
 }
