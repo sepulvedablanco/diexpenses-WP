@@ -1,4 +1,5 @@
-﻿using diexpenses.Views;
+﻿using diexpenses.Services.Database;
+using diexpenses.ViewModels.Base;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -59,6 +60,11 @@ namespace diexpenses
                 // Poner el marco en la ventana actual.
                 Window.Current.Content = rootFrame;
             }
+
+            //Create database before show main page.
+            var vmLocator = (VMLocator)Current.Resources["Locator"];
+            var dbService = vmLocator.Resolve<IDbService>();
+            dbService.CreateDb();
 
             if (e.PrelaunchActivated == false)
             {

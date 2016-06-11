@@ -2,7 +2,7 @@
 {
     using Autofac;
     using Services;
-
+    using Services.Database;
     public class VMLocator
     {
         private IContainer container;
@@ -13,6 +13,7 @@
 
             builder.RegisterType<DialogService>().As<IDialogService>();
             builder.RegisterType<NavigationService>().As<INavigationService>();
+            builder.RegisterType<DbService>().As<IDbService>();
 
             builder.RegisterType<MainPageViewModel>();
             builder.RegisterType<LoginPageViewModel>();
@@ -23,6 +24,11 @@
             builder.RegisterType<MovementDetailsPageViewModel>();
 
             this.container = builder.Build();
+        }
+
+        public T Resolve<T>()
+        {
+            return this.container.Resolve<T>();
         }
 
         public MainPageViewModel MainPageVM

@@ -1,8 +1,10 @@
-﻿using diexpenses.Entities.Base;
-
-namespace diexpenses.Entities
+﻿namespace diexpenses.Entities
 {
-    class Subkind: KindBase
+    using diexpenses.Entities.Base;
+    using SQLite.Net.Attributes;
+
+    [Table("Subkinds")]
+    public class Subkind : KindBase
     {
 
     }
