@@ -108,6 +108,10 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Services\Database\DbService.cs" />
     <Compile Include="Services\Database\IDbService.cs" />
+    <Compile Include="Services\DiexpensesAPI\ApiService.cs" />
+    <Compile Include="Services\DiexpensesAPI\IApiService.cs" />
+    <Compile Include="Services\NetworkService\INetworkService.cs" />
+    <Compile Include="Services\NetworkService\NetworkService.cs" />
     <Compile Include="ViewModels\MovementDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\NewMovementPageViewModel.cs" />
     <Compile Include="ViewModels\BankAccountDetailsPageViewModel.cs" />

@@ -3,6 +3,9 @@
     using Autofac;
     using Services;
     using Services.Database;
+    using Services.DiexpensesAPI;
+    using Services.NetworkService;
+
     public class VMLocator
     {
         private IContainer container;
@@ -14,6 +17,8 @@
             builder.RegisterType<DialogService>().As<IDialogService>();
             builder.RegisterType<NavigationService>().As<INavigationService>();
             builder.RegisterType<DbService>().As<IDbService>();
+            builder.RegisterType<NetworkService>().As<INetworkService>().SingleInstance();
+            builder.RegisterType<ApiService>().As<IApiService>();
 
             builder.RegisterType<MainPageViewModel>();
             builder.RegisterType<LoginPageViewModel>();

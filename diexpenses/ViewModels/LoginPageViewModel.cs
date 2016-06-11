@@ -1,8 +1,14 @@
-﻿using diexpenses.Services;
+﻿using diexpenses.Common;
+using diexpenses.Entities;
+using diexpenses.Services;
+using diexpenses.Services.DiexpensesAPI;
+using diexpenses.Services.NetworkService;
 using diexpenses.ViewModels.Base;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
+using Windows.Security.Credentials;
+using Windows.Storage;
 using Windows.UI.Xaml.Navigation;
 
 namespace diexpenses.ViewModels
@@ -17,15 +23,18 @@ namespace diexpenses.ViewModels
 
         private IDialogService dialogService;
         private INavigationService navigationService;
+        private INetworkService networkService;
+        private IApiService apiService;
 
-        public LoginPageViewModel(IDialogService dialogService, INavigationService navigationService)
+        public LoginPageViewModel(IDialogService dialogService, INavigationService navigationService, INetworkService networkService, IApiService apiService)
         {
             this.dialogService = dialogService;
             this.navigationService = navigationService;
+            this.networkService = networkService;
+            this.apiService = apiService;
 
             loginCommand = new DelegateCommand(LoginExecute, LoginCanExecute);
             signupCommand = new DelegateCommand(NavigateToSingupExecute, null);
-
         }
         
         public ICommand LoginCommand
@@ -79,9 +88,35 @@ namespace diexpenses.ViewModels
             this.navigationService.NavigateToSignupPage<Object>(null);
         }
 
-        public void DoLogin()
+        public async void DoLogin()
         {
+            if(!networkService.IsNetworkAvailable)
+            {
+                dialogService.ShowMessage("Please, check you Internet connection!");
+                return;
+            }
 
+            User user = await apiService.Login(Username, PasswordHandler());
+            if(user == null)
+            {
+                dialogService.ShowMessage("Incorrect user or password");
+                return;
+            }
+            Debug.WriteLine(user.ToString());
+
+            SaveDataInMemory(user);
+
+            this.navigationService.NavigateToHomePage<Object>(null);
+        }
+
+        private void SaveDataInMemory(User user)
+        {
+            var settings = ApplicationData.Current.LocalSettings;
+            settings.Values[Constants.IS_LOGGED] = true;
+
+            PasswordVault vault = new PasswordVault();
+            PasswordCredential credential = new PasswordCredential(Constants.PASSWORD_CREDENTIAL, user.Username, user.AuthToken);
+            vault.Add(credential);
         }
 
         public static void OnPasswordChanged()
