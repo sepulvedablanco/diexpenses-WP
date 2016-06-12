@@ -98,9 +98,11 @@
     </Compile>
     <Compile Include="Common\CommonKeys.cs" />
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\Utils.cs" />
     <Compile Include="Entities\BankAccount.cs" />
     <Compile Include="Entities\Base\KindBase.cs" />
     <Compile Include="Entities\Credential.cs" />
+    <Compile Include="Entities\GenericResponse.cs" />
     <Compile Include="Entities\Kind.cs" />
     <Compile Include="Entities\Movement.cs" />
     <Compile Include="Entities\NewUser.cs" />

@@ -1,18 +1,16 @@
-﻿using diexpenses.Common;
-using diexpenses.Entities;
-using diexpenses.Services;
-using diexpenses.Services.DiexpensesAPI;
-using diexpenses.Services.NetworkService;
-using diexpenses.ViewModels.Base;
-using System;
-using System.Diagnostics;
-using System.Windows.Input;
-using Windows.Security.Credentials;
-using Windows.Storage;
-using Windows.UI.Xaml.Navigation;
-
-namespace diexpenses.ViewModels
+﻿namespace diexpenses.ViewModels
 {
+    using diexpenses.Common;
+    using diexpenses.Entities;
+    using diexpenses.Services;
+    using diexpenses.Services.DiexpensesAPI;
+    using diexpenses.Services.NetworkService;
+    using diexpenses.ViewModels.Base;
+    using System;
+    using System.Diagnostics;
+    using System.Windows.Input;
+    using Windows.UI.Xaml.Navigation;
+
     public class LoginPageViewModel: ViewModelBase
     {
         private string username;
@@ -104,19 +102,9 @@ namespace diexpenses.ViewModels
             }
             Debug.WriteLine(user.ToString());
 
-            SaveDataInMemory(user);
+            Utils.SaveDataInMemory(user);
 
             this.navigationService.NavigateToHomePage<Object>(null);
-        }
-
-        private void SaveDataInMemory(User user)
-        {
-            var settings = ApplicationData.Current.LocalSettings;
-            settings.Values[Constants.IS_LOGGED] = true;
-
-            PasswordVault vault = new PasswordVault();
-            PasswordCredential credential = new PasswordCredential(Constants.PASSWORD_CREDENTIAL, user.Username, user.AuthToken);
-            vault.Add(credential);
         }
 
         public static void OnPasswordChanged()

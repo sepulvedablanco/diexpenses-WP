@@ -1,12 +1,16 @@
-﻿using diexpenses.Services;
-using diexpenses.ViewModels.Base;
-using System;
-using System.Diagnostics;
-using System.Windows.Input;
-using Windows.UI.Xaml.Navigation;
-
-namespace diexpenses.ViewModels
+﻿namespace diexpenses.ViewModels
 {
+    using diexpenses.Common;
+    using diexpenses.Entities;
+    using diexpenses.Services;
+    using diexpenses.Services.DiexpensesAPI;
+    using diexpenses.Services.NetworkService;
+    using diexpenses.ViewModels.Base;
+    using System;
+    using System.Diagnostics;
+    using System.Windows.Input;
+    using Windows.UI.Xaml.Navigation;
+
     public class SignupPageViewModel: ViewModelBase
     {
         private string name;
@@ -20,11 +24,15 @@ namespace diexpenses.ViewModels
 
         private IDialogService dialogService;
         private INavigationService navigationService;
+        private INetworkService networkService;
+        private IApiService apiService;
 
-        public SignupPageViewModel(IDialogService dialogService, INavigationService navigationService)
+        public SignupPageViewModel(IDialogService dialogService, INavigationService navigationService, INetworkService networkService, IApiService apiService)
         {
             this.dialogService = dialogService;
             this.navigationService = navigationService;
+            this.networkService = networkService;
+            this.apiService = apiService;
 
             createAccountCommand = new DelegateCommand(CreateAccountExecute, CreateAccountCanExecute);
             loginCommand = new DelegateCommand(NavigateToLoginExecute, null);
@@ -98,9 +106,25 @@ namespace diexpenses.ViewModels
             this.navigationService.NavigateToLoginPage<Object>(null);
         }
 
-        public void CreateUser()
+        public async void CreateUser()
         {
+            if (!networkService.IsNetworkAvailable)
+            {
+                dialogService.ShowMessage("Please, check you Internet connection!");
+                return;
+            }
 
+            User user = await apiService.Register(Name, Username, PasswordHandler());
+            if (user == null)
+            {
+                dialogService.ShowMessage("Incorrect user or password");
+                return;
+            }
+            Debug.WriteLine(user.ToString());
+
+            Utils.SaveDataInMemory(user);
+
+            this.navigationService.NavigateToHomePage<Object>(null);
         }
 
         public static void OnPasswordChanged()
