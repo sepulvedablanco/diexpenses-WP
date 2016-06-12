@@ -24,6 +24,7 @@
             builder.RegisterType<LoginPageViewModel>();
             builder.RegisterType<SignupPageViewModel>();
             builder.RegisterType<HomePageViewModel>();
+            builder.RegisterType<KindsListPageViewModel>();
             builder.RegisterType<BankAccountDetailsPageViewModel>();
             builder.RegisterType<NewMovementPageViewModel>();
             builder.RegisterType<MovementDetailsPageViewModel>();
@@ -56,6 +57,11 @@
             get { return this.container.Resolve<HomePageViewModel>(); }
         }
 
+        public KindsListPageViewModel KindsListPageVM
+        {
+            get { return this.container.Resolve<KindsListPageViewModel>(); }
+        }
+        
         public BankAccountDetailsPageViewModel BankAccountDetailsPageVM
         {
             get { return this.container.Resolve<BankAccountDetailsPageViewModel>(); }

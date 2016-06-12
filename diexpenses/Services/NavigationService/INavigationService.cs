@@ -13,5 +13,8 @@ namespace diexpenses.Services
         void NavigateToSignupPage<T>(T parameters);
 
         void NavigateToHomePage<T>(T parameters);
+
+        void NavigateToKindsListPage<T>(T parameters);
+
     }
 }

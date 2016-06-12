@@ -74,6 +74,7 @@
         {
             Debug.WriteLine("Kinds execute...");
 
+            navigationService.NavigateToKindsListPage<Object>(null);
         }
 
         private void BankAccountsExecute()

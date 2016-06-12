@@ -7,7 +7,15 @@
     RequestedTheme="Light">
 
     <Application.Resources>
-        <vmlocator:VMLocator x:Name="Locator"></vmlocator:VMLocator>
+        <ResourceDictionary>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/KindsListView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <vmlocator:VMLocator x:Name="Locator"></vmlocator:VMLocator>
+            
+        </ResourceDictionary>
     </Application.Resources>
 
 </Application>

@@ -38,5 +38,14 @@ namespace diexpenses.Services
                 AppFrame.Navigate(typeof(HomePage), parameters);
             }
         }
+
+        public void NavigateToKindsListPage<T>(T parameters)
+        {
+            if (AppFrame != null)
+            {
+                AppFrame.Navigate(typeof(KindsListPage), parameters);
+            }
+        }
+
     }
 }
