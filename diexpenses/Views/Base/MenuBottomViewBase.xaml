@@ -15,11 +15,12 @@
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Compact">
             <CommandBar.PrimaryCommands>
-                <AppBarButton Label="Home" Icon="Home" />
-                <AppBarButton Label="Movements" Icon="Add" />
-                <AppBarButton Label="Kinds" Icon="AddFriend" />
-                <AppBarButton Label="Bank Accounts" Icon="Send" />
+                <AppBarButton Label="Home" Icon="Home" Command="{Binding HomeCommand}" />
+                <AppBarButton Label="Movements" Icon="Add" Command="{Binding MovementsCommand}" />
+                <AppBarButton Label="Kinds" Icon="AddFriend" Command="{Binding KindsCommand}" />
+                <AppBarButton Label="Bank Accounts" Icon="Send" Command="{Binding BankAccountsCommand}" />
+                <AppBarButton Label="Logout" Icon="Cancel" Command="{Binding LogoutCommand}" />
             </CommandBar.PrimaryCommands>
         </CommandBar></Page.BottomAppBar>
+    
 </base:ViewBase>
-

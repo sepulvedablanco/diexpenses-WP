@@ -114,6 +114,7 @@
     <Compile Include="Services\DiexpensesAPI\IApiService.cs" />
     <Compile Include="Services\NetworkService\INetworkService.cs" />
     <Compile Include="Services\NetworkService\NetworkService.cs" />
+    <Compile Include="ViewModels\Base\MenuBottomViewModelBase.cs" />
     <Compile Include="ViewModels\MovementDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\NewMovementPageViewModel.cs" />
     <Compile Include="ViewModels\BankAccountDetailsPageViewModel.cs" />
