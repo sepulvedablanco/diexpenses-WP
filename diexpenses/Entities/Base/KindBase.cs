@@ -4,12 +4,12 @@
 
     public abstract class KindBase
     {
-        private int id;
+        private int? id;
         private int? apiId;
         private string description;
 
         [Column("Id"), PrimaryKey(), AutoIncrement]
-        public int Id
+        public int? Id
         {
             get
             {

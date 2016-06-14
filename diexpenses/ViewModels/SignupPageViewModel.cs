@@ -77,7 +77,7 @@
 
             if(!PasswordHandler().Equals(ConfirmPasswordHandler()))
             {
-                dialogService.ShowMessage("Passwords does not match!");
+                dialogService.ShowAlert("Passwords does not match!");
                 return;
             }
 
@@ -110,14 +110,14 @@
         {
             if (!networkService.IsNetworkAvailable)
             {
-                dialogService.ShowMessage("Please, check you Internet connection!");
+                dialogService.ShowAlert("Please, check you Internet connection!");
                 return;
             }
 
             User user = await apiService.Register(Name, Username, PasswordHandler());
             if (user == null)
             {
-                dialogService.ShowMessage("Incorrect user or password");
+                dialogService.ShowAlert("Incorrect user or password");
                 return;
             }
             Debug.WriteLine(user.ToString());

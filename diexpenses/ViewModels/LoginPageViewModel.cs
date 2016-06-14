@@ -90,14 +90,14 @@
         {
             if(!networkService.IsNetworkAvailable)
             {
-                dialogService.ShowMessage("Please, check you Internet connection!");
+                dialogService.ShowAlert("Please, check you Internet connection!");
                 return;
             }
 
             User user = await apiService.Login(Username, PasswordHandler());
             if(user == null)
             {
-                dialogService.ShowMessage("Incorrect user or password");
+                dialogService.ShowAlert("Incorrect user or password");
                 return;
             }
             Debug.WriteLine(user.ToString());

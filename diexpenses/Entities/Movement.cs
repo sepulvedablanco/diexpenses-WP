@@ -7,7 +7,7 @@
     public class Movement
     {
         [Column("Id"), PrimaryKey()]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Column("Expense")]
         public bool Expense { get; set; }

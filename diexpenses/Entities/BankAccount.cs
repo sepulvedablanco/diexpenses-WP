@@ -6,7 +6,7 @@
     public class BankAccount
     {
         [Column("Id"), PrimaryKey()]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Column("Iban")]
         public string Iban { get; set; }

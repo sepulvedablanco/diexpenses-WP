@@ -11,7 +11,14 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <ListView x:Name="list" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource KindsListTemplate}" Margin="12"></ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button Content="Add new kind" Grid.Row="0" HorizontalAlignment="Center" Margin="0,10,0,10" Command="{Binding NewKindCommand}" />
+        
+        <ListView x:Name="list" Grid.Row="1" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource KindsListTemplate}" Margin="12"></ListView>
 
     </Grid>
 </base:MenuBottomViewBase>

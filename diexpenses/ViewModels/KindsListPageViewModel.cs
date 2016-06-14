@@ -6,21 +6,51 @@
     using Services.Database;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
+    using System.Windows.Input;
     using Windows.UI.Xaml.Navigation;
 
     public class KindsListPageViewModel : MenuBottomViewModelBase
     {
         private ObservableCollection<Kind> items;
 
-        private IDbService dbService;
+        private static DelegateCommand newKindCommand;
 
-        public KindsListPageViewModel(IDbService dbService, INavigationService navigationService) : base(navigationService)
+        private IDbService dbService;
+        private IDialogService dialogService;
+
+        public KindsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService)
         {
             this.dbService = dbService;
+            this.dialogService = dialogService;
 
+            newKindCommand = new DelegateCommand(NewKindExecute, null);
+
+            LoadKinds();
+        }
+
+        private void LoadKinds()
+        {
             var kindsList = this.dbService.SelectKinds();
             Debug.WriteLine("Number of kinds retrieved: " + kindsList.Count);
             Items = new ObservableCollection<Kind>(kindsList);
+        }
+
+        public ICommand NewKindCommand
+        {
+            get { return newKindCommand; }
+        }
+
+        private async void NewKindExecute()
+        {
+            Debug.WriteLine("NewKindExecute");
+            string result = await dialogService.ShowMessage("New Kind", "Introduce the new kind", null, "Save", "Cancel");
+            Debug.WriteLine("New kind name: " + result);
+            if(!string.IsNullOrEmpty(result))
+            {
+                Kind kind = new Kind(result);
+                dbService.UpsertKind(kind);
+                LoadKinds();
+            }
         }
 
         public ObservableCollection<Kind> Items
