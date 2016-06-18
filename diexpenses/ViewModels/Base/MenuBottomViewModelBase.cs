@@ -2,9 +2,10 @@
 {
     using Common;
     using Services;
-    using System;
     using System.Diagnostics;
     using System.Windows.Input;
+    using Views;
+    using Windows.UI.Xaml.Navigation;
 
     public class MenuBottomViewModelBase : ViewModelBase
     {
@@ -57,11 +58,18 @@
             get { return logoutCommand; }
         }
 
+        public override void NavigateTo(NavigationEventArgs e)
+        {
+            base.NavigateTo(e);
+
+            this.navigationService.AppFrame = base.AppFrame;
+        }
+
         private void HomeExecute()
         {
             Debug.WriteLine("Home execute...");
 
-            navigationService.NavigateToHomePage<Object>(null);
+            navigationService.NavigateTo<HomePage>(null);
         }
 
         private void MovementsExecute()
@@ -74,13 +82,14 @@
         {
             Debug.WriteLine("Kinds execute...");
 
-            navigationService.NavigateToKindsListPage<Object>(null);
+            navigationService.NavigateTo<KindsListPage>(null);
         }
 
         private void BankAccountsExecute()
         {
             Debug.WriteLine("Bank accounts execute...");
 
+            navigationService.NavigateTo<BankAccountsListPage>(null);
         }
 
         private void LogoutExecute()
@@ -89,7 +98,7 @@
 
             Utils.DeleteDataInMemory();
 
-            navigationService.NavigateToLoginPage<Object>(null);
+            navigationService.NavigateTo<LoginPage>(null);
         }
     }
 }

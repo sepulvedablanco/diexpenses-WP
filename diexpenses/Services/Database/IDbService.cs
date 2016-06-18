@@ -7,8 +7,12 @@
     {
         void CreateDb();
 
+        IList<Kind> SelectKinds();
+
+        IList<BankAccount> SelectBankAccounts();
+
         void UpsertKind(Kind item);
 
-        IList<Kind> SelectKinds();
+        void UpsertBankAccount(BankAccount item);
     }
 }

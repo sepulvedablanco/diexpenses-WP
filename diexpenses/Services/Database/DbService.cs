@@ -26,17 +26,6 @@
             }
         }
 
-        public void UpsertKind(Kind item)
-        {
-            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
-            {
-                if (cnx.Update(item) == 0)
-                    cnx.InsertOrReplace(item);
-
-                cnx.Commit();
-            }
-        }
-
         public IList<Kind> SelectKinds()
         {
             using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
@@ -51,8 +40,47 @@
                 {
                     throw ex;
                 }
-
             }
         }
+
+        public IList<BankAccount> SelectBankAccounts()
+        {
+            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
+            {
+                try
+                {
+                    return cnx.Table<BankAccount>()
+                        .OrderBy(bankAccount => bankAccount.Description)
+                        .ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        public void UpsertKind(Kind item)
+        {
+            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
+            {
+                if (cnx.Update(item) == 0)
+                    cnx.InsertOrReplace(item);
+
+                cnx.Commit();
+            }
+        }
+
+        public void UpsertBankAccount(BankAccount item)
+        {
+            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
+            {
+                if (cnx.Update(item) == 0)
+                    cnx.InsertOrReplace(item);
+
+                cnx.Commit();
+            }
+        }
+
     }
 }

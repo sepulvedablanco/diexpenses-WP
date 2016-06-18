@@ -5,6 +5,7 @@
     using Services;
     using System;
     using System.Diagnostics;
+    using Views;
     using Windows.Storage;
     using Windows.UI.Xaml.Navigation;
 
@@ -32,12 +33,12 @@
             if (isLogged == null || !Boolean.Parse(isLogged.ToString()))
             {
                 Debug.WriteLine("User is NOT logged in the APP");
-                navigationService.NavigateToLoginPage<Object>(null);
+                navigationService.NavigateTo<LoginPage>(null);
             }
             else
             {
                 Debug.WriteLine("User is logged in the APP");
-                navigationService.NavigateToHomePage<Object>(null);
+                navigationService.NavigateTo<HomePage>(null);
             }
         }
     }

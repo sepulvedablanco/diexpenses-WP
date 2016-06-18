@@ -9,6 +9,7 @@
     using System;
     using System.Diagnostics;
     using System.Windows.Input;
+    using Views;
     using Windows.UI.Xaml.Navigation;
 
     public class SignupPageViewModel: ViewModelBase
@@ -93,17 +94,17 @@
             return true;
         }
 
-        public override void NavigateTo(NavigationEventArgs e)
+/*        public override void NavigateTo(NavigationEventArgs e)
         {
             base.NavigateTo(e);
 
             this.navigationService.AppFrame = base.AppFrame;
         }
-
+        */
         private void NavigateToLoginExecute()
         {
             Debug.WriteLine("Navigating to Login view");
-            this.navigationService.NavigateToLoginPage<Object>(null);
+            this.navigationService.NavigateTo<LoginPage>(null);
         }
 
         public async void CreateUser()
@@ -124,7 +125,7 @@
 
             Utils.SaveDataInMemory(user);
 
-            this.navigationService.NavigateToHomePage<Object>(null);
+            this.navigationService.NavigateTo<HomePage>(null);
         }
 
         public static void OnPasswordChanged()

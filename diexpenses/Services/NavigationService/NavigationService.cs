@@ -15,35 +15,11 @@ namespace diexpenses.Services
             }
         }
 
-        public void NavigateToLoginPage<T>(T parameters)
+        public void NavigateTo<T>(T parameters)
         {
             if (AppFrame != null)
             {
-                AppFrame.Navigate(typeof(LoginPage), parameters);
-            }
-        }
-
-        public void NavigateToSignupPage<T>(T parameters)
-        {
-            if (AppFrame != null)
-            {
-                AppFrame.Navigate(typeof(SignupPage), parameters);
-            }
-        }
-
-        public void NavigateToHomePage<T>(T parameters)
-        {
-            if (AppFrame != null)
-            {
-                AppFrame.Navigate(typeof(HomePage), parameters);
-            }
-        }
-
-        public void NavigateToKindsListPage<T>(T parameters)
-        {
-            if (AppFrame != null)
-            {
-                AppFrame.Navigate(typeof(KindsListPage), parameters);
+                AppFrame.Navigate(typeof(T), parameters);
             }
         }
 

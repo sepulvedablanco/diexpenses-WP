@@ -14,6 +14,7 @@
         private ObservableCollection<Kind> items;
 
         private static DelegateCommand newKindCommand;
+        private static DelegateCommand editKindCommand;
 
         private IDbService dbService;
         private IDialogService dialogService;
@@ -24,6 +25,7 @@
             this.dialogService = dialogService;
 
             newKindCommand = new DelegateCommand(NewKindExecute, null);
+            editKindCommand = new DelegateCommand(EditKindExecute, null);
 
             LoadKinds();
         }
@@ -40,6 +42,11 @@
             get { return newKindCommand; }
         }
 
+        public ICommand EditKindCommand
+        {
+            get { return editKindCommand; }
+        }
+
         private async void NewKindExecute()
         {
             Debug.WriteLine("NewKindExecute");
@@ -53,6 +60,11 @@
             }
         }
 
+        private void EditKindExecute()
+        {
+            Debug.WriteLine("Edit kind");
+        }
+
         public ObservableCollection<Kind> Items
         {
             get { return this.items; }
@@ -63,11 +75,13 @@
             }
         }
 
+        /*
         public override void NavigateTo(NavigationEventArgs e)
         {
             base.NavigateTo(e);
 
             this.NavigationService.AppFrame = base.AppFrame;
         }
+        */
     }
 }

@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vmlocator="using:diexpenses.ViewModels.Base"    
+    xmlns:converters="using:diexpenses.Converters"
     xmlns:local="using:diexpenses"
     RequestedTheme="Light">
 
@@ -11,8 +12,15 @@
             
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/KindsListView.xaml"/>
+                <ResourceDictionary Source="/Resources/BankAccountsListView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converters:ModelToActionConverter x:Key="ModelToActionConverter"/>
+            <converters:TextToCanExecuteConverter x:Key="TextToCanExecuteConverter"/>
+            <converters:EntityToImageConverter x:Key="EntityToImageConverter" />
+            <converters:AmountConverter x:Key="AmountConverter" />
+
             <vmlocator:VMLocator x:Name="Locator"></vmlocator:VMLocator>
             
         </ResourceDictionary>

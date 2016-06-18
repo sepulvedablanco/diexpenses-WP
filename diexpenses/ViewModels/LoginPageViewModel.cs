@@ -9,6 +9,7 @@
     using System;
     using System.Diagnostics;
     using System.Windows.Input;
+    using Views;
     using Windows.UI.Xaml.Navigation;
 
     public class LoginPageViewModel: ViewModelBase
@@ -83,7 +84,7 @@
         private void NavigateToSingupExecute()
         {
             Debug.WriteLine("Navigating to Signup view");
-            this.navigationService.NavigateToSignupPage<Object>(null);
+            this.navigationService.NavigateTo<SignupPage>(null);
         }
 
         public async void DoLogin()
@@ -104,7 +105,7 @@
 
             Utils.SaveDataInMemory(user);
 
-            this.navigationService.NavigateToHomePage<Object>(null);
+            this.navigationService.NavigateTo<HomePage>(null);
         }
 
         public static void OnPasswordChanged()
