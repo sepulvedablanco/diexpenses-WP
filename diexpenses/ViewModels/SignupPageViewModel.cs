@@ -94,13 +94,13 @@
             return true;
         }
 
-/*        public override void NavigateTo(NavigationEventArgs e)
+        public override void NavigateTo(NavigationEventArgs e)
         {
             base.NavigateTo(e);
 
             this.navigationService.AppFrame = base.AppFrame;
         }
-        */
+        
         private void NavigateToLoginExecute()
         {
             Debug.WriteLine("Navigating to Login view");
