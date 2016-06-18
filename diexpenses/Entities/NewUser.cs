@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class NewUser: Credential
+    public class NewUser : Credential
     {
         private string name;
 

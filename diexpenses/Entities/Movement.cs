@@ -1,14 +1,12 @@
 ﻿namespace diexpenses.Entities
 {
+    using Base;
     using SQLite.Net.Attributes;
     using System;
 
     [Table("Movements")]
-    public class Movement
+    public class Movement : EntityBase
     {
-        [Column("Id"), PrimaryKey()]
-        public int? Id { get; set; }
-
         [Column("Expense")]
         public bool Expense { get; set; }
 

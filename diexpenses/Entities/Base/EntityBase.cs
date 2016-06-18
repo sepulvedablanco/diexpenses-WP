@@ -1,10 +1,41 @@
 ﻿namespace diexpenses.Entities.Base
 {
+    using SQLite.Net.Attributes;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    public class EntityBase : INotifyPropertyChanged
+    public abstract class EntityBase : INotifyPropertyChanged
     {
+        private int? id;
+        private int? apiId;
+
+        [Column("Id"), PrimaryKey(), AutoIncrement]
+        public int? Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [Column("ApiId")]
+        public int? ApiId
+        {
+            get
+            {
+                return apiId;
+            }
+            set
+            {
+                apiId = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -6,8 +6,6 @@
     [Table("BankAccounts")]
     public class BankAccount : EntityBase
     {
-        private int? id;
-        private int? apiId;
         private string iban;
         private string entity;
         private string office;
@@ -16,34 +14,6 @@
         private double balance;
         private string description;
         private string completeBankAccount;
-
-        [Column("Id"), PrimaryKey(), AutoIncrement]
-        public int? Id
-        {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                id = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [Column("ApiId")]
-        public int? ApiId
-        {
-            get
-            {
-                return apiId;
-            }
-            set
-            {
-                apiId = value;
-                RaisePropertyChanged();
-            }
-        }
 
         [Column("Iban")]
         public string Iban
