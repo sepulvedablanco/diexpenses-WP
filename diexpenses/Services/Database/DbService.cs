@@ -82,5 +82,14 @@
             }
         }
 
+        public bool DeleteKind(Kind item)
+        {
+            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
+            {
+                int rowsAffected = cnx.Delete(item);
+                cnx.Commit();
+                return rowsAffected == 1;
+            }
+        }
     }
 }

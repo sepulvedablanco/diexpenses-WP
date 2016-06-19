@@ -14,7 +14,8 @@
         private ObservableCollection<Kind> items;
 
         private static DelegateCommand newKindCommand;
-        private static DelegateCommand editKindCommand;
+        private static Base.DelegateCommandWithParameter<Kind> editKindCommand;
+        private static Base.DelegateCommandWithParameter<Kind> deleteKindCommand;
 
         private IDbService dbService;
         private IDialogService dialogService;
@@ -25,7 +26,8 @@
             this.dialogService = dialogService;
 
             newKindCommand = new DelegateCommand(NewKindExecute, null);
-            editKindCommand = new DelegateCommand(EditKindExecute, null);
+            editKindCommand = new Base.DelegateCommandWithParameter<Kind>(EditKindExecute, null);
+            deleteKindCommand = new Base.DelegateCommandWithParameter<Kind>(DeleteKindExecute, null);
 
             LoadKinds();
         }
@@ -42,9 +44,14 @@
             get { return newKindCommand; }
         }
 
-        public ICommand EditKindCommand
+        public Base.DelegateCommandWithParameter<Kind> EditKindCommand
         {
             get { return editKindCommand; }
+        }
+
+        public ICommand DeleteKindCommand
+        {
+            get { return deleteKindCommand; }
         }
 
         private async void NewKindExecute()
@@ -60,9 +67,35 @@
             }
         }
 
-        private void EditKindExecute()
+        private async void EditKindExecute(Kind kind)
         {
-            Debug.WriteLine("Edit kind");
+            Debug.WriteLine("EditKindExecute");
+            Debug.WriteLine("Kind to edit: "  + kind.ToString());
+
+            string result = await dialogService.ShowMessage("Edit Kind", "Introduce the new kind name", kind.Description, "Save", "Cancel");
+            Debug.WriteLine("Edited kind name: " + result);
+            if (!string.IsNullOrEmpty(result))
+            {
+                kind.Description = result;
+                dbService.UpsertKind(kind);
+                LoadKinds();
+            }
+        }
+
+        private async void DeleteKindExecute(Kind kind)
+        {
+            Debug.WriteLine("DeleteKindExecute");
+            Debug.WriteLine("Kind to delete: " + kind.ToString());
+
+            bool result = await dialogService.ShowConfirmMessage("Delete kind", "Are you sure you want to delete the kind " + kind.Description, "I agree", "Delete", "Cancel");
+            Debug.WriteLine("Delete kind: " + result);
+            if (result)
+            {
+                if (dbService.DeleteKind(kind))
+                {
+                    LoadKinds();
+                }
+            }
         }
 
         public ObservableCollection<Kind> Items

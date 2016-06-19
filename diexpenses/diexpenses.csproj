@@ -121,6 +121,7 @@
     <Compile Include="Services\DiexpensesAPI\IApiService.cs" />
     <Compile Include="Services\NetworkService\INetworkService.cs" />
     <Compile Include="Services\NetworkService\NetworkService.cs" />
+    <Compile Include="ViewModels\Base\DelegateCommandWithParameter.cs" />
     <Compile Include="ViewModels\Base\MenuBottomViewModelBase.cs" />
     <Compile Include="ViewModels\BankAccountsListPageViewModel.cs" />
     <Compile Include="ViewModels\KindsListPageViewModel.cs" />

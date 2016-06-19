@@ -109,11 +109,11 @@
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                if (!string.IsNullOrEmpty(tb.Text))
+                if (tb != null && !string.IsNullOrEmpty(tb.Text))
                 {
                     return tb.Text;
                 }
-                else
+                else if (cb != null)
                 {
                     return cb.IsChecked;
                 }

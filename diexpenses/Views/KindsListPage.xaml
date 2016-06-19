@@ -22,7 +22,7 @@
 
         <Button Content="Add new kind" Grid.Row="1" FontSize="20" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding NewKindCommand}" Margin="0,10,0,10" Width="320" Height="40" />
 
-        <ListView x:Name="list" Grid.Row="2" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource KindsListTemplate}" Margin="12" HorizontalAlignment="Stretch"></ListView>
+        <ListView x:Name="KindsList" Grid.Row="2" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource KindsListTemplate}" Margin="12" HorizontalAlignment="Stretch"></ListView>
 
     </Grid>
 </base:MenuBottomViewBase>

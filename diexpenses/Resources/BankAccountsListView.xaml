@@ -30,8 +30,8 @@
 
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem x:Name="EditButton" Text="Edit" Command="{Binding EditBankAccountCommand}"/>
-                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" />
+                    <MenuFlyoutItem x:Name="EditButton" Text="Edit" Command="{Binding DataContext.EditBankAccountCommand, ElementName=BankAccountsList}" />
+                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" Command="{Binding DataContext.DeleteBankAccountCommand, ElementName=BankAccountsList}" />
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
 

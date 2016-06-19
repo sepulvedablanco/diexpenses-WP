@@ -15,6 +15,8 @@
         private ObservableCollection<BankAccount> items;
 
         private static DelegateCommand newBankAccountCommand;
+        private static Base.DelegateCommandWithParameter<BankAccount> editBankAccountCommand;
+        private static Base.DelegateCommandWithParameter<BankAccount> deleteBankAccountCommand;
 
         private IDbService dbService;
         private IDialogService dialogService;
@@ -25,6 +27,8 @@
             this.dialogService = dialogService;
 
             newBankAccountCommand = new DelegateCommand(NewBankAccountExecute, null);
+            editBankAccountCommand = new Base.DelegateCommandWithParameter<BankAccount>(EditBankAccountExecute, null);
+            deleteBankAccountCommand = new Base.DelegateCommandWithParameter<BankAccount>(DeleteBankAccountExecute, null);
 
             LoadBankAccounts();
         }
@@ -41,11 +45,35 @@
             get { return newBankAccountCommand; }
         }
 
+        public ICommand EditBankAccountCommand
+        {
+            get { return editBankAccountCommand; }
+        }
+
+        public ICommand DeleteBankAccountCommand
+        {
+            get { return deleteBankAccountCommand; }
+        }
+
         private void NewBankAccountExecute()
         {
             Debug.WriteLine("NewBankAccountExecute");
 
             NavigationService.NavigateTo<BankAccountDetailsPage>(null);
+        }
+
+        private void EditBankAccountExecute(BankAccount bankAccount)
+        {
+            Debug.WriteLine("EditBankAccountExecute");
+            Debug.WriteLine("Bank account to edit: " + bankAccount.ToString());
+
+        }
+
+        private void DeleteBankAccountExecute(BankAccount bankAccount)
+        {
+            Debug.WriteLine("DeleteBankAccountExecute");
+            Debug.WriteLine("Bank account to delete: " + bankAccount.ToString());
+
         }
 
         public ObservableCollection<BankAccount> Items
