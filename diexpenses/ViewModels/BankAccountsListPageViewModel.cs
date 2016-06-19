@@ -67,13 +67,23 @@
             Debug.WriteLine("EditBankAccountExecute");
             Debug.WriteLine("Bank account to edit: " + bankAccount.ToString());
 
+       //     NavigationService.NavigateTo<BankAccountDetailsPage>(bankAccount);
         }
 
-        private void DeleteBankAccountExecute(BankAccount bankAccount)
+        private async void DeleteBankAccountExecute(BankAccount bankAccount)
         {
             Debug.WriteLine("DeleteBankAccountExecute");
             Debug.WriteLine("Bank account to delete: " + bankAccount.ToString());
 
+            bool result = await dialogService.ShowConfirmMessage("Delete bank account", "Are you sure you want to delete the bank account " + bankAccount.Description, "I agree", "Delete", "Cancel");
+            Debug.WriteLine("Delete bank account: " + result);
+            if (result)
+            {
+                if (dbService.DeleteBankAccount(bankAccount))
+                {
+                    LoadBankAccounts();
+                }
+            }
         }
 
         public ObservableCollection<BankAccount> Items

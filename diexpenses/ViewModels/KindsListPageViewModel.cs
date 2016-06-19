@@ -44,7 +44,7 @@
             get { return newKindCommand; }
         }
 
-        public Base.DelegateCommandWithParameter<Kind> EditKindCommand
+        public ICommand EditKindCommand
         {
             get { return editKindCommand; }
         }

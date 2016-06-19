@@ -91,5 +91,15 @@
                 return rowsAffected == 1;
             }
         }
+
+        public bool DeleteBankAccount(BankAccount item)
+        {
+            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
+            {
+                int rowsAffected = cnx.Delete(item);
+                cnx.Commit();
+                return rowsAffected == 1;
+            }
+        }
     }
 }

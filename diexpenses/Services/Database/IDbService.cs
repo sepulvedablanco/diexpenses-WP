@@ -16,5 +16,7 @@
         void UpsertBankAccount(BankAccount item);
 
         bool DeleteKind(Kind item);
+
+        bool DeleteBankAccount(BankAccount item);
     }
 }

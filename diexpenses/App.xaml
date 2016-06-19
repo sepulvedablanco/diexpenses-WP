@@ -20,6 +20,7 @@
             <converters:TextToCanExecuteConverter x:Key="TextToCanExecuteConverter"/>
             <converters:EntityToImageConverter x:Key="EntityToImageConverter" />
             <converters:AmountConverter x:Key="AmountConverter" />
+            <converters:BalanceToColorConverter x:Key="BalanceToColorConverter" />
 
             <vmlocator:VMLocator x:Name="Locator"></vmlocator:VMLocator>
             
