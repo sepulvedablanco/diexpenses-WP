@@ -59,7 +59,7 @@
         {
             Debug.WriteLine("NewBankAccountExecute");
 
-            NavigationService.NavigateTo<BankAccountDetailsPage>(null);
+            NavigationService.NavigateTo(new BankAccountDetailsPage(new BankAccount()));
         }
 
         private void EditBankAccountExecute(BankAccount bankAccount)
@@ -67,7 +67,7 @@
             Debug.WriteLine("EditBankAccountExecute");
             Debug.WriteLine("Bank account to edit: " + bankAccount.ToString());
 
-       //     NavigationService.NavigateTo<BankAccountDetailsPage>(bankAccount);
+            NavigationService.NavigateTo(new BankAccountDetailsPage(bankAccount));
         }
 
         private async void DeleteBankAccountExecute(BankAccount bankAccount)

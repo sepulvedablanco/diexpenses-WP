@@ -10,7 +10,7 @@
 
     public class BankAccountDetailsPageViewModel : MenuBottomViewModelBase
     {
-        private BankAccount bankAccount = new BankAccount();
+        private static BankAccount bankAccount;
 
         private static DelegateCommand actionCommand;
 
@@ -24,10 +24,12 @@
 
             actionCommand = new DelegateCommand(ActionExecute, ActionCanExecute);
 
-            bankAccount.PropertyChanged += delegate
-            {
-                actionCommand.RaiseCanExecuteChanged();
-            };
+            if(bankAccount != null) { 
+                bankAccount.PropertyChanged += delegate
+                {
+                    actionCommand.RaiseCanExecuteChanged();
+                };
+            }
         }
 
         public ICommand ActionCommand
@@ -35,12 +37,12 @@
             get { return actionCommand; }
         }
 
-        public BankAccount BankAccount
+        public static BankAccount BankAccount
         {
-            get { return this.bankAccount; }
+            get { return bankAccount; }
             set
             {
-                this.bankAccount = value;
+                bankAccount = value;
                 actionCommand.RaiseCanExecuteChanged();
             }
         }
