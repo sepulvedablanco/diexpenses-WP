@@ -1,5 +1,6 @@
 ﻿namespace diexpenses.ViewModels
 {
+    using Common;
     using diexpenses.Entities;
     using diexpenses.Services;
     using diexpenses.ViewModels.Base;
@@ -15,8 +16,8 @@
         private ObservableCollection<BankAccount> items;
 
         private static DelegateCommand newBankAccountCommand;
-        private static Base.DelegateCommandWithParameter<BankAccount> editBankAccountCommand;
-        private static Base.DelegateCommandWithParameter<BankAccount> deleteBankAccountCommand;
+        private static DelegateCommand editBankAccountCommand;
+        private static DelegateCommand deleteBankAccountCommand;
 
         private IDbService dbService;
         private IDialogService dialogService;
@@ -27,8 +28,8 @@
             this.dialogService = dialogService;
 
             newBankAccountCommand = new DelegateCommand(NewBankAccountExecute, null);
-            editBankAccountCommand = new Base.DelegateCommandWithParameter<BankAccount>(EditBankAccountExecute, null);
-            deleteBankAccountCommand = new Base.DelegateCommandWithParameter<BankAccount>(DeleteBankAccountExecute, null);
+            editBankAccountCommand = new DelegateCommand(EditBankAccountExecute, null);
+            deleteBankAccountCommand = new DelegateCommand(DeleteBankAccountExecute, null);
 
             LoadBankAccounts();
         }
@@ -62,17 +63,31 @@
             NavigationService.NavigateTo(new BankAccountDetailsPage(new BankAccount()));
         }
 
-        private void EditBankAccountExecute(BankAccount bankAccount)
+        private void EditBankAccountExecute()
         {
             Debug.WriteLine("EditBankAccountExecute");
+            BankAccount bankAccount = OpenMenuFlyoutAction.HoldedObject as BankAccount;
+            if (bankAccount == null)
+            {
+                Debug.WriteLine("Invalid bank account to edit...");
+                return;
+            }
+
             Debug.WriteLine("Bank account to edit: " + bankAccount.ToString());
 
             NavigationService.NavigateTo(new BankAccountDetailsPage(bankAccount));
         }
 
-        private async void DeleteBankAccountExecute(BankAccount bankAccount)
+        private async void DeleteBankAccountExecute()
         {
             Debug.WriteLine("DeleteBankAccountExecute");
+            BankAccount bankAccount = OpenMenuFlyoutAction.HoldedObject as BankAccount;
+            if (bankAccount == null)
+            {
+                Debug.WriteLine("Invalid bank account to delete...");
+                return;
+            }
+
             Debug.WriteLine("Bank account to delete: " + bankAccount.ToString());
 
             bool result = await dialogService.ShowConfirmMessage("Delete bank account", "Are you sure you want to delete the bank account " + bankAccount.Description, "I agree", "Delete", "Cancel");

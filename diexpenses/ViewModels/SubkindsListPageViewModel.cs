@@ -1,5 +1,6 @@
 ﻿namespace diexpenses.ViewModels
 {
+    using Common;
     using diexpenses.Entities;
     using diexpenses.Services;
     using diexpenses.ViewModels.Base;
@@ -15,8 +16,8 @@
         private ObservableCollection<Subkind> items;
 
         private static DelegateCommand newSubkindCommand;
-        private static Base.DelegateCommandWithParameter<Subkind> editSubkindCommand;
-        private static Base.DelegateCommandWithParameter<Subkind> deleteSubkindCommand;
+        private static DelegateCommand editSubkindCommand;
+        private static DelegateCommand deleteSubkindCommand;
 
         private IDbService dbService;
         private IDialogService dialogService;
@@ -27,8 +28,8 @@
             this.dialogService = dialogService;
 
             newSubkindCommand = new DelegateCommand(NewSubkindExecute, null);
-            editSubkindCommand = new Base.DelegateCommandWithParameter<Subkind>(EditSubkindExecute, null);
-            deleteSubkindCommand = new Base.DelegateCommandWithParameter<Subkind>(DeleteSubkindExecute, null);
+            editSubkindCommand = new DelegateCommand(EditSubkindExecute, null);
+            deleteSubkindCommand = new DelegateCommand(DeleteSubkindExecute, null);
 
             LoadSubkinds();
         }
@@ -73,9 +74,16 @@
             }
         }
 
-        private async void EditSubkindExecute(Subkind subkind)
+        private async void EditSubkindExecute()
         {
             Debug.WriteLine("EditSubkindExecute");
+            Subkind subkind = OpenMenuFlyoutAction.HoldedObject as Subkind;
+            if (subkind == null)
+            {
+                Debug.WriteLine("Invalid subkind to edit...");
+                return;
+            }
+
             Debug.WriteLine("Subkind to edit: " + subkind.ToString());
 
             string result = await dialogService.ShowMessage("Edit Subkind", "Introduce the new subkind name", subkind.Description, "Save", "Cancel");
@@ -88,9 +96,16 @@
             }
         }
 
-        private async void DeleteSubkindExecute(Subkind subkind)
+        private async void DeleteSubkindExecute()
         {
             Debug.WriteLine("DeleteSubkindExecute");
+            Subkind subkind = OpenMenuFlyoutAction.HoldedObject as Subkind;
+            if (subkind == null)
+            {
+                Debug.WriteLine("Invalid subkind to delete...");
+                return;
+            }
+
             Debug.WriteLine("Subkind to delete: " + subkind.ToString());
 
             bool result = await dialogService.ShowConfirmMessage("Delete subkind", "Are you sure you want to delete the subkind " + subkind.Description, "I agree", "Delete", "Cancel");

@@ -26,8 +26,8 @@
 
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem x:Name="EditButton" Text="Edit" Command="{Binding DataContext.EditKindCommand, ElementName=KindsList}" CommandParameter="{Binding ElementName=KindsList, Path=SelectedItem}" />
-                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" Command="{Binding DataContext.DeleteKindCommand, ElementName=KindsList}" CommandParameter="{Binding ElementName=KindsList, Path=SelectedItem}" />
+                    <MenuFlyoutItem x:Name="EditButton" Text="Edit" Command="{Binding DataContext.EditKindCommand, ElementName=KindsList}" />
+                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" Command="{Binding DataContext.DeleteKindCommand, ElementName=KindsList}" />
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
 

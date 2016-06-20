@@ -22,8 +22,8 @@
 
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem x:Name="EditButton" Text="Edit" Command="{Binding DataContext.EditSubkindCommand, ElementName=SubkindsList}" CommandParameter="{Binding ElementName=SubkindsList, Path=SelectedItem}" />
-                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" Command="{Binding DataContext.DeleteSubkindCommand, ElementName=SubkindsList}" CommandParameter="{Binding ElementName=SubkindsList, Path=SelectedItem}" />
+                    <MenuFlyoutItem x:Name="EditButton" Text="Edit" Command="{Binding DataContext.EditSubkindCommand, ElementName=SubkindsList}" />
+                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" Command="{Binding DataContext.DeleteSubkindCommand, ElementName=SubkindsList}" />
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
 
