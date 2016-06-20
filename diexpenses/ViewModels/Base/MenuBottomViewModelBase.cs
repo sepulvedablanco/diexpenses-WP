@@ -13,6 +13,7 @@
         private static DelegateCommand movementsCommand;
         private static DelegateCommand kindsCommand;
         private static DelegateCommand bankAccountsCommand;
+        private static DelegateCommand aboutCommand;
         private static DelegateCommand logoutCommand;
 
         private INavigationService navigationService;
@@ -25,6 +26,7 @@
             movementsCommand = new DelegateCommand(MovementsExecute, null);
             kindsCommand = new DelegateCommand(KindsExecute, null);
             bankAccountsCommand = new DelegateCommand(BankAccountsExecute, null);
+            aboutCommand = new DelegateCommand(AboutExecute, null);
             logoutCommand = new DelegateCommand(LogoutExecute, null);
         }
 
@@ -51,6 +53,11 @@
         public ICommand BankAccountsCommand
         {
             get { return bankAccountsCommand; }
+        }
+        
+        public ICommand AboutCommand
+        {
+            get { return aboutCommand; }
         }
 
         public ICommand LogoutCommand
@@ -90,6 +97,13 @@
             Debug.WriteLine("Bank accounts execute...");
 
             navigationService.NavigateTo<BankAccountsListPage>(null);
+        }
+
+        private void AboutExecute()
+        {
+            Debug.WriteLine("About execute...");
+
+            navigationService.NavigateTo<AboutPage>(null);
         }
 
         private void LogoutExecute()

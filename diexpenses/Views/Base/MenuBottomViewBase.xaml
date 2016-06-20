@@ -19,6 +19,7 @@
                 <AppBarButton Label="Movements" Icon="Add" Command="{Binding MovementsCommand}" />
                 <AppBarButton Label="Kinds" Icon="AddFriend" Command="{Binding KindsCommand}" />
                 <AppBarButton Label="Bank Accounts" Icon="Send" Command="{Binding BankAccountsCommand}" />
+                <AppBarButton Label="About" Icon="Help" Command="{Binding AboutCommand}" />
                 <AppBarButton Label="Logout" Icon="Cancel" Command="{Binding LogoutCommand}" />
             </CommandBar.PrimaryCommands>
         </CommandBar></Page.BottomAppBar>
