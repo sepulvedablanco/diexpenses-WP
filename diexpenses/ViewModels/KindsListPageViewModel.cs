@@ -7,13 +7,14 @@
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Windows.Input;
-    using Windows.UI.Xaml.Navigation;
+    using Views;
 
     public class KindsListPageViewModel : MenuBottomViewModelBase
     {
         private ObservableCollection<Kind> items;
 
         private static DelegateCommand newKindCommand;
+        private static Base.DelegateCommandWithParameter<Kind> kindSelectedCommand;
         private static Base.DelegateCommandWithParameter<Kind> editKindCommand;
         private static Base.DelegateCommandWithParameter<Kind> deleteKindCommand;
 
@@ -26,6 +27,7 @@
             this.dialogService = dialogService;
 
             newKindCommand = new DelegateCommand(NewKindExecute, null);
+            kindSelectedCommand = new Base.DelegateCommandWithParameter<Kind>(KindSelectedExecute, null);
             editKindCommand = new Base.DelegateCommandWithParameter<Kind>(EditKindExecute, null);
             deleteKindCommand = new Base.DelegateCommandWithParameter<Kind>(DeleteKindExecute, null);
 
@@ -42,6 +44,11 @@
         public ICommand NewKindCommand
         {
             get { return newKindCommand; }
+        }
+
+        public ICommand KindSelectedCommand
+        {
+            get { return kindSelectedCommand; }
         }
 
         public ICommand EditKindCommand
@@ -65,6 +72,14 @@
                 dbService.Upsert<Kind>(kind);
                 LoadKinds();
             }
+        }
+
+        private void KindSelectedExecute(Kind kind)
+        {
+            Debug.WriteLine("KindSelectedExecute");
+            Debug.WriteLine("Kind selected: " + kind.ToString());
+
+            NavigationService.NavigateTo(new SubkindsListPage(kind));
         }
 
         private async void EditKindExecute(Kind kind)

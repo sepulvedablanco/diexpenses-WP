@@ -11,14 +11,15 @@
         <ResourceDictionary>
             
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/KindsListView.xaml"/>
-                <ResourceDictionary Source="/Resources/BankAccountsListView.xaml"/>
-                <ResourceDictionary Source="/Resources/MovementsListView.xaml"/>
+                <ResourceDictionary Source="/Resources/KindsListView.xaml" />
+                <ResourceDictionary Source="/Resources/SubkindsListView.xaml" />
+                <ResourceDictionary Source="/Resources/BankAccountsListView.xaml" />
+                <ResourceDictionary Source="/Resources/MovementsListView.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <converters:ModelToActionConverter x:Key="ModelToActionConverter"/>
-            <converters:TextToCanExecuteConverter x:Key="TextToCanExecuteConverter"/>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:ModelToActionConverter x:Key="ModelToActionConverter" />
+            <converters:TextToCanExecuteConverter x:Key="TextToCanExecuteConverter" />
             <converters:EntityToImageConverter x:Key="EntityToImageConverter" />
             <converters:AmountConverter x:Key="AmountConverter" />
             <converters:BalanceToColorConverter x:Key="BalanceToColorConverter" />

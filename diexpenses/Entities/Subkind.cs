@@ -9,6 +9,14 @@
     {
         private int kindId;
 
+        public Subkind() { }
+
+        public Subkind(int kindId, string description)
+        {
+            this.KindId = kindId;
+            this.Description = description;
+        }
+
         [ForeignKey(typeof(Kind))]
         public int KindId
         {

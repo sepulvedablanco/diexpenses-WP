@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core" >
 
-    <DataTemplate x:Key="KindsListTemplate">
+    <DataTemplate x:Key="SubkindsListTemplate">
 
         <Grid Margin="0,0,0,12" IsHoldingEnabled="True" IsTapEnabled="True" HorizontalAlignment="Stretch" >
             <Grid.ColumnDefinitions>
@@ -18,21 +18,16 @@
                 <core:EventTriggerBehavior EventName="Holding">
                     <common:OpenMenuFlyoutAction />
                 </core:EventTriggerBehavior>
-                <core:EventTriggerBehavior EventName="Tapped">
-                    <core:InvokeCommandAction Command="{Binding DataContext.KindSelectedCommand, Mode=OneWay, ElementName=KindsList}" CommandParameter="{Binding ElementName=KindsList, Path=SelectedItem}" />
-                </core:EventTriggerBehavior>
-
             </i:Interaction.Behaviors>
 
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem x:Name="EditButton" Text="Edit" Command="{Binding DataContext.EditKindCommand, ElementName=KindsList}" CommandParameter="{Binding ElementName=KindsList, Path=SelectedItem}" />
-                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" Command="{Binding DataContext.DeleteKindCommand, ElementName=KindsList}" CommandParameter="{Binding ElementName=KindsList, Path=SelectedItem}" />
+                    <MenuFlyoutItem x:Name="EditButton" Text="Edit" Command="{Binding DataContext.EditSubkindCommand, ElementName=SubkindsList}" CommandParameter="{Binding ElementName=SubkindsList, Path=SelectedItem}" />
+                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" Command="{Binding DataContext.DeleteSubkindCommand, ElementName=SubkindsList}" CommandParameter="{Binding ElementName=SubkindsList, Path=SelectedItem}" />
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
 
-            <TextBlock Grid.Column="0" Text="{Binding Description}" FontSize="20" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Stretch"
-                           TextTrimming="CharacterEllipsis"/>
+            <TextBlock Grid.Column="0" Text="{Binding Description}" FontSize="20" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>
