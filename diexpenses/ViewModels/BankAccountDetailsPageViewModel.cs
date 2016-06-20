@@ -52,7 +52,7 @@
             Debug.WriteLine("ActionExecute");
 
             bankAccount.CompleteBankAccount = bankAccount.Iban + bankAccount.Entity + bankAccount.Office + bankAccount.ControlDigit + bankAccount.AccountNumber;
-            dbService.UpsertBankAccount(bankAccount);
+            dbService.Upsert<BankAccount>(bankAccount);
 
             NavigationService.GoBack();
         }

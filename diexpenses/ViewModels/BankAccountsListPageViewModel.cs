@@ -79,7 +79,7 @@
             Debug.WriteLine("Delete bank account: " + result);
             if (result)
             {
-                if (dbService.DeleteBankAccount(bankAccount))
+                if (dbService.Delete<BankAccount>(bankAccount))
                 {
                     LoadBankAccounts();
                 }

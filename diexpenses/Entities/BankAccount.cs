@@ -15,7 +15,7 @@
         private string description;
         private string completeBankAccount;
 
-        [Column("Iban")]
+        [Column("Iban"), MaxLength(4)]
         public string Iban
         {
             get
@@ -25,11 +25,12 @@
             set
             {
                 iban = value;
+                UpdateCompleteBankAccount();
                 RaisePropertyChanged();
             }
         }
 
-        [Column("Entity")]
+        [Column("Entity"), MaxLength(4)]
         public string Entity
         {
             get
@@ -39,11 +40,12 @@
             set
             {
                 entity = value;
+                UpdateCompleteBankAccount();
                 RaisePropertyChanged();
             }
         }
 
-        [Column("Office")]
+        [Column("Office"), MaxLength(4)]
         public string Office
         {
             get
@@ -53,11 +55,12 @@
             set
             {
                 office = value;
+                UpdateCompleteBankAccount();
                 RaisePropertyChanged();
             }
         }
 
-        [Column("ControlDigit")]
+        [Column("ControlDigit"), MaxLength(2)]
         public string ControlDigit
         {
             get
@@ -67,11 +70,12 @@
             set
             {
                 controlDigit = value;
+                UpdateCompleteBankAccount();
                 RaisePropertyChanged();
             }
         }
 
-        [Column("AccountNumber")]
+        [Column("AccountNumber"), MaxLength(10)]
         public string AccountNumber
         {
             get
@@ -81,6 +85,7 @@
             set
             {
                 accountNumber = value;
+                UpdateCompleteBankAccount();
                 RaisePropertyChanged();
             }
         }
@@ -113,7 +118,7 @@
             }
         }
 
-        [Column("CompleteBankAccount")]
+        [Column("CompleteBankAccount"), MaxLength(24)]
         public string CompleteBankAccount
         {
             get
@@ -125,6 +130,11 @@
                 completeBankAccount = value;
                 RaisePropertyChanged();
             }
+        }
+
+        private void UpdateCompleteBankAccount()
+        {
+            CompleteBankAccount = Iban + Entity + Office + ControlDigit + AccountNumber;
         }
 
         public override string ToString()

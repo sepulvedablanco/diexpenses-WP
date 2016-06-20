@@ -19,5 +19,9 @@
             }
         }
 
+        public override string ToString()
+        {
+            return base.ToString() + ": " + "Id=" + Id + ", ApiId=" + ApiId + ", Description=" + Description;
+        }
     }
 }

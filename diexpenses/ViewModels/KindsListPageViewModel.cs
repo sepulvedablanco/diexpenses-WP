@@ -62,7 +62,7 @@
             if(!string.IsNullOrEmpty(result))
             {
                 Kind kind = new Kind(result);
-                dbService.UpsertKind(kind);
+                dbService.Upsert<Kind>(kind);
                 LoadKinds();
             }
         }
@@ -77,7 +77,7 @@
             if (!string.IsNullOrEmpty(result))
             {
                 kind.Description = result;
-                dbService.UpsertKind(kind);
+                dbService.Upsert<Kind>(kind);
                 LoadKinds();
             }
         }
@@ -91,7 +91,7 @@
             Debug.WriteLine("Delete kind: " + result);
             if (result)
             {
-                if (dbService.DeleteKind(kind))
+                if (dbService.Delete<Kind>(kind))
                 {
                     LoadKinds();
                 }

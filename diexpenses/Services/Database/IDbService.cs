@@ -9,14 +9,15 @@
 
         IList<Kind> SelectKinds();
 
+        IList<Subkind> SelectSubkinds(int kindId);
+
         IList<BankAccount> SelectBankAccounts();
 
-        void UpsertKind(Kind item);
+        IList<Movement> SelectMonthlyMovements(int year, int month);
 
-        void UpsertBankAccount(BankAccount item);
+        void Upsert<T>(T item);
 
-        bool DeleteKind(Kind item);
+        bool Delete<T>(T item);
 
-        bool DeleteBankAccount(BankAccount item);
     }
 }

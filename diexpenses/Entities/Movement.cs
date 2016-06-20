@@ -2,40 +2,122 @@
 {
     using Base;
     using SQLite.Net.Attributes;
+    using SQLiteNetExtensions.Attributes;
     using System;
 
     [Table("Movements")]
     public class Movement : EntityBase
     {
+        private bool expense;
+        private string concept;
+        private DateTime transactionDate;
+        private double amount;
+        private int kindId;
+        private int subkindId;
+        private int bankAccountId;
+
         [Column("Expense")]
-        public bool Expense { get; set; }
+        public bool Expense
+        {
+            get
+            {
+                return expense;
+            }
+            set
+            {
+                expense = value;
+                RaisePropertyChanged();
+            }
+        }
 
         [Column("Concept")]
-        public string Concept { get; set; }
+        public string Concept
+        {
+            get
+            {
+                return concept;
+            }
+            set
+            {
+                concept = value;
+                RaisePropertyChanged();
+            }
+        }
 
         [Column("TransactionDate")]
-        public DateTime TransactionDate { get; set; }
+        public DateTime TransactionDate
+        {
+            get
+            {
+                return transactionDate;
+            }
+            set
+            {
+                transactionDate = value;
+                RaisePropertyChanged();
+            }
+        }
 
         [Column("Amount")]
-        public Double Amount { get; set; }
+        public double Amount
+        {
+            get
+            {
+                return amount;
+            }
+            set
+            {
+                amount = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        [Column("KindId")]
-        public int KindId { get; set; }
+        [ForeignKey(typeof(Kind))]
+        public int KindId
+        {
+            get
+            {
+                return kindId;
+            }
+            set
+            {
+                kindId = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        [Column("SubkindId")]
-        public int SubkindId { get; set; }
+        [ForeignKey(typeof(Subkind))]
+        public int SubkindId
+        {
+            get
+            {
+                return subkindId;
+            }
+            set
+            {
+                subkindId = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        [Column("BankAccountId")]
-        public int BankAccountId { get; set; }
+        [ForeignKey(typeof(BankAccount))]
+        public int BankAccountId
+        {
+            get
+            {
+                return bankAccountId;
+            }
+            set
+            {
+                bankAccountId = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        [Ignore]
-        public Kind Kind { get; set; }
-
-        [Ignore]
-        public Subkind Subkind { get; set; }
-
-        [Ignore]
-        public BankAccount BankAccount { get; set; }
-
+        public override string ToString()
+        {
+            return base.ToString() + ": " + "Id=" + Id + ", ApiId=" + ApiId + ", Expense=" + Expense + ", Concept=" + Concept + ", TransactionDate=" + TransactionDate
+                 + ", Amount=" + Amount + ", KindId=" + KindId + ", SubkindId=" + SubkindId + ", BankAccountId=" + BankAccountId;
+        }
     }
 }

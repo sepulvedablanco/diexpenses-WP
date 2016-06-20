@@ -83,6 +83,7 @@
         {
             Debug.WriteLine("Movements execute...");
 
+            navigationService.NavigateTo<MovementsListPage>(null);
         }
 
         private void KindsExecute()

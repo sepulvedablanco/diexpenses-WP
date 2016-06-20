@@ -43,6 +43,24 @@
             }
         }
 
+        public IList<Subkind> SelectSubkinds(int kindId)
+        {
+            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
+            {
+                try
+                {
+                    return cnx.Table<Subkind>()
+                        .Where(subkind => subkind.KindId == kindId)
+                        .OrderBy(subkind => subkind.Description)
+                        .ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
         public IList<BankAccount> SelectBankAccounts()
         {
             using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
@@ -60,7 +78,34 @@
             }
         }
 
-        public void UpsertKind(Kind item)
+        public IList<Movement> SelectMonthlyMovements(int year, int month)
+        {
+            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
+            {
+                try
+                {
+                    /*
+                    return cnx.Table<Movement>()
+                        .Where(m => m.TransactionDate.Year == year && m.TransactionDate.Month == month)
+                        .OrderBy(movement => movement.TransactionDate)
+                        .ToList();
+                    */ // --> Month operator is not supported by the LINQ provider...
+
+                    var items = from s in cnx.Table<Movement>()
+                                let convertedDate = (DateTime) s.TransactionDate
+                                where convertedDate.Year == year && convertedDate.Month == month
+                                select s;
+                    return items.ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+        }
+
+        public void Upsert<T>(T item)
         {
             using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
             {
@@ -71,32 +116,11 @@
             }
         }
 
-        public void UpsertBankAccount(BankAccount item)
+        public bool Delete<T>(T o)
         {
             using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
             {
-                if (cnx.Update(item) == 0)
-                    cnx.InsertOrReplace(item);
-
-                cnx.Commit();
-            }
-        }
-
-        public bool DeleteKind(Kind item)
-        {
-            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
-            {
-                int rowsAffected = cnx.Delete(item);
-                cnx.Commit();
-                return rowsAffected == 1;
-            }
-        }
-
-        public bool DeleteBankAccount(BankAccount item)
-        {
-            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
-            {
-                int rowsAffected = cnx.Delete(item);
+                int rowsAffected = cnx.Delete(o);
                 cnx.Commit();
                 return rowsAffected == 1;
             }

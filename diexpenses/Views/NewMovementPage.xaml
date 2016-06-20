@@ -17,47 +17,46 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="20,15,20,0" >
+        <!--Title-->
+        <TextBlock Grid.Row="0" Text="New Movement" Foreground="Black" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,10" />
 
-            <!--Title-->
-            <TextBlock Text="New Movement" Foreground="Black" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,10" />
+        <ScrollViewer Grid.Row="1" Height="600" >
 
-            <!--Expense/Incomes-->
-            <ToggleButton Content="Expense" IsThreeState="False" HorizontalAlignment="Center" Width="200" />
+            <StackPanel Grid.Row="0" Margin="20,10,20,0" >
 
-            <!--Concept-->
-            <TextBlock Text="Concept" Foreground="Black" FontSize="30"/>
-            <TextBox BorderBrush="LightGray" Text="{Binding Concept, Mode=TwoWay}" Margin="0,0,0,10" />
+                <!--Expense/Incomes-->
+                <ToggleButton Content="Expense" FontSize="20" IsThreeState="False" HorizontalAlignment="Center" Width="320" Height="40" />
 
-            <!--Amount-->
-            <TextBlock Foreground="Black" Text="Amount" FontSize="30"/>
-            <TextBox BorderBrush="LightGray" Text="{Binding Amount, Mode=TwoWay}" Margin="0,0,0,20" />
+                <!--Concept-->
+                <TextBlock Text="Concept" Foreground="Black" FontSize="30"/>
+                <TextBox BorderBrush="LightGray" Text="{Binding Concept, Mode=TwoWay}" Margin="0,0,0,10" />
 
-            <!--Kind-->
-            <TextBlock Foreground="Black" Text="Kind" FontSize="30"/>
-            <ComboBox Name="KindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Cambiar}" DisplayMemberPath="Cambiar" SelectedValuePath="Cambiar" SelectedValue="{Binding Path=Cambiar}" />
+                <!--Amount-->
+                <TextBlock Foreground="Black" Text="Amount" FontSize="30"/>
+                <TextBox BorderBrush="LightGray" Text="{Binding Amount, Mode=TwoWay}" Margin="0,0,0,20" />
 
-            <!--Subkind-->
-            <TextBlock Foreground="Black" Text="Subkind" FontSize="30"/>
-            <ComboBox Name="SubkindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Cambiar}" DisplayMemberPath="Cambiar" SelectedValuePath="Cambiar" SelectedValue="{Binding Path=Cambiar}" />
+                <!--Kind-->
+                <TextBlock Foreground="Black" Text="Kind" FontSize="30"/>
+                <ComboBox Name="KindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Kinds}" DisplayMemberPath="Description" SelectedValue="{Binding Path=KindSelected}" SelectedItem="{Binding Path=KindSelected}" />
 
-            <!--BankAccount-->
-            <TextBlock Foreground="Black" Text="Bank account" FontSize="30"/>
-            <ComboBox Name="BankAccountComboBox" Margin="0,0,256,20" ItemsSource="{Binding Path=Cambiar}" DisplayMemberPath="Cambiar" SelectedValuePath="Cambiar" SelectedValue="{Binding Path=Cambiar}" HorizontalAlignment="Stretch" />
+                <!--Subkind-->
+                <TextBlock Foreground="Black" Text="Subkind" FontSize="30"/>
+                <ComboBox Name="SubkindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Subkinds}" DisplayMemberPath="Description" SelectedValue="{Binding Path=SubkindSelected}" SelectedItem="{Binding Path=SubkindSelected}" />
 
-            <!--TransactionDate-->
-            <TextBlock Foreground="Black" Text="Transaction date" FontSize="30"/>
-            <DatePicker Header="" YearVisible="True" DateChanged="DatePicker_DateChanged" Margin="0,0,0,20" />
-            <Button Content="Transaction date">
-                <Button.Flyout>
-                    <DatePickerFlyout DatePicked="DatePickerFlyout_DatePicked" />
-                </Button.Flyout>
-            </Button>
+                <!--BankAccount-->
+                <TextBlock Foreground="Black" Text="Bank account" FontSize="30"/>
+                <ComboBox Name="BankAccountComboBox" Margin="0,0,256,20" ItemsSource="{Binding Path=BankAccounts}" DisplayMemberPath="Description" SelectedValue="{Binding Path=BankAccountSelected}" SelectedItem="{Binding Path=BankAccountSelected}" HorizontalAlignment="Stretch" />
 
-            <!--SaveButton-->
-            <Button x:Name="Save" Content="" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding SaveCommand}" Margin="0,0,0,20" Width="320" Height="40" />
+                <!--TransactionDate-->
+                <TextBlock Foreground="Black" Text="Transaction date" FontSize="30"/>
+                <DatePicker Header="" YearVisible="True" DateChanged="DatePicker_DateChanged" Margin="0,0,0,20" />
 
-        </StackPanel>
+                <!--SaveButton-->
+                <Button x:Name="Save" Content="Save" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding SaveCommand}" Margin="0,0,0,20" Width="320" Height="40" />
+
+            </StackPanel>
+
+        </ScrollViewer>
 
     </Grid>
 
