@@ -6,6 +6,7 @@
     using Services.Database;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
+    using System.Windows.Input;
     using Windows.UI.Xaml.Navigation;
 
     public class NewMovementPageViewModel : MenuBottomViewModelBase
@@ -18,7 +19,10 @@
         private Subkind subkindSelected;
         private BankAccount bankAccountSelected;
 
+        private Movement movement = new Movement();
+
         private static DelegateCommand saveCommand;
+        private static DelegateCommand kindChangedCommand;
 
         private IDbService dbService;
         private IDialogService dialogService;
@@ -29,9 +33,25 @@
             this.dialogService = dialogService;
 
             saveCommand = new DelegateCommand(SaveExecute, SaveCanExecute);
+            kindChangedCommand = new DelegateCommand(KindChangedExecute, null);
 
             LoadKinds();
             LoadBankAccounts();
+
+            movement.PropertyChanged += delegate
+            {
+                saveCommand.RaiseCanExecuteChanged();
+            };
+        }
+
+        public ICommand SaveCommand
+        {
+            get { return saveCommand; }
+        }
+
+        public ICommand KindChangedCommand
+        {
+            get { return kindChangedCommand; }
         }
 
         private void LoadKinds()
@@ -76,12 +96,29 @@
         private void SaveExecute()
         {
             Debug.WriteLine("SaveExecute");
+            dbService.Upsert<Movement>(movement);
         }
 
         private bool SaveCanExecute()
         {
             Debug.WriteLine("SaveCanExecute");
-            return true;
+            return IsValidForm();
+        }
+
+        private bool IsValidForm()
+        {
+            bool valid = !string.IsNullOrEmpty(Movement.Concept);
+            valid = KindSelected != null && KindSelected.Id != null && valid;
+            valid = SubkindSelected != null && SubkindSelected.Id != null && valid;
+            valid = BankAccountSelected != null && BankAccountSelected.Id != null && valid;
+            valid = Movement.TransactionDate != null && valid;
+            return valid;
+        }
+
+        private void KindChangedExecute()
+        {
+            Debug.WriteLine("KindChangedExecute");
+            LoadSubkinds(KindSelected.Id.GetValueOrDefault());
         }
 
         public ObservableCollection<Kind> Kinds
@@ -121,6 +158,7 @@
             {
                 this.kindSelected = value;
                 RaisePropertyChanged();
+                saveCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -131,6 +169,7 @@
             {
                 this.subkindSelected = value;
                 RaisePropertyChanged();
+                saveCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -141,6 +180,17 @@
             {
                 this.bankAccountSelected = value;
                 RaisePropertyChanged();
+                saveCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public Movement Movement
+        {
+            get { return this.movement; }
+            set
+            {
+                this.movement = value;
+                saveCommand.RaiseCanExecuteChanged();
             }
         }
 

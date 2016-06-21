@@ -16,6 +16,12 @@
         private int subkindId;
         private int bankAccountId;
 
+        public Movement()
+        {
+            Expense = true;
+            TransactionDate = DateTime.Today;
+        }
+
         [Column("Expense")]
         public bool Expense
         {

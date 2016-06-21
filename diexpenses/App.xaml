@@ -23,6 +23,8 @@
             <converters:EntityToImageConverter x:Key="EntityToImageConverter" />
             <converters:AmountConverter x:Key="AmountConverter" />
             <converters:BalanceToColorConverter x:Key="BalanceToColorConverter" />
+            <converters:DateTimeConverter x:Key="DateTimeConverter" />
+            <converters:BooleanToToggleButtonContentConverter x:Key="BooleanToToggleButtonContentConverter" />
 
             <vmlocator:VMLocator x:Name="Locator"></vmlocator:VMLocator>
             

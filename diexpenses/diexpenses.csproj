@@ -102,9 +102,11 @@
     <Compile Include="Common\Utils.cs" />
     <Compile Include="Converters\BalanceToColorConverter.cs" />
     <Compile Include="Converters\AmountConverter.cs" />
+    <Compile Include="Converters\BooleanToToggleButtonContentConverter.cs" />
     <Compile Include="Converters\EntityToImageConverter.cs" />
     <Compile Include="Converters\ModelToActionConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\TextToCanExecuteConverter.cs" />
     <Compile Include="Entities\BankAccount.cs" />
     <Compile Include="Entities\Base\EntityBase.cs" />

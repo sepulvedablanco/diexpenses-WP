@@ -6,8 +6,9 @@
     xmlns:local="using:diexpenses.Views"
     xmlns:base="using:diexpenses.Views.Base"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core" >
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -25,31 +26,37 @@
             <StackPanel Grid.Row="0" Margin="20,10,20,0" >
 
                 <!--Expense/Incomes-->
-                <ToggleButton Content="Expense" FontSize="20" IsThreeState="False" HorizontalAlignment="Center" Width="320" Height="40" />
+                <ToggleButton Content="{Binding Path=Movement.Expense, Mode=TwoWay, Converter={StaticResource BooleanToToggleButtonContentConverter}}" IsChecked="{Binding Movement.Expense, Mode=TwoWay}" FontSize="20" IsThreeState="False" HorizontalAlignment="Center" Width="320" Height="40" />
 
                 <!--Concept-->
                 <TextBlock Text="Concept" Foreground="Black" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Concept, Mode=TwoWay}" Margin="0,0,0,10" />
+                <TextBox BorderBrush="LightGray" Text="{Binding Movement.Concept, Mode=TwoWay}" Margin="0,0,0,10" />
 
                 <!--Amount-->
                 <TextBlock Foreground="Black" Text="Amount" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Amount, Mode=TwoWay}" Margin="0,0,0,20" />
+                <TextBox BorderBrush="LightGray" Text="{Binding Movement.Amount, Mode=TwoWay}" Margin="0,0,0,20" />
 
                 <!--Kind-->
-                <TextBlock Foreground="Black" Text="Kind" FontSize="30"/>
-                <ComboBox Name="KindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Kinds}" DisplayMemberPath="Description" SelectedValue="{Binding Path=KindSelected}" SelectedItem="{Binding Path=KindSelected}" />
+                <TextBlock Foreground="Black" Text="Kind" FontSize="30" />
+                <ComboBox Name="KindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Kinds}" DisplayMemberPath="Description" SelectedItem="{Binding Path=KindSelected, Mode=TwoWay}" Width="300" >
+                    <i:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                            <core:InvokeCommandAction Command="{Binding DataContext.KindChangedCommand, ElementName=KindComboBox}" />
+                        </core:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
 
                 <!--Subkind-->
                 <TextBlock Foreground="Black" Text="Subkind" FontSize="30"/>
-                <ComboBox Name="SubkindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Subkinds}" DisplayMemberPath="Description" SelectedValue="{Binding Path=SubkindSelected}" SelectedItem="{Binding Path=SubkindSelected}" />
+                <ComboBox Name="SubkindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Subkinds, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=SubkindSelected, Mode=TwoWay}" SelectedItem="{Binding Path=SubkindSelected, Mode=TwoWay}" Width="300" />
 
                 <!--BankAccount-->
                 <TextBlock Foreground="Black" Text="Bank account" FontSize="30"/>
-                <ComboBox Name="BankAccountComboBox" Margin="0,0,256,20" ItemsSource="{Binding Path=BankAccounts}" DisplayMemberPath="Description" SelectedValue="{Binding Path=BankAccountSelected}" SelectedItem="{Binding Path=BankAccountSelected}" HorizontalAlignment="Stretch" />
+                <ComboBox Name="BankAccountComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=BankAccounts, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=BankAccountSelected, Mode=TwoWay}" SelectedItem="{Binding Path=BankAccountSelected, Mode=TwoWay}" Width="300" />
 
                 <!--TransactionDate-->
                 <TextBlock Foreground="Black" Text="Transaction date" FontSize="30"/>
-                <DatePicker Header="" YearVisible="True" DateChanged="DatePicker_DateChanged" Margin="0,0,0,20" />
+                <DatePicker Header="" YearVisible="True" Date="{Binding Movement.TransactionDate, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}" Margin="0,0,0,20" />
 
                 <!--SaveButton-->
                 <Button x:Name="Save" Content="Save" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding SaveCommand}" Margin="0,0,0,20" Width="320" Height="40" />
