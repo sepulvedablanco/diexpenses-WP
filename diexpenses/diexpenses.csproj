@@ -122,6 +122,8 @@
     <Compile Include="Services\Database\IDbService.cs" />
     <Compile Include="Services\DiexpensesAPI\ApiService.cs" />
     <Compile Include="Services\DiexpensesAPI\IApiService.cs" />
+    <Compile Include="Services\GpsService\GpsService.cs" />
+    <Compile Include="Services\GpsService\IGpsService.cs" />
     <Compile Include="Services\NetworkService\INetworkService.cs" />
     <Compile Include="Services\NetworkService\NetworkService.cs" />
     <Compile Include="ViewModels\SubkindsListPageViewModel.cs" />

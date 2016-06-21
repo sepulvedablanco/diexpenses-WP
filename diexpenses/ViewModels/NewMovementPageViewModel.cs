@@ -4,9 +4,12 @@
     using diexpenses.ViewModels.Base;
     using Entities;
     using Services.Database;
+    using Services.GpsService;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using System.Windows.Input;
+    using Windows.Devices.Geolocation;
     using Windows.UI.Xaml.Navigation;
 
     public class NewMovementPageViewModel : MenuBottomViewModelBase
@@ -21,12 +24,12 @@
         private static DelegateCommand kindChangedCommand;
 
         private IDbService dbService;
-        private IDialogService dialogService;
+        private IGpsService gpsService;
 
-        public NewMovementPageViewModel(IDbService dbService, IDialogService dialogService, INavigationService navigationService) : base(navigationService)
+        public NewMovementPageViewModel(IDbService dbService, IGpsService gpsService, INavigationService navigationService) : base(navigationService)
         {
             this.dbService = dbService;
-            this.dialogService = dialogService;
+            this.gpsService = gpsService;
 
             saveCommand = new DelegateCommand(SaveExecute, SaveCanExecute);
             kindChangedCommand = new DelegateCommand(KindChangedExecute, null);
@@ -89,12 +92,26 @@
             }
         }
 
-        private void SaveExecute()
+        private async void SaveExecute()
         {
             Debug.WriteLine("SaveExecute");
             Debug.WriteLine("Movement to save: " + Movement.ToString());
+
+            Geoposition currentPosition = await GetCurrentPositionExecute();
+
+            if(currentPosition != null)
+            {
+                Movement.Location = new Geopoint(new BasicGeoposition() { Latitude = currentPosition.Coordinate.Latitude, Longitude = currentPosition.Coordinate.Longitude }); ;
+                Debug.WriteLine("Current point: {" + Movement.Latitude + ", " + Movement.Longitude + "}");
+            }
+
             dbService.Upsert<Movement>(movement);
             NavigationService.GoBack();
+        }
+
+        private async Task<Geoposition> GetCurrentPositionExecute()
+        {
+            return await this.gpsService.GetCurrentGeoposition();
         }
 
         private bool SaveCanExecute()

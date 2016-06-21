@@ -4,6 +4,7 @@
     using SQLite.Net.Attributes;
     using SQLiteNetExtensions.Attributes;
     using System;
+    using Windows.Devices.Geolocation;
 
     [Table("Movements")]
     public class Movement : EntityBase
@@ -12,10 +13,7 @@
         private string concept;
         private DateTime transactionDate;
         private double amount;
-        private int kindId;
-        private int subkindId;
-        private int bankAccountId;
-
+        private Geopoint location;
         private Kind kind;
         private Subkind subkind;
         private BankAccount bankAccount;
@@ -82,17 +80,36 @@
             }
         }
 
+        [Column("Latitude")]
+        public double Latitude
+        {
+            get {
+                return Location?.Position.Latitude ?? 0;
+            }
+            set
+            {
+                this.location = new Geopoint(new BasicGeoposition() { Latitude = value, Longitude = Longitude });
+            }
+        }
+
+        [Column("Longitude")]
+        public double Longitude
+        {
+            get {
+                return Location?.Position.Longitude ?? 0;
+            }
+            set
+            {
+                this.location = new Geopoint(new BasicGeoposition() { Latitude = Latitude, Longitude = value });
+            }
+        }
+
         [ForeignKey(typeof(Kind))]
         public int KindId
         {
             get
             {
-                return kindId;
-            }
-            set
-            {
-                kindId = value;
-                RaisePropertyChanged();
+                return Kind?.Id ?? -1;
             }
         }
 
@@ -101,12 +118,7 @@
         {
             get
             {
-                return subkindId;
-            }
-            set
-            {
-                subkindId = value;
-                RaisePropertyChanged();
+                return Subkind?.Id ?? -1;
             }
         }
 
@@ -115,11 +127,20 @@
         {
             get
             {
-                return bankAccountId;
+                return BankAccount.Id ?? -1;
+            }
+        }
+
+        [Ignore()]
+        public Geopoint Location
+        {
+            get
+            {
+                return this.location;
             }
             set
             {
-                bankAccountId = value;
+                this.location = value;
                 RaisePropertyChanged();
             }
         }
@@ -129,15 +150,11 @@
         {
             get
             {
-                return kind;
+                return this.kind;
             }
             set
             {
-                kind = value;
-                if (value != null)
-                {
-                    kindId = value.Id.GetValueOrDefault(-1);
-                }
+                this.kind = value;
                 RaisePropertyChanged();
             }
         }
@@ -147,15 +164,11 @@
         {
             get
             {
-                return subkind;
+                return this.subkind;
             }
             set
             {
-                subkind = value;
-                if (value != null)
-                {
-                    subkindId = value.Id.GetValueOrDefault(-1);
-                }
+                this.subkind = value;
                 RaisePropertyChanged();
             }
         }
@@ -165,18 +178,15 @@
         {
             get
             {
-                return bankAccount;
+                return this.bankAccount;
             }
             set
             {
-                bankAccount = value;
-                if (value != null)
-                {
-                    bankAccountId = value.Id.GetValueOrDefault(-1);
-                }
+                this.bankAccount = value;
                 RaisePropertyChanged();
             }
         }
+
         public override string ToString()
         {
             return base.ToString() + ": " + "Id=" + Id + ", ApiId=" + ApiId + ", Expense=" + Expense + ", Concept=" + Concept + ", TransactionDate=" + TransactionDate + ", Amount=" + Amount + ", KindId=" + KindId
