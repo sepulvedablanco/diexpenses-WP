@@ -43,7 +43,7 @@
                 <Run Text=" ("/><Run Text="{Binding Balance, Converter={StaticResource AmountConverter}}" /><Run Text=")"/>
             </TextBlock>
 
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CompleteBankAccount}" FontSize="20" Foreground="{Binding Balance, Converter={StaticResource BalanceToColorConverter}}" FontWeight="Bold" HorizontalAlignment="Stretch"
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CompleteBankAccount}" FontSize="20" Foreground="{Binding Balance, Converter={StaticResource BalanceToColorConverter}}" HorizontalAlignment="Stretch"
                            TextTrimming="CharacterEllipsis"/>
         </Grid>
     </DataTemplate>

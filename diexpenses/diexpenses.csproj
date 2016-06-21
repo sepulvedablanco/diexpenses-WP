@@ -100,9 +100,12 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\OpenMenuFlyoutAction.cs" />
     <Compile Include="Common\Utils.cs" />
+    <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\BalanceToColorConverter.cs" />
     <Compile Include="Converters\AmountConverter.cs" />
     <Compile Include="Converters\BooleanToToggleButtonContentConverter.cs" />
+    <Compile Include="Converters\MovementToColorConverter.cs" />
+    <Compile Include="Converters\IsExpenseToImageConverter.cs" />
     <Compile Include="Converters\EntityToImageConverter.cs" />
     <Compile Include="Converters\ModelToActionConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
@@ -212,11 +215,13 @@
     <Content Include="Images\BankEntities\2100.png" />
     <Content Include="Images\BankEntities\2108.png" />
     <Content Include="Images\BankEntities\3058.png" />
-    <Content Include="Images\BankEntities\unknown.png" />
+    <Content Include="Images\Common\unknown.png" />
     <Content Include="Images\Icons\Gmail.png" />
     <Content Include="Images\Icons\GitHub.png" />
     <Content Include="Images\Icons\Gmail.ico" />
     <Content Include="Images\Icons\LinkedIn.png" />
+    <Content Include="Images\Movements\income.png" />
+    <Content Include="Images\Movements\expense.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -25,6 +25,9 @@
             <converters:BalanceToColorConverter x:Key="BalanceToColorConverter" />
             <converters:DateTimeConverter x:Key="DateTimeConverter" />
             <converters:BooleanToToggleButtonContentConverter x:Key="BooleanToToggleButtonContentConverter" />
+            <converters:IsExpenseToImageConverter x:Key="IsExpenseToImageConverter" />
+            <converters:MovementToColorConverter x:Key="MovementToColorConverter" />
+            <converters:DateConverter x:Key="DateConverter" />
 
             <vmlocator:VMLocator x:Name="Locator"></vmlocator:VMLocator>
             

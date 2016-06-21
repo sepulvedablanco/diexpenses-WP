@@ -1,5 +1,6 @@
 ﻿namespace diexpenses.ViewModels
 {
+    using Common;
     using diexpenses.Entities;
     using diexpenses.Services;
     using diexpenses.ViewModels.Base;
@@ -16,7 +17,8 @@
         private ObservableCollection<Movement> items;
 
         private static DelegateCommand newMovementCommand;
-        private static Base.DelegateCommandWithParameter<Movement> deleteMovementCommand;
+        private static DelegateCommand deleteMovementCommand;
+        private static Base.DelegateCommandWithParameter<Movement> selectedMovementCommand;
 
         private IDbService dbService;
         private IDialogService dialogService;
@@ -27,7 +29,8 @@
             this.dialogService = dialogService;
 
             newMovementCommand = new DelegateCommand(NewMovementExecute, null);
-            deleteMovementCommand = new Base.DelegateCommandWithParameter<Movement>(DeleteMovementExecute, null);
+            deleteMovementCommand = new DelegateCommand(DeleteMovementExecute, null);
+            selectedMovementCommand = new Base.DelegateCommandWithParameter<Movement>(SelectedMovementExecute, null);
 
             LoadMovements();
         }
@@ -50,6 +53,11 @@
             get { return deleteMovementCommand; }
         }
 
+        public ICommand SelectedMovementCommand
+        {
+            get { return selectedMovementCommand; }
+        }
+
         private void NewMovementExecute()
         {
             Debug.WriteLine("NewMovementExecute");
@@ -57,11 +65,17 @@
             NavigationService.NavigateTo<NewMovementPage>(null);
         }
 
-        private async void DeleteMovementExecute(Movement movement)
+        private async void DeleteMovementExecute()
         {
             Debug.WriteLine("DeleteMovementExecute");
-            Debug.WriteLine("Movement to delete: " + movement.ToString());
+            Movement movement = OpenMenuFlyoutAction.HoldedObject as Movement;
+            if (movement == null)
+            {
+                Debug.WriteLine("Invalid movement to delete...");
+                return;
+            }
 
+            Debug.WriteLine("Movement to delete: " + movement.ToString());
             bool result = await dialogService.ShowConfirmMessage("Delete movement", "Are you sure you want to delete the movement " + movement.Concept, "I agree", "Delete", "Cancel");
             Debug.WriteLine("Delete movement: " + result);
             if (result)
@@ -71,6 +85,12 @@
                     LoadMovements();
                 }
             }
+        }
+
+        private void SelectedMovementExecute(Movement movement)
+        {
+            Debug.WriteLine("SelectedMovementExecute");
+
         }
 
         public ObservableCollection<Movement> Items

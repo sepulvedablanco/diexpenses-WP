@@ -13,6 +13,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             
@@ -32,23 +33,24 @@
 
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" Command="{Binding DataContext.DeleteMovementCommand, ElementName=MovementsList}" CommandParameter="{Binding ElementName=MovementsList, Path=SelectedItem}" />
+                    <MenuFlyoutItem x:Name="DeleteButton" Text="Delete" Command="{Binding DataContext.DeleteMovementCommand, ElementName=MovementsList}" />
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
 
-            <!--
-            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Width="48" Height="48" Source="{Binding Entity, Converter={StaticResource EntityToImageConverter}}" Margin="0, 0, 10, 0" VerticalAlignment="Center" ></Image>
+            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Width="48" Height="48" Source="{Binding Expense, Converter={StaticResource IsExpenseToImageConverter}}" Margin="0, 0, 10, 0" VerticalAlignment="Center" ></Image>
 
-            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" Foreground="{Binding Balance, Converter={StaticResource BalanceToColorConverter}}" FontWeight="Bold" HorizontalAlignment="Stretch"
-                           TextTrimming="CharacterEllipsis">
-                <Run Text="{Binding Description}" />
-                <Run Text=" ("/><Run Text="{Binding Balance, Converter={StaticResource AmountConverter}}" /><Run Text=")"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" Foreground="{Binding Expense, Converter={StaticResource MovementToColorConverter}}" FontWeight="Bold" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis">
+                <Run Text="{Binding Concept}" />
+                <Run Text=" ("/><Run Text="{Binding Amount, Converter={StaticResource AmountConverter}}" /><Run Text=")"/>
             </TextBlock>
 
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CompleteBankAccount}" FontSize="20" Foreground="{Binding Balance, Converter={StaticResource BalanceToColorConverter}}" FontWeight="Bold" HorizontalAlignment="Stretch"
-                           TextTrimming="CharacterEllipsis"/>
-            
-            -->
+            <TextBlock Grid.Row="1" Grid.Column="1" FontSize="20" Foreground="{Binding Expense, Converter={StaticResource MovementToColorConverter}}" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis">
+                <Run Text="{Binding Kind.Description}" /><Run Text=" - " /><Run Text="{Binding Subkind.Description}" />
+                <Run Text=" ("/><Run Text="{Binding TransactionDate, Converter={StaticResource DateConverter}}"/><Run Text=")"/>
+            </TextBlock>
+
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding BankAccount.CompleteBankAccount}" FontSize="20" Foreground="{Binding Expense, Converter={StaticResource MovementToColorConverter}}" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis"/>
+
         </Grid>
     </DataTemplate>
 </ResourceDictionary>
