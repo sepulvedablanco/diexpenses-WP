@@ -18,7 +18,7 @@
 
         private static DelegateCommand newMovementCommand;
         private static DelegateCommand deleteMovementCommand;
-        private static Base.DelegateCommandWithParameter<Movement> selectedMovementCommand;
+        private static Base.DelegateCommandWithParameter<Movement> movementSelectedCommand;
 
         private IDbService dbService;
         private IDialogService dialogService;
@@ -30,14 +30,15 @@
 
             newMovementCommand = new DelegateCommand(NewMovementExecute, null);
             deleteMovementCommand = new DelegateCommand(DeleteMovementExecute, null);
-            selectedMovementCommand = new Base.DelegateCommandWithParameter<Movement>(SelectedMovementExecute, null);
+            movementSelectedCommand = new Base.DelegateCommandWithParameter<Movement>(MovementSelectedExecute, null);
 
             LoadMovements();
         }
 
         private void LoadMovements()
         {
-            DateTime today = new DateTime();
+            DateTime today = DateTime.Today;
+            Debug.WriteLine("Year=" + today.Year + ", Month=" + today.Month);
             var movementsList = this.dbService.SelectMonthlyMovements(today.Year, today.Month);
             Debug.WriteLine("Number of movements retrieved: " + movementsList.Count);
             Items = new ObservableCollection<Movement>(movementsList);
@@ -53,9 +54,9 @@
             get { return deleteMovementCommand; }
         }
 
-        public ICommand SelectedMovementCommand
+        public ICommand MovementSelectedCommand
         {
-            get { return selectedMovementCommand; }
+            get { return movementSelectedCommand; }
         }
 
         private void NewMovementExecute()
@@ -87,9 +88,9 @@
             }
         }
 
-        private void SelectedMovementExecute(Movement movement)
+        private void MovementSelectedExecute(Movement movement)
         {
-            Debug.WriteLine("SelectedMovementExecute");
+            Debug.WriteLine("MovementSelectedExecute");
 
         }
 
