@@ -16,6 +16,10 @@
         private int subkindId;
         private int bankAccountId;
 
+        private Kind kind;
+        private Subkind subkind;
+        private BankAccount bankAccount;
+
         public Movement()
         {
             Expense = true;
@@ -120,10 +124,63 @@
             }
         }
 
+        [Ignore()]
+        public Kind Kind
+        {
+            get
+            {
+                return kind;
+            }
+            set
+            {
+                kind = value;
+                if (value != null)
+                {
+                    kindId = value.Id.GetValueOrDefault(-1);
+                }
+                RaisePropertyChanged();
+            }
+        }
+
+        [Ignore()]
+        public Subkind Subkind
+        {
+            get
+            {
+                return subkind;
+            }
+            set
+            {
+                subkind = value;
+                if (value != null)
+                {
+                    subkindId = value.Id.GetValueOrDefault(-1);
+                }
+                RaisePropertyChanged();
+            }
+        }
+
+        [Ignore()]
+        public BankAccount BankAccount
+        {
+            get
+            {
+                return bankAccount;
+            }
+            set
+            {
+                bankAccount = value;
+                if (value != null)
+                {
+                    bankAccountId = value.Id.GetValueOrDefault(-1);
+                }
+                RaisePropertyChanged();
+            }
+        }
         public override string ToString()
         {
-            return base.ToString() + ": " + "Id=" + Id + ", ApiId=" + ApiId + ", Expense=" + Expense + ", Concept=" + Concept + ", TransactionDate=" + TransactionDate
-                 + ", Amount=" + Amount + ", KindId=" + KindId + ", SubkindId=" + SubkindId + ", BankAccountId=" + BankAccountId;
+            return base.ToString() + ": " + "Id=" + Id + ", ApiId=" + ApiId + ", Expense=" + Expense + ", Concept=" + Concept + ", TransactionDate=" + TransactionDate + ", Amount=" + Amount + ", KindId=" + KindId
+                 + ", Kind=" + Kind.ToString() + ", SubkindId=" + SubkindId + ", Subkind=" + Subkind.ToString() + ", BankAccountId=" + BankAccountId + ", BankAccount=" + BankAccount.ToString();
         }
     }
 }

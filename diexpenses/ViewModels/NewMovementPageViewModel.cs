@@ -15,10 +15,6 @@
         private ObservableCollection<Subkind> subkinds;
         private ObservableCollection<BankAccount> bankAccounts;
 
-        private Kind kindSelected;
-        private Subkind subkindSelected;
-        private BankAccount bankAccountSelected;
-
         private Movement movement = new Movement();
 
         private static DelegateCommand saveCommand;
@@ -61,8 +57,8 @@
             Kinds = new ObservableCollection<Kind>(kindsList);
             if(Kinds.Count > 0)
             {
-                KindSelected = Kinds[0];
-                LoadSubkinds(kindSelected.Id.GetValueOrDefault(-1));
+                Movement.Kind = Kinds[0];
+                LoadSubkinds(Movement.KindId);
             }
         }
 
@@ -78,7 +74,7 @@
             Subkinds = new ObservableCollection<Subkind>(subkindsList);
             if (Subkinds.Count > 0)
             {
-                SubkindSelected = Subkinds[0];
+                Movement.Subkind = Subkinds[0];
             }
         }
 
@@ -89,14 +85,16 @@
             BankAccounts = new ObservableCollection<BankAccount>(bankAccountsList);
             if (bankAccountsList.Count > 0)
             {
-                BankAccountSelected = bankAccountsList[0];
+                Movement.BankAccount = bankAccountsList[0];
             }
         }
 
         private void SaveExecute()
         {
             Debug.WriteLine("SaveExecute");
+            Debug.WriteLine("Movement to save: " + Movement.ToString());
             dbService.Upsert<Movement>(movement);
+            NavigationService.GoBack();
         }
 
         private bool SaveCanExecute()
@@ -108,9 +106,9 @@
         private bool IsValidForm()
         {
             bool valid = !string.IsNullOrEmpty(Movement.Concept);
-            valid = KindSelected != null && KindSelected.Id != null && valid;
-            valid = SubkindSelected != null && SubkindSelected.Id != null && valid;
-            valid = BankAccountSelected != null && BankAccountSelected.Id != null && valid;
+            valid = Movement.KindId != -1 && valid;
+            valid = Movement.SubkindId != -1 && valid;
+            valid = Movement.BankAccountId != -1 && valid;
             valid = Movement.TransactionDate != null && valid;
             return valid;
         }
@@ -118,7 +116,7 @@
         private void KindChangedExecute()
         {
             Debug.WriteLine("KindChangedExecute");
-            LoadSubkinds(KindSelected.Id.GetValueOrDefault());
+            LoadSubkinds(Movement.KindId);
         }
 
         public ObservableCollection<Kind> Kinds
@@ -148,39 +146,6 @@
             {
                 this.bankAccounts = value;
                 RaisePropertyChanged();
-            }
-        }
-
-        public Kind KindSelected
-        {
-            get { return this.kindSelected; }
-            set
-            {
-                this.kindSelected = value;
-                RaisePropertyChanged();
-                saveCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        public Subkind SubkindSelected
-        {
-            get { return this.subkindSelected; }
-            set
-            {
-                this.subkindSelected = value;
-                RaisePropertyChanged();
-                saveCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        public BankAccount BankAccountSelected
-        {
-            get { return this.bankAccountSelected; }
-            set
-            {
-                this.bankAccountSelected = value;
-                RaisePropertyChanged();
-                saveCommand.RaiseCanExecuteChanged();
             }
         }
 

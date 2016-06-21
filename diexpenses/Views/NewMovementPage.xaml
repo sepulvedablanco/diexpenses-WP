@@ -38,7 +38,7 @@
 
                 <!--Kind-->
                 <TextBlock Foreground="Black" Text="Kind" FontSize="30" />
-                <ComboBox Name="KindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Kinds}" DisplayMemberPath="Description" SelectedItem="{Binding Path=KindSelected, Mode=TwoWay}" Width="300" >
+                <ComboBox Name="KindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Kinds}" DisplayMemberPath="Description" SelectedItem="{Binding Path=Movement.Kind, Mode=TwoWay}" Width="300" >
                     <i:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="SelectionChanged">
                             <core:InvokeCommandAction Command="{Binding DataContext.KindChangedCommand, ElementName=KindComboBox}" />
@@ -48,11 +48,11 @@
 
                 <!--Subkind-->
                 <TextBlock Foreground="Black" Text="Subkind" FontSize="30"/>
-                <ComboBox Name="SubkindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Subkinds, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=SubkindSelected, Mode=TwoWay}" SelectedItem="{Binding Path=SubkindSelected, Mode=TwoWay}" Width="300" />
+                <ComboBox Name="SubkindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Subkinds, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=Movement.Subkind, Mode=TwoWay}" SelectedItem="{Binding Path=Movement.Subkind, Mode=TwoWay}" Width="300" />
 
                 <!--BankAccount-->
                 <TextBlock Foreground="Black" Text="Bank account" FontSize="30"/>
-                <ComboBox Name="BankAccountComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=BankAccounts, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=BankAccountSelected, Mode=TwoWay}" SelectedItem="{Binding Path=BankAccountSelected, Mode=TwoWay}" Width="300" />
+                <ComboBox Name="BankAccountComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=BankAccounts, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=Movement.BankAccount, Mode=TwoWay}" SelectedItem="{Binding Path=Movement.BankAccount, Mode=TwoWay}" Width="300" />
 
                 <!--TransactionDate-->
                 <TextBlock Foreground="Black" Text="Transaction date" FontSize="30"/>
