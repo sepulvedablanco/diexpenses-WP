@@ -15,6 +15,13 @@
         private string description;
         private string completeBankAccount;
 
+        public BankAccount() { }
+
+        public BankAccount(int id)
+        {
+            this.Id = id;
+        }
+
         [Column("Iban"), MaxLength(4)]
         public string Iban
         {

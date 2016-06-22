@@ -103,7 +103,7 @@
             }
             Debug.WriteLine(user.ToString());
 
-            Utils.SaveDataInMemory(user);
+            Utils.SaveUserDataInMemory(user);
 
             this.navigationService.NavigateTo<HomePage>(null);
         }

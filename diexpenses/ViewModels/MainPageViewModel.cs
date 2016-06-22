@@ -28,17 +28,15 @@
         
         public static void Redirect()
         {
-            var Settings = ApplicationData.Current.LocalSettings;
-            var isLogged = Settings.Values[Constants.IS_LOGGED];
-            if (isLogged == null || !Boolean.Parse(isLogged.ToString()))
-            {
-                Debug.WriteLine("User is NOT logged in the APP");
-                navigationService.NavigateTo<LoginPage>(null);
-            }
-            else
+            if (Utils.UserIsLogged())
             {
                 Debug.WriteLine("User is logged in the APP");
                 navigationService.NavigateTo<HomePage>(null);
+            }
+            else
+            {
+                Debug.WriteLine("User is NOT logged in the APP");
+                navigationService.NavigateTo<LoginPage>(null);
             }
         }
     }

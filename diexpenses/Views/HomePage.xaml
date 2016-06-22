@@ -26,28 +26,28 @@
             </TextBlock>
 
             <!--Total amount-->
-            <TextBlock Foreground="Black" FontSize="25">
+            <TextBlock Foreground="{Binding TotalAmount, Converter={StaticResource BalanceToColorConverter}}" FontSize="25">
                 <Run>Total amount: </Run>
-                <Run Text="{Binding TotalAmount, Mode=OneTime}"/>
+                <Run Text="{Binding TotalAmount, Converter={StaticResource AmountConverter}, Mode=OneTime}"/>
             </TextBlock>
 
             <!--Month incomes-->
-            <TextBlock Foreground="Black" FontSize="25">
+            <TextBlock Foreground="Green" FontSize="25">
                 <Run>Month incomes: </Run>
-                <Run Text="{Binding MonthIncomes, Mode=OneTime}"/>
+                <Run Text="{Binding MonthIncomes, Converter={StaticResource AmountConverter}, Mode=OneTime}"/>
             </TextBlock>
 
             <!--Month expenses-->
-            <TextBlock Foreground="Black" FontSize="25">
+            <TextBlock Foreground="Red" FontSize="25">
                 <Run>Month expenses: </Run>
-                <Run Text="{Binding MonthExpenses, Mode=OneTime}"/>
+                <Run Text="{Binding MonthExpenses, Converter={StaticResource AmountConverter}, Mode=OneTime}"/>
             </TextBlock>
 
-            <!--Graph-->
+            <!--Chart-->
             
             
             <!--Balance-->
-            <TextBlock Name="Balance" Foreground="Black" FontSize="25" Text="{Binding Balance, Mode=OneTime}"/>
+            <TextBlock Name="Balance" Foreground="Black" FontSize="18" Text="{Binding Balance, Mode=OneTime}" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" />
 
         </StackPanel>
 

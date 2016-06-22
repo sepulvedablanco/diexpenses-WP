@@ -15,6 +15,10 @@
 
         IList<Movement> SelectMonthlyMovements(int year, int month);
 
+        double SelectTotalAmount();
+
+        double SelectMonthlAmount(bool expense, int year, int month);
+
         void Upsert<T>(T item);
 
         bool Delete<T>(T item);

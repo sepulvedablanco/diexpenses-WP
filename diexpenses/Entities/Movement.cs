@@ -66,6 +66,32 @@
             }
         }
 
+        [Column("Year")]
+        public int Year
+        {
+            get
+            {
+                return transactionDate.Year;
+            }
+            set
+            {
+                this.transactionDate = new DateTime(value, transactionDate.Month, transactionDate.Day, transactionDate.Hour, transactionDate.Minute, transactionDate.Second);
+            }
+        }
+
+        [Column("Month")]
+        public int Month
+        {
+            get
+            {
+                return transactionDate.Month;
+            }
+            set
+            {
+                this.transactionDate = new DateTime(transactionDate.Year, value, transactionDate.Day, transactionDate.Hour, transactionDate.Minute, transactionDate.Second);
+            }
+        }
+
         [Column("Amount")]
         public double Amount
         {
@@ -111,6 +137,10 @@
             {
                 return Kind?.Id ?? -1;
             }
+            set
+            {
+                this.Kind = new Kind(value);
+            }
         }
 
         [ForeignKey(typeof(Subkind))]
@@ -120,6 +150,10 @@
             {
                 return Subkind?.Id ?? -1;
             }
+            set
+            {
+                this.Subkind = new Subkind(value);
+            }
         }
 
         [ForeignKey(typeof(BankAccount))]
@@ -127,7 +161,11 @@
         {
             get
             {
-                return BankAccount.Id ?? -1;
+                return BankAccount?.Id ?? -1;
+            }
+            set
+            {
+                this.BankAccount = new BankAccount(value);
             }
         }
 

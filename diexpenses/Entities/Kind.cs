@@ -8,6 +8,11 @@
     {
         public Kind() { }
 
+        public Kind(int id)
+        {
+            this.Id = id;
+        }
+
         public Kind(string description)
         {
             this.Description = description;

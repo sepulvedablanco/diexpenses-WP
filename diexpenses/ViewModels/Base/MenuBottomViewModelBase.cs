@@ -111,7 +111,7 @@
         {
             Debug.WriteLine("Logout execute...");
 
-            Utils.DeleteDataInMemory();
+            Utils.DeleteUserDataInMemory();
 
             navigationService.NavigateTo<LoginPage>(null);
         }

@@ -11,6 +11,11 @@
 
         public Subkind() { }
 
+        public Subkind(int id)
+        {
+            this.Id = id;
+        }
+
         public Subkind(int kindId, string description)
         {
             this.KindId = kindId;
