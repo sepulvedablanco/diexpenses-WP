@@ -14,15 +14,19 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="20,15,20,0">
+        <!--Title-->
+        <TextBlock Text="Global Position" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
+
+        <StackPanel Grid.Row="1" Margin="20,0">
 
             <!--Greetings-->
             <TextBlock Foreground="Black" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,10" >
                 <Run>Hello </Run>
                 <Run Text="{Binding Name, Mode=OneTime}"/>
+                <Run>!</Run>
             </TextBlock>
 
             <!--Total amount-->

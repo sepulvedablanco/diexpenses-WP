@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <!--Title-->
-        <TextBlock Text="Bank Account Details" Grid.Row="0" Foreground="Black" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,0" />
+        <TextBlock Text="Bank Account Details" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,0" />
 
         <ScrollViewer Grid.Row="1" Height="600" >
             <StackPanel Margin="20,10,20,0" StackPanel.VerticalAlignment="Stretch" >

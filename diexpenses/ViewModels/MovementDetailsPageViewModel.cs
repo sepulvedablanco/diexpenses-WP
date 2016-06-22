@@ -5,24 +5,19 @@ using Windows.UI.Xaml.Navigation;
 
 namespace diexpenses.ViewModels
 {
-    public class MovementDetailsPageViewModel : ViewModelBase
+    public class MovementDetailsPageViewModel : MenuBottomViewModelBase
     {
         private static Movement movement;
 
-        private IDialogService dialogService;
-        private INavigationService navigationService;
-
-        public MovementDetailsPageViewModel(IDialogService dialogService, INavigationService navigationService)
+        public MovementDetailsPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            this.dialogService = dialogService;
-            this.navigationService = navigationService;
         }
 
         public override void NavigateTo(NavigationEventArgs e)
         {
             base.NavigateTo(e);
 
-            this.navigationService.AppFrame = base.AppFrame;
+            this.NavigationService.AppFrame = base.AppFrame;
         }
 
         public static Movement Movement
