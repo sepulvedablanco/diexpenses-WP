@@ -15,21 +15,18 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
         <!--Title-->
-        <TextBlock Text="About" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
+        <TextBlock Text="About" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
 
-        <StackPanel Grid.Row="1" Margin="20,15,20,0" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="1" Margin="20,15,20,0" >
 
-            <TextBlock Height="175" TextWrapping="WrapWholeWords" Grid.Row="0" Foreground="DarkSlateBlue" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,10" >
+            <TextBlock Height="175" TextWrapping="WrapWholeWords" Foreground="DarkSlateBlue" FontSize="20" HorizontalAlignment="Center" >
                 <Run>diexpenses is the easiest way to manage your expenses in the cloud.</Run>
                 <Run>You can see the expenses in te apps for </Run>
                 <Hyperlink NavigateUri="https://itunes.apple.com/es/app/diexpenses/id1085814649?mt=8">iOS</Hyperlink>
@@ -38,7 +35,7 @@
                 <Run>and in the future webapp.</Run>
             </TextBlock>
 
-            <TextBlock Text="Universidad Pontificia de Salamanca" Foreground="DarkSlateBlue" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,30" />
+            <TextBlock Text="Universidad Pontificia de Salamanca" Foreground="DarkSlateBlue" FontSize="20" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="0,0,0,30" />
 
             <TextBlock Text="Master en Informática Móvil" Foreground="DarkSlateBlue" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,30" />
 
@@ -46,20 +43,22 @@
 
         </StackPanel>
 
-        <Image Grid.Row="2" Grid.Column="0" Source="/Images/Icons/LinkedIn.png" Width="42" Height="42" HorizontalAlignment="Right" />
-        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="18" VerticalAlignment="Center" Margin="5,0,0,0" >
-            <Hyperlink NavigateUri="https://www.linkedin.com/in/diegosepulvedablanco">LinkedIn</Hyperlink>
-        </TextBlock>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
 
-        <Image Grid.Row="3" Grid.Column="0" Source="/Images/Icons/GitHub.png" Width="42" Height="42" HorizontalAlignment="Right" />
-        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="18" VerticalAlignment="Center" Margin="5,0,0,0" >
-            <Hyperlink NavigateUri="https://github.com/sepulvedablanco">GitHub</Hyperlink>
-        </TextBlock>
+            <HyperlinkButton NavigateUri="https://www.linkedin.com/in/diegosepulvedablanco">
+                <Image Source="/Images/Icons/LinkedIn.png" Width="48"/>
+            </HyperlinkButton>
 
-        <Image Grid.Row="4" Grid.Column="0" Source="/Images/Icons/Gmail.png" Width="42" Height="42" HorizontalAlignment="Right" />
-        <TextBlock Grid.Row="4" Grid.Column="1" FontSize="18" VerticalAlignment="Center" Margin="5,0,0,0" >
-            <Hyperlink NavigateUri="mailto:d.sepulvedabl@gmail.com">Gmail</Hyperlink>
-        </TextBlock>
+            <HyperlinkButton NavigateUri="https://github.com/sepulvedablanco">
+                <Image Source="/Images/Icons/GitHub.png" Width="48" />
+            </HyperlinkButton>
+
+            <HyperlinkButton NavigateUri="mailto:d.sepulvedabl@gmail.com">
+                <Image Source="/Images/Icons/Gmail.png" Width="48"/>
+            </HyperlinkButton>
+
+        </StackPanel>
 
     </Grid>
+    
 </base:MenuBottomViewBase>
