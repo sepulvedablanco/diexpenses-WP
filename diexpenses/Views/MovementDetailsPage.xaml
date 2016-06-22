@@ -5,6 +5,7 @@
     DataContext="{Binding MovementDetailsPageVM, Source={StaticResource Locator}}"
     xmlns:local="using:diexpenses.Views"
     xmlns:base="using:diexpenses.Views.Base"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -14,7 +15,8 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--Title-->
@@ -24,31 +26,43 @@
 
             <!--Expense/Concept/Amount-->
             <TextBlock Foreground="Black" FontSize="30" HorizontalAlignment="Stretch" Margin="0,0,0,10" >
-                <Run Text="{Binding Expense, Mode=OneTime}" />
-                <Run Text="{Binding Concept, Mode=OneTime}" />
-                <Run Text="{Binding Amount, Mode=OneTime}" />
+                <Run Text="{Binding Movement.Expense, Mode=OneTime}" />
+                <Run Text="{Binding Movement.Concept, Mode=OneTime}" />
+                <Run Text="{Binding Movement.Amount, Mode=OneTime}" />
             </TextBlock>
 
             <!--Kind/Subkind-->
             <TextBlock Foreground="Black" FontSize="30" HorizontalAlignment="Stretch" Margin="0,0,0,10" >
-                <Run Text="{Binding Kind, Mode=OneTime}" />
-                <Run Text="{Binding Subkind, Mode=OneTime}" />
+                <Run Text="{Binding Movement.Kind.Description, Mode=OneTime}" />
+                <Run Text="{Binding Movement.Subkind.Description, Mode=OneTime}" />
             </TextBlock>
 
             <!--BankAccount/Amount-->
             <TextBlock Foreground="Black" FontSize="30" HorizontalAlignment="Stretch" Margin="0,0,0,10" >
-                <Run Text="{Binding Description, Mode=OneTime}" />
-                <Run Text="{Binding Balance, Mode=OneTime}" />
+                <Run Text="{Binding Movement.BankAccount.Description, Mode=OneTime}" />
+                <Run Text="{Binding Movement.BankAccount.Balance, Mode=OneTime}" />
             </TextBlock>
 
             <!--CompleteBankAccount-->
-            <TextBlock Foreground="Black" Text="{Binding CompleteBankAccount, Mode=OneTime}" FontSize="30" HorizontalAlignment="Stretch" Margin="0,0,0,10" />
-
-            <!--Start-Map:ExpensePosition-->
-            
-            <!--End-Map:ExpensePosition-->
+            <TextBlock Foreground="Black" Text="{Binding Movement.BankAccount.CompleteBankAccount, Mode=OneTime}" FontSize="30" HorizontalAlignment="Stretch" Margin="0,0,0,10" />
             
         </StackPanel>
+
+        <!--Start-Map:ExpensePosition-->
+        <maps:MapControl x:Name="mapAddress" Grid.Row="2" ZoomLevel="16" Center="{Binding Movement.Location}"  MapServiceToken="{StaticResource BingMapsKey}" LandmarksVisible="True" >
+            <Grid HorizontalAlignment="Left" maps:MapControl.Location="{Binding Movement.Location}" maps:MapControl.NormalizedAnchorPoint="0,1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Row="0">
+                    <TextBlock Text="{Binding Movement.Concept}" Foreground="White" HorizontalAlignment="Left" Margin="5,0,5,5" />
+                </Border>
+                <Polygon Points="0,0 12.5,0 0,20" Fill="{ThemeResource SystemControlBackgroundAccentBrush}" StrokeThickness="0" Grid.Row="1" />
+            </Grid>
+        </maps:MapControl>
+        <!--End-Map:ExpensePosition-->
 
     </Grid>
 

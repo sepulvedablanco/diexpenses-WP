@@ -6,8 +6,6 @@
 
     public sealed partial class MovementDetailsPage : MenuBottomViewBase
     {
-        private Movement movement;
-
         public MovementDetailsPage()
         {
             this.InitializeComponent();

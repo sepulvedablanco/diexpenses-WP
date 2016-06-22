@@ -30,7 +30,9 @@
             <converters:DateConverter x:Key="DateConverter" />
 
             <vmlocator:VMLocator x:Name="Locator"></vmlocator:VMLocator>
-            
+
+            <x:String x:Key="BingMapsKey">XXXXXXXXXXXXXXXXXXXXXXXX</x:String>
+
         </ResourceDictionary>
     </Application.Resources>
 
