@@ -91,7 +91,9 @@
         private void MovementSelectedExecute(Movement movement)
         {
             Debug.WriteLine("MovementSelectedExecute");
+            Debug.WriteLine("Movement selected: " + movement.ToString());
 
+            NavigationService.NavigateTo(new MovementDetailsPage(movement));
         }
 
         public ObservableCollection<Movement> Items
