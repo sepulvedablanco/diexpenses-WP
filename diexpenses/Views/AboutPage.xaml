@@ -46,15 +46,15 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
 
             <HyperlinkButton NavigateUri="https://www.linkedin.com/in/diegosepulvedablanco">
-                <Image Source="/Images/Icons/LinkedIn.png" Width="48"/>
+                <Image Source="/Images/Icons/Media/LinkedIn.png" Width="48"/>
             </HyperlinkButton>
 
             <HyperlinkButton NavigateUri="https://github.com/sepulvedablanco">
-                <Image Source="/Images/Icons/GitHub.png" Width="48" />
+                <Image Source="/Images/Icons/Media/GitHub.png" Width="48" />
             </HyperlinkButton>
 
             <HyperlinkButton NavigateUri="mailto:d.sepulvedabl@gmail.com">
-                <Image Source="/Images/Icons/Gmail.png" Width="48"/>
+                <Image Source="/Images/Icons/Media/Gmail.png" Width="48"/>
             </HyperlinkButton>
 
         </StackPanel>

@@ -15,12 +15,38 @@
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Compact">
             <CommandBar.PrimaryCommands>
-                <AppBarButton Label="Home" Icon="Home" Command="{Binding HomeCommand}" />
-                <AppBarButton Label="Movements" Icon="Add" Command="{Binding MovementsCommand}" />
-                <AppBarButton Label="Kinds" Icon="AddFriend" Command="{Binding KindsCommand}" />
-                <AppBarButton Label="Bank Accounts" Icon="Send" Command="{Binding BankAccountsCommand}" />
-                <AppBarButton Label="About" Icon="Help" Command="{Binding AboutCommand}" />
-                <AppBarButton Label="Logout" Icon="Cancel" Command="{Binding LogoutCommand}" />
+                
+                <AppBarButton Label="Home" Command="{Binding HomeCommand}" >
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Images/Icons/Menus/home.png"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Movements" Command="{Binding MovementsCommand}" >
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Images/Icons/Menus/movements.png"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Kinds" Command="{Binding KindsCommand}" >
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Images/Icons/Menus/kinds.png"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Bank Accounts" Command="{Binding BankAccountsCommand}" >
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Images/Icons/Menus/bank_accounts.png"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="About" Command="{Binding AboutCommand}" >
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Images/Icons/Menus/about.png"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Logout" Command="{Binding LogoutCommand}" >
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Images/Icons/Menus/shutdown.png"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+
             </CommandBar.PrimaryCommands>
         </CommandBar></Page.BottomAppBar>
     
