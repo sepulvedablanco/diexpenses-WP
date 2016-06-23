@@ -4,6 +4,8 @@
     using diexpenses.Services;
     using diexpenses.Services.Database;
     using diexpenses.ViewModels.Base;
+    using OxyPlot;
+    using OxyPlot.Series;
     using System;
     using Windows.UI.Xaml.Navigation;
 
@@ -14,6 +16,8 @@
         private double monthIncomes;
         private double monthExpenses;
         private string balance;
+
+        private PlotModel chartModel = new PlotModel();
 
         private IDbService dbService;
 
@@ -26,6 +30,7 @@
             totalAmount = dbService.SelectTotalAmount();
             monthIncomes = dbService.SelectMonthlAmount(false, today.Year, today.Month);
             monthExpenses = dbService.SelectMonthlAmount(true, today.Year, today.Month);
+            SetChart();
             DoBalance();
         }
 
@@ -34,6 +39,16 @@
             base.NavigateTo(e);
 
             this.NavigationService.AppFrame = base.AppFrame;
+        }
+
+        private void SetChart()
+        {            
+            dynamic series = new PieSeries { StrokeThickness = 2.0, InsideLabelPosition = 0.8, AngleSpan = 360, StartAngle = 0 };
+
+            series.Slices.Add(new PieSlice("Expenses", MonthExpenses) { IsExploded = false, Fill = OxyColors.PaleVioletRed });
+            series.Slices.Add(new PieSlice("Incomes", MonthIncomes) { IsExploded = true, Fill = OxyColors.SpringGreen });
+
+            ChartModel.Series.Add(series);
         }
 
         private void DoBalance()
@@ -96,6 +111,16 @@
             set
             {
                 this.balance = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public PlotModel ChartModel
+        {
+            get { return this.chartModel; }
+            set
+            {
+                this.chartModel = value;
                 RaisePropertyChanged();
             }
         }

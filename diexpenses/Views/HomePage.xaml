@@ -5,6 +5,7 @@
     DataContext="{Binding HomePageVM, Source={StaticResource Locator}}"
     xmlns:local="using:diexpenses.Views"
     xmlns:base="using:diexpenses.Views.Base"
+    xmlns:oxy="using:OxyPlot.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -20,35 +21,35 @@
         <!--Title-->
         <TextBlock Text="Global Position" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
 
-        <StackPanel Grid.Row="1" Margin="20,0">
+        <StackPanel Grid.Row="1" Margin="20,0" >
 
             <!--Greetings-->
-            <TextBlock Foreground="Black" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,10" >
+            <TextBlock Foreground="Black" FontSize="25" HorizontalAlignment="Center" Margin="0,0,0,10" >
                 <Run>Hello </Run>
                 <Run Text="{Binding Name, Mode=OneTime}"/>
                 <Run>!</Run>
             </TextBlock>
 
             <!--Total amount-->
-            <TextBlock Foreground="{Binding TotalAmount, Converter={StaticResource BalanceToColorConverter}}" FontSize="25">
+            <TextBlock Foreground="{Binding TotalAmount, Converter={StaticResource BalanceToColorConverter}}" FontSize="22">
                 <Run>Total amount: </Run>
                 <Run Text="{Binding TotalAmount, Converter={StaticResource AmountConverter}, Mode=OneTime}"/>
             </TextBlock>
 
             <!--Month incomes-->
-            <TextBlock Foreground="Green" FontSize="25">
+            <TextBlock Foreground="Green" FontSize="22">
                 <Run>Month incomes: </Run>
                 <Run Text="{Binding MonthIncomes, Converter={StaticResource AmountConverter}, Mode=OneTime}"/>
             </TextBlock>
 
             <!--Month expenses-->
-            <TextBlock Foreground="Red" FontSize="25">
+            <TextBlock Foreground="Red" FontSize="22">
                 <Run>Month expenses: </Run>
                 <Run Text="{Binding MonthExpenses, Converter={StaticResource AmountConverter}, Mode=OneTime}"/>
             </TextBlock>
 
             <!--Chart-->
-            
+            <oxy:PlotView Model="{Binding ChartModel, Mode=TwoWay}" Width="250" Height="250" />
             
             <!--Balance-->
             <TextBlock Name="Balance" Foreground="Black" FontSize="18" Text="{Binding Balance, Mode=OneTime}" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" />
