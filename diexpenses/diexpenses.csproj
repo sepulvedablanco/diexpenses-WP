@@ -103,7 +103,7 @@
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\BalanceToColorConverter.cs" />
     <Compile Include="Converters\AmountConverter.cs" />
-    <Compile Include="Converters\BooleanToToggleButtonContentConverter.cs" />
+    <Compile Include="Converters\BooleanToExpenseIncomeConverter.cs" />
     <Compile Include="Converters\MovementToColorConverter.cs" />
     <Compile Include="Converters\IsExpenseToImageConverter.cs" />
     <Compile Include="Converters\EntityToImageConverter.cs" />

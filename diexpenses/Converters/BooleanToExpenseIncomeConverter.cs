@@ -3,7 +3,7 @@
     using System;
     using Windows.UI.Xaml.Data;
 
-    public class BooleanToToggleButtonContentConverter : IValueConverter
+    public class BooleanToExpenseIncomeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

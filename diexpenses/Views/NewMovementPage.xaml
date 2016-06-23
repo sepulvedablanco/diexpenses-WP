@@ -26,7 +26,7 @@
             <StackPanel Grid.Row="0" Margin="20,10,20,0" >
 
                 <!--Expense/Incomes-->
-                <ToggleButton Content="{Binding Path=Movement.Expense, Mode=TwoWay, Converter={StaticResource BooleanToToggleButtonContentConverter}}" IsChecked="{Binding Movement.Expense, Mode=TwoWay}" FontSize="20" IsThreeState="False" HorizontalAlignment="Center" Width="320" Height="40" />
+                <ToggleButton Content="{Binding Path=Movement.Expense, Mode=TwoWay, Converter={StaticResource BooleanToExpenseIncomeConverter}}" IsChecked="{Binding Movement.Expense, Mode=TwoWay}" FontSize="20" IsThreeState="False" HorizontalAlignment="Center" Width="320" Height="40" />
 
                 <!--Concept-->
                 <TextBlock Text="Concept" Foreground="Black" FontSize="30"/>

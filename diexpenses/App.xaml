@@ -24,7 +24,7 @@
             <converters:AmountConverter x:Key="AmountConverter" />
             <converters:BalanceToColorConverter x:Key="BalanceToColorConverter" />
             <converters:DateTimeConverter x:Key="DateTimeConverter" />
-            <converters:BooleanToToggleButtonContentConverter x:Key="BooleanToToggleButtonContentConverter" />
+            <converters:BooleanToExpenseIncomeConverter x:Key="BooleanToExpenseIncomeConverter" />
             <converters:IsExpenseToImageConverter x:Key="IsExpenseToImageConverter" />
             <converters:MovementToColorConverter x:Key="MovementToColorConverter" />
             <converters:DateConverter x:Key="DateConverter" />

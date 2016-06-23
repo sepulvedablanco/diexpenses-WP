@@ -15,7 +15,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -25,26 +25,22 @@
         <StackPanel Grid.Row="1" Margin="20,15,20,0" >
 
             <!--Expense/Concept/Amount-->
-            <TextBlock Foreground="Black" FontSize="30" HorizontalAlignment="Stretch" Margin="0,0,0,10" >
-                <Run Text="{Binding Movement.Expense, Mode=OneTime}" />
+            <TextBlock FontSize="20" Foreground="{Binding Path=Movement.Expense, Mode=OneTime, Converter={StaticResource MovementToColorConverter}}" FontWeight="Bold" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis" Margin="0,0,0,10" >
+                <Run Text="{Binding Path=Movement.Expense, Mode=OneTime, Converter={StaticResource BooleanToExpenseIncomeConverter}}" />
+                <Run Text=":" />
                 <Run Text="{Binding Movement.Concept, Mode=OneTime}" />
-                <Run Text="{Binding Movement.Amount, Mode=OneTime}" />
+                <Run Text="{Binding Movement.Amount, Mode=OneTime, Converter={StaticResource AmountConverter}}" />
             </TextBlock>
 
             <!--Kind/Subkind-->
-            <TextBlock Foreground="Black" FontSize="30" HorizontalAlignment="Stretch" Margin="0,0,0,10" >
+            <TextBlock FontSize="20" Foreground="{Binding Path=Movement.Expense, Mode=OneTime, Converter={StaticResource MovementToColorConverter}}" FontWeight="Bold" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis" Margin="0,0,0,10" >
                 <Run Text="{Binding Movement.Kind.Description, Mode=OneTime}" />
+                <Run Text="-" />
                 <Run Text="{Binding Movement.Subkind.Description, Mode=OneTime}" />
             </TextBlock>
 
-            <!--BankAccount/Amount-->
-            <TextBlock Foreground="Black" FontSize="30" HorizontalAlignment="Stretch" Margin="0,0,0,10" >
-                <Run Text="{Binding Movement.BankAccount.Description, Mode=OneTime}" />
-                <Run Text="{Binding Movement.BankAccount.Balance, Mode=OneTime}" />
-            </TextBlock>
-
-            <!--CompleteBankAccount-->
-            <TextBlock Foreground="Black" Text="{Binding Movement.BankAccount.CompleteBankAccount, Mode=OneTime}" FontSize="30" HorizontalAlignment="Stretch" Margin="0,0,0,10" />
+            <!--BankAccount-->
+            <ContentControl ContentTemplate="{StaticResource BankAccountsListTemplate}" Content="{Binding Path=Movement.BankAccount}" />
             
         </StackPanel>
 

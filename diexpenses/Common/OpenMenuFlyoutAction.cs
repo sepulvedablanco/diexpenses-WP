@@ -11,10 +11,6 @@
 
         public object Execute(object sender, object parameter)
         {
-            FrameworkElement senderElement = sender as FrameworkElement;
-            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
-            flyoutBase.ShowAt(senderElement);
-
             var eventArgs = parameter as HoldingRoutedEventArgs;
             if (eventArgs == null)
             {
@@ -22,8 +18,17 @@
             }
 
             var element = eventArgs.OriginalSource as FrameworkElement;
-            if (element != null)
+            if (element == null)
             {
+                return null;
+            }
+
+            if (!element.BaseUri.LocalPath.Contains("MovementDetailsPage.xaml")) // Don't display de flyout if holding comes from movement details page
+            {
+                FrameworkElement senderElement = sender as FrameworkElement;
+                FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+                flyoutBase.ShowAt(senderElement);
+
                 HoldedObject = element.DataContext;
             }
 
