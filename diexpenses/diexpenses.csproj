@@ -136,6 +136,8 @@
     <Compile Include="Services\GpsService\IGpsService.cs" />
     <Compile Include="Services\NetworkService\INetworkService.cs" />
     <Compile Include="Services\NetworkService\NetworkService.cs" />
+    <Compile Include="Services\StorageService\IStorageService.cs" />
+    <Compile Include="Services\StorageService\StorageService.cs" />
     <Compile Include="ViewModels\SubkindsListPageViewModel.cs" />
     <Compile Include="ViewModels\MovementsListPageViewModel.cs" />
     <Compile Include="ViewModels\Base\DelegateCommandWithParameter.cs" />

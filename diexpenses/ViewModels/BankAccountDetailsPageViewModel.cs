@@ -4,6 +4,7 @@
     using diexpenses.Services;
     using diexpenses.ViewModels.Base;
     using Services.Database;
+    using Services.StorageService;
     using System.Diagnostics;
     using System.Windows.Input;
     using Windows.UI.Xaml.Navigation;
@@ -16,7 +17,7 @@
 
         private IDialogService dialogService;
 
-        public BankAccountDetailsPageViewModel(IDbService dbService, IDialogService dialogService, INavigationService navigationService) : base(navigationService, dbService)
+        public BankAccountDetailsPageViewModel(IDbService dbService, IDialogService dialogService, INavigationService navigationService, IStorageService storageService) : base(navigationService, dbService, storageService)
         {
             this.dialogService = dialogService;
 

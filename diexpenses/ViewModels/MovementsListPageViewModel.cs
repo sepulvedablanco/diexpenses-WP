@@ -5,6 +5,7 @@
     using diexpenses.Services;
     using diexpenses.ViewModels.Base;
     using Services.Database;
+    using Services.StorageService;
     using System;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
@@ -22,7 +23,7 @@
 
         private IDialogService dialogService;
 
-        public MovementsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService, dbService)
+        public MovementsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService, IStorageService storageService) : base(navigationService, dbService, storageService)
         {
             this.dialogService = dialogService;
 

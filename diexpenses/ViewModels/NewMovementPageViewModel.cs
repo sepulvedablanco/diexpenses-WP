@@ -5,6 +5,7 @@
     using Entities;
     using Services.Database;
     using Services.GpsService;
+    using Services.StorageService;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Threading.Tasks;
@@ -25,7 +26,7 @@
 
         private IGpsService gpsService;
 
-        public NewMovementPageViewModel(IDbService dbService, IGpsService gpsService, INavigationService navigationService) : base(navigationService, dbService)
+        public NewMovementPageViewModel(IDbService dbService, IGpsService gpsService, INavigationService navigationService, IStorageService storageService) : base(navigationService, dbService, storageService)
         {
             this.gpsService = gpsService;
 

@@ -6,6 +6,7 @@
     using Services.DiexpensesAPI;
     using Services.NetworkService;
     using Services.GpsService;
+    using Services.StorageService;
 
     public class VMLocator
     {
@@ -21,6 +22,7 @@
             builder.RegisterType<NetworkService>().As<INetworkService>().SingleInstance();
             builder.RegisterType<ApiService>().As<IApiService>();
             builder.RegisterType<GpsService>().As<IGpsService>();
+            builder.RegisterType<StorageService>().As<IStorageService>();
 
             builder.RegisterType<MainPageViewModel>();
             builder.RegisterType<LoginPageViewModel>();

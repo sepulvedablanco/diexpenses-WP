@@ -17,6 +17,8 @@
     using System.IO;
     using NotificationsExtensions;
     using System.Globalization;
+    using Services.StorageService;
+    using Windows.Storage;
 
     public class MenuBottomViewModelBase : ViewModelBase
     {
@@ -32,11 +34,13 @@
 
         private INavigationService navigationService;
         private IDbService dbService;
+        private IStorageService storageService;
 
-        public MenuBottomViewModelBase(INavigationService navigationService, IDbService dbService)
+        public MenuBottomViewModelBase(INavigationService navigationService, IDbService dbService, IStorageService storageService)
         {
             this.navigationService = navigationService;
             this.dbService = dbService;
+            this.storageService = storageService;
 
             string tileId = Utils.GetTileId();
             isPinned = tileId != null && SecondaryTile.Exists(tileId);
@@ -58,6 +62,11 @@
         public IDbService DbService
         {
             get { return dbService; }
+        }
+
+        public IStorageService StorageService
+        {
+            get { return storageService; }
         }
 
         public bool IsPinned
@@ -176,25 +185,27 @@
             var today = DateTime.Today;
             var monthIncomes = dbService.SelectMonthlAmount(false, today.Year, today.Month);
             var monthExpenses = dbService.SelectMonthlAmount(true, today.Year, today.Month);
+            var totalAmount = dbService.SelectTotalAmount();
             var monthIncomesFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, monthIncomes) + "€";
             var monthExpensesFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, monthExpenses) + "€";
+            var totalAmountFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, totalAmount) + "€";
 
             PlotModel plotModel = new PlotModel();
             dynamic series = new PieSeries { StrokeThickness = 2.0, InsideLabelPosition = 0.8, AngleSpan = 360, StartAngle = 0 };
             series.Slices.Add(new PieSlice("Expenses", monthIncomes) { IsExploded = false, Fill = OxyColors.PaleVioletRed });
             series.Slices.Add(new PieSlice("Incomes", monthExpenses) { IsExploded = true, Fill = OxyColors.SpringGreen });
             plotModel.Series.Add(series);
-            /*using (var stream = File.Create("tile.svg"))
-            {
-                SvgExporter exp = new SvgExporter { Width = 300, Height = 300, IsDocument = false };
-                exp.Export(plotModel, stream);
-            }
+
+            MemoryStream stream = new MemoryStream();
+            SvgExporter exporter = new SvgExporter { Height = 300, Width = 300, IsDocument = false };
+            exporter.Export(plotModel, stream);
+            StorageFile file = await storageService.CreateFile("tiles", "tileImage.svg", stream);
+
             /*
-            PngEncoder pngEncoder = new PngEncoder(new PngEncoderOptions { DpiX = 300, DpiY = 300 });
-            pngEncoder.Encode(plotModel);
-            var pngExporter = new Svg PngExporter { Width = 600, Height = 400, Background = OxyColors.White };
+            var pngExporter = new PngExporter { Width = 600, Height = 400, Background = OxyColors.White };
             pngExporter.Export(plotModel, stream);
             */
+
             string tileId = Guid.NewGuid().ToString();
             SecondaryTile tile = new SecondaryTile(tileId.ToString(), "diexpenses", "tileArgs", new Uri("ms-appx:///Assets/Wide310x150Logo.png"), TileSize.Wide310x150);
             tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
@@ -230,14 +241,14 @@
                                         HintStyle = AdaptiveTextStyle.Body,
                                         HintAlign = AdaptiveTextAlign.Left
                                     }
+
                                 },
                                 PeekImage = new TilePeekImage
                                 {
                                     AlternateText = "ou yeah",
-                                    //Source = "Images/BankEntities/0049.png",
-                                    Source = "tile.svg",
+                                    Source = "ms-appdata:///local/tiles/tileImage.svg",
                                     HintOverlay = 5,
-                                    HintCrop = TilePeekImageCrop.Circle
+                                    HintCrop = TilePeekImageCrop.None
                                 }
                             }
                         },
@@ -245,20 +256,79 @@
                         {
                             Content = new TileBindingContentAdaptive()
                             {
-                                BackgroundImage = new TileBackgroundImage()
+                                Children = {
+                                    new AdaptiveText()
+                                    {
+                                        Text = "diexpenses",
+                                        HintStyle = AdaptiveTextStyle.Title,
+                                        HintAlign = AdaptiveTextAlign.Center
+                                    },
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Expenses: " + monthExpensesFormatted,
+                                        HintStyle = AdaptiveTextStyle.Body,
+                                        HintAlign = AdaptiveTextAlign.Left
+                                    },
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Incomes: " + monthIncomesFormatted,
+                                        HintStyle = AdaptiveTextStyle.Body,
+                                        HintAlign = AdaptiveTextAlign.Left
+                                    },
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Total amount: " + totalAmountFormatted,
+                                        HintStyle = AdaptiveTextStyle.Body,
+                                        HintAlign = AdaptiveTextAlign.Left
+                                    }
+                                },
+                                PeekImage = new TilePeekImage
                                 {
-                                    Source = "https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png"
+                                    AlternateText = "ou yeah",
+                                    //Source = "ms-appdata:///local/tiles/tileImage.svg",
+                                    Source = "ms-appdata:///local/tiles/home.png",
+                                    HintOverlay = 5,
+                                    HintCrop = TilePeekImageCrop.Circle
+                                    //HintCrop = TilePeekImageCrop.None
                                 }
                             }
                         },
                         TileLarge = new TileBinding()
                         {
-                            Content = new TileBindingContentPhotos()
+                            Content = new TileBindingContentAdaptive()
                             {
-                                Images = {
-                                    new TileImageSource("https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png"),
-                                    new TileImageSource("http://was.www.praqma.com/sites/default/files/img/cool-jenkins2x3.png"),
-                                    new TileImageSource("http://qvacua.com/media/jenkins-menu-icon.png")
+                                Children = {
+                                    new AdaptiveText()
+                                    {
+                                        Text = "diexpenses",
+                                        HintStyle = AdaptiveTextStyle.Title,
+                                        HintAlign = AdaptiveTextAlign.Center
+                                    },
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Expenses: " + monthExpensesFormatted,
+                                        HintStyle = AdaptiveTextStyle.Body,
+                                        HintAlign = AdaptiveTextAlign.Left
+                                    },
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Incomes: " + monthIncomesFormatted,
+                                        HintStyle = AdaptiveTextStyle.Body,
+                                        HintAlign = AdaptiveTextAlign.Left
+                                    },
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Total amount: " + totalAmountFormatted,
+                                        HintStyle = AdaptiveTextStyle.Body,
+                                        HintAlign = AdaptiveTextAlign.Left
+                                    }
+                                },
+                                PeekImage = new TilePeekImage
+                                {
+                                    AlternateText = "ou yeah",
+                                    Source = "ms-appdata:///local/tiles/tileImage.svg",
+                                    HintOverlay = 5,
+                                    HintCrop = TilePeekImageCrop.None
                                 }
                             }
                         }

@@ -5,6 +5,7 @@
     using diexpenses.Services;
     using diexpenses.ViewModels.Base;
     using Services.Database;
+    using Services.StorageService;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Windows.Input;
@@ -21,7 +22,7 @@
 
         private IDialogService dialogService;
 
-        public KindsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService, dbService)
+        public KindsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService, IStorageService storageService) : base(navigationService, dbService, storageService)
         {
             this.dialogService = dialogService;
 

@@ -6,6 +6,7 @@
     using diexpenses.ViewModels.Base;
     using OxyPlot;
     using OxyPlot.Series;
+    using Services.StorageService;
     using System;
     using Windows.UI.Xaml.Navigation;
 
@@ -19,7 +20,7 @@
 
         private PlotModel chartModel = new PlotModel();
 
-        public HomePageViewModel(IDbService dbService, INavigationService navigationService) : base(navigationService, dbService)
+        public HomePageViewModel(IDbService dbService, INavigationService navigationService, IStorageService storageService) : base(navigationService, dbService, storageService)
         {
             var today = DateTime.Today;
             name = Utils.GetLoggedUserName();
