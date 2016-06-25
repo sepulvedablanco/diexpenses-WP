@@ -36,7 +36,7 @@
             this.apiService = apiService;
 
             createAccountCommand = new DelegateCommand(CreateAccountExecute, CreateAccountCanExecute);
-            loginCommand = new DelegateCommand(NavigateToLoginExecute, null);
+            loginCommand = new DelegateCommand(NavigateToLoginExecute);
         }
         
         public ICommand CreateAccountCommand

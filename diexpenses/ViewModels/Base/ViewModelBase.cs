@@ -14,7 +14,7 @@
 
         public ViewModelBase()
         {
-            this.backButtonCommand = new DelegateCommand(BackButtonExecute, null);
+            this.backButtonCommand = new DelegateCommand(BackButtonExecute);
 
             IsBackButtonHardwarePressent();
         }

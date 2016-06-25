@@ -27,9 +27,9 @@
             this.dbService = dbService;
             this.dialogService = dialogService;
 
-            newBankAccountCommand = new DelegateCommand(NewBankAccountExecute, null);
-            editBankAccountCommand = new DelegateCommand(EditBankAccountExecute, null);
-            deleteBankAccountCommand = new DelegateCommand(DeleteBankAccountExecute, null);
+            newBankAccountCommand = new DelegateCommand(NewBankAccountExecute);
+            editBankAccountCommand = new DelegateCommand(EditBankAccountExecute);
+            deleteBankAccountCommand = new DelegateCommand(DeleteBankAccountExecute);
 
             LoadBankAccounts();
         }

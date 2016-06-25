@@ -28,9 +28,9 @@
             this.dbService = dbService;
             this.dialogService = dialogService;
 
-            newMovementCommand = new DelegateCommand(NewMovementExecute, null);
-            deleteMovementCommand = new DelegateCommand(DeleteMovementExecute, null);
-            movementSelectedCommand = new Base.DelegateCommandWithParameter<Movement>(MovementSelectedExecute, null);
+            newMovementCommand = new DelegateCommand(NewMovementExecute);
+            deleteMovementCommand = new DelegateCommand(DeleteMovementExecute);
+            movementSelectedCommand = new Base.DelegateCommandWithParameter<Movement>(MovementSelectedExecute);
 
             LoadMovements();
         }

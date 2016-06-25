@@ -33,7 +33,7 @@
             this.apiService = apiService;
 
             loginCommand = new DelegateCommand(LoginExecute, LoginCanExecute);
-            signupCommand = new DelegateCommand(NavigateToSingupExecute, null);
+            signupCommand = new DelegateCommand(NavigateToSingupExecute);
         }
         
         public ICommand LoginCommand

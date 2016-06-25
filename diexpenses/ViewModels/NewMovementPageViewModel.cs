@@ -32,7 +32,7 @@
             this.gpsService = gpsService;
 
             saveCommand = new DelegateCommand(SaveExecute, SaveCanExecute);
-            kindChangedCommand = new DelegateCommand(KindChangedExecute, null);
+            kindChangedCommand = new DelegateCommand(KindChangedExecute);
 
             LoadKinds();
             LoadBankAccounts();

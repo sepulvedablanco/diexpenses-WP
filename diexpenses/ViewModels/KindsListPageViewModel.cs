@@ -27,10 +27,10 @@
             this.dbService = dbService;
             this.dialogService = dialogService;
 
-            newKindCommand = new DelegateCommand(NewKindExecute, null);
-            editKindCommand = new DelegateCommand(EditKindExecute, null);
-            deleteKindCommand = new DelegateCommand(DeleteKindExecute, null);
-            kindSelectedCommand = new Base.DelegateCommandWithParameter<Kind>(KindSelectedExecute, null);
+            newKindCommand = new DelegateCommand(NewKindExecute);
+            editKindCommand = new DelegateCommand(EditKindExecute);
+            deleteKindCommand = new DelegateCommand(DeleteKindExecute);
+            kindSelectedCommand = new Base.DelegateCommandWithParameter<Kind>(KindSelectedExecute);
 
             LoadKinds();
         }

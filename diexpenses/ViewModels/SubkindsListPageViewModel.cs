@@ -27,9 +27,9 @@
             this.dbService = dbService;
             this.dialogService = dialogService;
 
-            newSubkindCommand = new DelegateCommand(NewSubkindExecute, null);
-            editSubkindCommand = new DelegateCommand(EditSubkindExecute, null);
-            deleteSubkindCommand = new DelegateCommand(DeleteSubkindExecute, null);
+            newSubkindCommand = new DelegateCommand(NewSubkindExecute);
+            editSubkindCommand = new DelegateCommand(EditSubkindExecute);
+            deleteSubkindCommand = new DelegateCommand(DeleteSubkindExecute);
 
             LoadSubkinds();
         }
