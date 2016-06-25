@@ -19,12 +19,10 @@
         private static DelegateCommand deleteKindCommand;
         private static Base.DelegateCommandWithParameter<Kind> kindSelectedCommand;
 
-        private IDbService dbService;
         private IDialogService dialogService;
 
-        public KindsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService)
+        public KindsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService, dbService)
         {
-            this.dbService = dbService;
             this.dialogService = dialogService;
 
             newKindCommand = new DelegateCommand(NewKindExecute);
@@ -37,7 +35,7 @@
 
         private void LoadKinds()
         {
-            var kindsList = this.dbService.SelectKinds();
+            var kindsList = this.DbService.SelectKinds();
             Debug.WriteLine("Number of kinds retrieved: " + kindsList.Count);
             Items = new ObservableCollection<Kind>(kindsList);
         }
@@ -70,7 +68,7 @@
             if(!string.IsNullOrEmpty(result))
             {
                 Kind kind = new Kind(result);
-                dbService.Upsert<Kind>(kind);
+                DbService.Upsert<Kind>(kind);
                 LoadKinds();
             }
         }
@@ -92,7 +90,7 @@
             if (!string.IsNullOrEmpty(result))
             {
                 kind.Description = result;
-                dbService.Upsert<Kind>(kind);
+                DbService.Upsert<Kind>(kind);
                 LoadKinds();
             }
         }
@@ -113,7 +111,7 @@
             Debug.WriteLine("Delete kind: " + result);
             if (result)
             {
-                if (dbService.Delete<Kind>(kind))
+                if (DbService.Delete<Kind>(kind))
                 {
                     LoadKinds();
                 }

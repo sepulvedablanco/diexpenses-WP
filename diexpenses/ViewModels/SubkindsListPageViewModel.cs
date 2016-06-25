@@ -19,12 +19,10 @@
         private static DelegateCommand editSubkindCommand;
         private static DelegateCommand deleteSubkindCommand;
 
-        private IDbService dbService;
         private IDialogService dialogService;
 
-        public SubkindsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService)
+        public SubkindsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService, dbService)
         {
-            this.dbService = dbService;
             this.dialogService = dialogService;
 
             newSubkindCommand = new DelegateCommand(NewSubkindExecute);
@@ -41,7 +39,7 @@
                 Debug.WriteLine("Invalid kind. Subkind search won't be executed.");
                 return;
             }
-            var subkindsList = this.dbService.SelectSubkinds(Kind.Id.GetValueOrDefault());
+            var subkindsList = this.DbService.SelectSubkinds(Kind.Id.GetValueOrDefault());
             Debug.WriteLine("Number of subkinds retrieved: " + subkindsList.Count);
             Items = new ObservableCollection<Subkind>(subkindsList);
         }
@@ -69,7 +67,7 @@
             if(!string.IsNullOrEmpty(result))
             {
                 Subkind subkind = new Subkind(kind.Id.GetValueOrDefault(), result);
-                dbService.Upsert<Subkind>(subkind);
+                DbService.Upsert<Subkind>(subkind);
                 LoadSubkinds();
             }
         }
@@ -91,7 +89,7 @@
             if (!string.IsNullOrEmpty(result))
             {
                 subkind.Description = result;
-                dbService.Upsert<Subkind>(subkind);
+                DbService.Upsert<Subkind>(subkind);
                 LoadSubkinds();
             }
         }
@@ -112,7 +110,7 @@
             Debug.WriteLine("Delete subkind: " + result);
             if (result)
             {
-                if (dbService.Delete<Subkind>(subkind))
+                if (DbService.Delete<Subkind>(subkind))
                 {
                     LoadSubkinds();
                 }

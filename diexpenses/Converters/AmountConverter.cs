@@ -1,5 +1,6 @@
 ﻿namespace diexpenses.Converters
 {
+    using Common;
     using System;
     using System.Globalization;
     using Windows.UI.Xaml.Data;
@@ -13,7 +14,7 @@
                 return "0€";
             }
 
-            return String.Format(CultureInfo.InvariantCulture, "{0:#,0.##}", value) + "€";
+            return String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, value) + "€";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

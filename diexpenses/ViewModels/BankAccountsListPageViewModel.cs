@@ -19,12 +19,10 @@
         private static DelegateCommand editBankAccountCommand;
         private static DelegateCommand deleteBankAccountCommand;
 
-        private IDbService dbService;
         private IDialogService dialogService;
 
-        public BankAccountsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService)
+        public BankAccountsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService, dbService)
         {
-            this.dbService = dbService;
             this.dialogService = dialogService;
 
             newBankAccountCommand = new DelegateCommand(NewBankAccountExecute);
@@ -36,7 +34,7 @@
 
         private void LoadBankAccounts()
         {
-            var bankAccountsList = this.dbService.SelectBankAccounts();
+            var bankAccountsList = this.DbService.SelectBankAccounts();
             Debug.WriteLine("Number of bank accounts retrieved: " + bankAccountsList.Count);
             Items = new ObservableCollection<BankAccount>(bankAccountsList);
         }
@@ -94,7 +92,7 @@
             Debug.WriteLine("Delete bank account: " + result);
             if (result)
             {
-                if (dbService.Delete<BankAccount>(bankAccount))
+                if (DbService.Delete<BankAccount>(bankAccount))
                 {
                     LoadBankAccounts();
                 }

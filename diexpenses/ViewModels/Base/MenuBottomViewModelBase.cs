@@ -11,6 +11,12 @@
     using Windows.UI.Notifications;
     using NotificationsExtensions.Tiles;
     using System.Collections.Generic;
+    using OxyPlot.Series;
+    using Services.Database;
+    using OxyPlot;
+    using System.IO;
+    using NotificationsExtensions;
+    using System.Globalization;
 
     public class MenuBottomViewModelBase : ViewModelBase
     {
@@ -25,10 +31,12 @@
         private static DelegateCommand logoutCommand;
 
         private INavigationService navigationService;
+        private IDbService dbService;
 
-        public MenuBottomViewModelBase(INavigationService navigationService)
+        public MenuBottomViewModelBase(INavigationService navigationService, IDbService dbService)
         {
             this.navigationService = navigationService;
+            this.dbService = dbService;
 
             string tileId = Utils.GetTileId();
             isPinned = tileId != null && SecondaryTile.Exists(tileId);
@@ -45,6 +53,11 @@
         public INavigationService NavigationService
         {
             get { return navigationService; }
+        }
+
+        public IDbService DbService
+        {
+            get { return dbService; }
         }
 
         public bool IsPinned
@@ -160,6 +173,28 @@
 
         private async void PinToStart()
         {
+            var today = DateTime.Today;
+            var monthIncomes = dbService.SelectMonthlAmount(false, today.Year, today.Month);
+            var monthExpenses = dbService.SelectMonthlAmount(true, today.Year, today.Month);
+            var monthIncomesFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, monthIncomes) + "€";
+            var monthExpensesFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, monthExpenses) + "€";
+
+            PlotModel plotModel = new PlotModel();
+            dynamic series = new PieSeries { StrokeThickness = 2.0, InsideLabelPosition = 0.8, AngleSpan = 360, StartAngle = 0 };
+            series.Slices.Add(new PieSlice("Expenses", monthIncomes) { IsExploded = false, Fill = OxyColors.PaleVioletRed });
+            series.Slices.Add(new PieSlice("Incomes", monthExpenses) { IsExploded = true, Fill = OxyColors.SpringGreen });
+            plotModel.Series.Add(series);
+            /*using (var stream = File.Create("tile.svg"))
+            {
+                SvgExporter exp = new SvgExporter { Width = 300, Height = 300, IsDocument = false };
+                exp.Export(plotModel, stream);
+            }
+            /*
+            PngEncoder pngEncoder = new PngEncoder(new PngEncoderOptions { DpiX = 300, DpiY = 300 });
+            pngEncoder.Encode(plotModel);
+            var pngExporter = new Svg PngExporter { Width = 600, Height = 400, Background = OxyColors.White };
+            pngExporter.Export(plotModel, stream);
+            */
             string tileId = Guid.NewGuid().ToString();
             SecondaryTile tile = new SecondaryTile(tileId.ToString(), "diexpenses", "tileArgs", new Uri("ms-appx:///Assets/Wide310x150Logo.png"), TileSize.Wide310x150);
             tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
@@ -171,24 +206,38 @@
                 {
                     Visual = new TileVisual()
                     {
-                        TileSmall = new TileBinding()
+                        // TileSmall => only diexpenses icon...
+                        TileMedium = new TileBinding()
                         {
                             Content = new TileBindingContentAdaptive()
                             {
-                                BackgroundImage = new TileBackgroundImage()
+                                Children = {
+                                    new AdaptiveText()
+                                    {
+                                        Text = "diexpenses",
+                                        HintStyle = AdaptiveTextStyle.Title,
+                                        HintAlign = AdaptiveTextAlign.Center
+                                    },
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Expenses: " + monthExpensesFormatted,
+                                        HintStyle = AdaptiveTextStyle.Body,
+                                        HintAlign = AdaptiveTextAlign.Left
+                                    },
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Incomes: " + monthIncomesFormatted,
+                                        HintStyle = AdaptiveTextStyle.Body,
+                                        HintAlign = AdaptiveTextAlign.Left
+                                    }
+                                },
+                                PeekImage = new TilePeekImage
                                 {
-                                    Source = "https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png"
-                                }
-                            }
-                        },
-                        TileMedium = new TileBinding()
-                        {
-                            Content = new TileBindingContentPhotos()
-                            {
-                                Images = {
-                                    new TileImageSource("https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png"),
-                                    new TileImageSource("http://was.www.praqma.com/sites/default/files/img/cool-jenkins2x3.png"),
-                                    new TileImageSource("http://qvacua.com/media/jenkins-menu-icon.png")
+                                    AlternateText = "ou yeah",
+                                    //Source = "Images/BankEntities/0049.png",
+                                    Source = "tile.svg",
+                                    HintOverlay = 5,
+                                    HintCrop = TilePeekImageCrop.Circle
                                 }
                             }
                         },

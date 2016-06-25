@@ -14,12 +14,10 @@
 
         private static DelegateCommand actionCommand;
 
-        private IDbService dbService;
         private IDialogService dialogService;
 
-        public BankAccountDetailsPageViewModel(IDbService dbService, IDialogService dialogService, INavigationService navigationService) : base(navigationService)
+        public BankAccountDetailsPageViewModel(IDbService dbService, IDialogService dialogService, INavigationService navigationService) : base(navigationService, dbService)
         {
-            this.dbService = dbService;
             this.dialogService = dialogService;
 
             actionCommand = new DelegateCommand(ActionExecute, ActionCanExecute);
@@ -52,7 +50,7 @@
             Debug.WriteLine("ActionExecute");
 
             bankAccount.CompleteBankAccount = bankAccount.Iban + bankAccount.Entity + bankAccount.Office + bankAccount.ControlDigit + bankAccount.AccountNumber;
-            dbService.Upsert<BankAccount>(bankAccount);
+            DbService.Upsert<BankAccount>(bankAccount);
 
             NavigationService.GoBack();
         }

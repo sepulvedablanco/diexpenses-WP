@@ -19,12 +19,8 @@
 
         private PlotModel chartModel = new PlotModel();
 
-        private IDbService dbService;
-
-        public HomePageViewModel(IDbService dbService, INavigationService navigationService) : base(navigationService)
+        public HomePageViewModel(IDbService dbService, INavigationService navigationService) : base(navigationService, dbService)
         {
-            this.dbService = dbService;
-
             var today = DateTime.Today;
             name = Utils.GetLoggedUserName();
             totalAmount = dbService.SelectTotalAmount();

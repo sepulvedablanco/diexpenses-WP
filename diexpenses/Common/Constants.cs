@@ -9,5 +9,6 @@
         public readonly static string JSON_HEADER = "application/json";
         public readonly static string COMMON_IMAGES_DIRECTORY = "ms-appx:///Images/Common/";
         public readonly static string IMAGES_FORMAT = ".png";
+        public readonly static string AMOUNT_FORMAT = "{0:#,0.##}";
     }
 }

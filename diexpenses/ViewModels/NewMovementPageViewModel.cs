@@ -23,12 +23,10 @@
         private static DelegateCommand saveCommand;
         private static DelegateCommand kindChangedCommand;
 
-        private IDbService dbService;
         private IGpsService gpsService;
 
-        public NewMovementPageViewModel(IDbService dbService, IGpsService gpsService, INavigationService navigationService) : base(navigationService)
+        public NewMovementPageViewModel(IDbService dbService, IGpsService gpsService, INavigationService navigationService) : base(navigationService, dbService)
         {
-            this.dbService = dbService;
             this.gpsService = gpsService;
 
             saveCommand = new DelegateCommand(SaveExecute, SaveCanExecute);
@@ -55,7 +53,7 @@
 
         private void LoadKinds()
         {
-            var kindsList = this.dbService.SelectKinds();
+            var kindsList = this.DbService.SelectKinds();
             Debug.WriteLine("Number of kinds retrieved: " + kindsList.Count);
             Kinds = new ObservableCollection<Kind>(kindsList);
             if(Kinds.Count > 0)
@@ -72,7 +70,7 @@
                 Debug.WriteLine("Invalid kindId. Subkind search won't be executed.");
                 return;
             }
-            var subkindsList = this.dbService.SelectSubkinds(kindId);
+            var subkindsList = this.DbService.SelectSubkinds(kindId);
             Debug.WriteLine("Number of subkinds retrieved: " + subkindsList.Count);
             Subkinds = new ObservableCollection<Subkind>(subkindsList);
             if (Subkinds.Count > 0)
@@ -83,7 +81,7 @@
 
         private void LoadBankAccounts()
         {
-            var bankAccountsList = this.dbService.SelectBankAccounts();
+            var bankAccountsList = this.DbService.SelectBankAccounts();
             Debug.WriteLine("Number of bank accounts retrieved: " + bankAccountsList.Count);
             BankAccounts = new ObservableCollection<BankAccount>(bankAccountsList);
             if (bankAccountsList.Count > 0)
@@ -105,7 +103,7 @@
                 Debug.WriteLine("Current point: {" + Movement.Latitude + ", " + Movement.Longitude + "}");
             }
 
-            dbService.Upsert<Movement>(movement);
+            DbService.Upsert<Movement>(movement);
             NavigationService.GoBack();
         }
 

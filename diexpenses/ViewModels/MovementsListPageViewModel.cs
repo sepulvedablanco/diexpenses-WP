@@ -20,12 +20,10 @@
         private static DelegateCommand deleteMovementCommand;
         private static Base.DelegateCommandWithParameter<Movement> movementSelectedCommand;
 
-        private IDbService dbService;
         private IDialogService dialogService;
 
-        public MovementsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService)
+        public MovementsListPageViewModel(IDbService dbService, INavigationService navigationService, IDialogService dialogService) : base(navigationService, dbService)
         {
-            this.dbService = dbService;
             this.dialogService = dialogService;
 
             newMovementCommand = new DelegateCommand(NewMovementExecute);
@@ -39,7 +37,7 @@
         {
             DateTime today = DateTime.Today;
             Debug.WriteLine("Year=" + today.Year + ", Month=" + today.Month);
-            var movementsList = this.dbService.SelectMonthlyMovements(today.Year, today.Month);
+            var movementsList = this.DbService.SelectMonthlyMovements(today.Year, today.Month);
             Debug.WriteLine("Number of movements retrieved: " + movementsList.Count);
             Items = new ObservableCollection<Movement>(movementsList);
         }
@@ -81,7 +79,7 @@
             Debug.WriteLine("Delete movement: " + result);
             if (result)
             {
-                if (dbService.Delete<Movement>(movement))
+                if (DbService.Delete<Movement>(movement))
                 {
                     LoadMovements();
                 }
