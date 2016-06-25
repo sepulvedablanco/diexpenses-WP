@@ -28,10 +28,12 @@
             <converters:IsExpenseToImageConverter x:Key="IsExpenseToImageConverter" />
             <converters:MovementToColorConverter x:Key="MovementToColorConverter" />
             <converters:DateConverter x:Key="DateConverter" />
+            <converters:PinOrUnpinLabelConverter x:Key="PinOrUnpinLabelConverter" />
+            <converters:PinOrUnpinIconConverter x:Key="PinOrUnpinIconConverter" />
 
             <vmlocator:VMLocator x:Name="Locator"></vmlocator:VMLocator>
 
-            <x:String x:Key="BingMapsKey">XXXXXXXXXXXXXXXXXXXXXXXX</x:String>
+            <x:String x:Key="BingMapsKey">6ArGLIfe0eoNBsoEPU7a1Q</x:String>
 
         </ResourceDictionary>
     </Application.Resources>

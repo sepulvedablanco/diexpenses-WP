@@ -10,6 +10,8 @@
 
         public event EventHandler CanExecuteChanged;
 
+        public DelegateCommand(Action exec) : this(exec, null) { }
+
         public DelegateCommand(Action exec, Func<bool> canExec)
         {
             this.execute = exec;
