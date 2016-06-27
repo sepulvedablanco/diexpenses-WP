@@ -6,7 +6,9 @@
     xmlns:local="using:diexpenses"
     xmlns:base="using:diexpenses.Views.Base"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -14,15 +16,37 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
         <!--Title-->
-        <TextBlock Text="Movements" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
+        <TextBlock Text="Movements" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
 
-        <Button Content="Add new movement" Grid.Row="1" FontSize="20" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding NewMovementCommand}" Margin="0,10,0,10" Width="320" Height="40" />
+        <Button Content="Add new movement" Grid.Row="1" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding NewMovementCommand}" Margin="0,10,0,10" Width="320" Height="40" />
 
-        <ListView x:Name="MovementsList" Grid.Row="2" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource MovementsListTemplate}" Margin="12" HorizontalAlignment="Stretch"></ListView>
+        <ComboBox Name="YearComboBox" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Path=Years}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}" HorizontalAlignment="Center" >
+            <i:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="SelectionChanged">
+                    <core:InvokeCommandAction Command="{Binding DataContext.YearChangedCommand, ElementName=YearComboBox}" />
+                </core:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </ComboBox>
+
+        <ComboBox Name="MonthComboBox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Path=Months}" SelectedIndex="{Binding SelectedMonth, Mode=TwoWay}" HorizontalAlignment="Center" >
+            <i:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="SelectionChanged">
+                    <core:InvokeCommandAction Command="{Binding DataContext.MonthChangedCommand, ElementName=MonthComboBox}" />
+                </core:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </ComboBox>
+
+        <ListView x:Name="MovementsList" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource MovementsListTemplate}" Margin="12" HorizontalAlignment="Stretch"></ListView>
 
     </Grid>
 </base:MenuBottomViewBase>
