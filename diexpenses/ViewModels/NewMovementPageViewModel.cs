@@ -20,14 +20,17 @@
         private ObservableCollection<BankAccount> bankAccounts;
 
         private Movement movement = new Movement();
+        private bool previousAlert = false;
 
         private static DelegateCommand saveCommand;
         private static DelegateCommand kindChangedCommand;
 
+        private IDialogService dialogService;
         private IGpsService gpsService;
 
-        public NewMovementPageViewModel(IDbService dbService, IGpsService gpsService, INavigationService navigationService, IStorageService storageService) : base(navigationService, dbService, storageService)
+        public NewMovementPageViewModel(IDialogService dialogService, IGpsService gpsService, INavigationService navigationService, IDbService dbService, IStorageService storageService) : base(navigationService, dbService, storageService)
         {
+            this.dialogService = dialogService;
             this.gpsService = gpsService;
 
             saveCommand = new DelegateCommand(SaveExecute, SaveCanExecute);
@@ -61,6 +64,10 @@
             {
                 Movement.Kind = Kinds[0];
                 LoadSubkinds(Movement.KindId);
+            } else if (Kinds.Count == 0)
+            {
+                previousAlert = true;
+                dialogService.ShowAlert("You have to create types of expenses in order to create a movement");
             }
         }
 
@@ -77,6 +84,10 @@
             if (Subkinds.Count > 0)
             {
                 Movement.Subkind = Subkinds[0];
+            } else if (Subkinds.Count == 0)
+            {
+                previousAlert = true;
+                dialogService.ShowAlert("You have to create subtypes of expenses in order to create a movement");
             }
         }
 
@@ -85,9 +96,12 @@
             var bankAccountsList = this.DbService.SelectBankAccounts();
             Debug.WriteLine("Number of bank accounts retrieved: " + bankAccountsList.Count);
             BankAccounts = new ObservableCollection<BankAccount>(bankAccountsList);
-            if (bankAccountsList.Count > 0)
+            if (BankAccounts.Count > 0)
             {
                 Movement.BankAccount = bankAccountsList[0];
+            } else if (BankAccounts.Count == 0 && !previousAlert)
+            {
+                dialogService.ShowAlert("You have to create bank accounts in order to create a movement");
             }
         }
 
@@ -122,6 +136,7 @@
         private bool IsValidForm()
         {
             bool valid = !string.IsNullOrEmpty(Movement.Concept);
+            valid = Movement.Amount > 0 && valid;
             valid = Movement.KindId != -1 && valid;
             valid = Movement.SubkindId != -1 && valid;
             valid = Movement.BankAccountId != -1 && valid;

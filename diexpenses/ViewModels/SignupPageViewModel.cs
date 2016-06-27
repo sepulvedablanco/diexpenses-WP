@@ -118,7 +118,7 @@
             User user = await apiService.Register(Name, Username, PasswordHandler());
             if (user == null)
             {
-                dialogService.ShowAlert("Incorrect user or password");
+                dialogService.ShowAlert("Username in use or password does not contains digits and upper and lower letters");
                 return;
             }
             Debug.WriteLine(user.ToString());
