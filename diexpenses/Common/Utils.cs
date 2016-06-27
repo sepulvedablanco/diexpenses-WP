@@ -69,5 +69,24 @@
             return tileId == null ? null : tileId.ToString();
         }
 
+        public static bool IsValidNumber(string value, int length)
+        {
+            if(string.IsNullOrEmpty(value))
+            {
+                return false;
+            }
+            if(value.Length != length)
+            {
+                return false;
+            }
+            try
+            {
+                Convert.ToInt64(value);
+            } catch(Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
