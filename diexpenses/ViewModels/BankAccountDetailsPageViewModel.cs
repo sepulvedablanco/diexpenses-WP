@@ -83,6 +83,15 @@
             valid = valid && Validate(bankAccount.Office, 4, "Office must consist of four digits");
             valid = valid && Validate(bankAccount.ControlDigit, 2, "Control digit must consist of two digits");
             valid = valid && Validate(bankAccount.AccountNumber, 10, "Account number must consist of ten digits");
+            
+            if(valid)
+            {
+                valid = Utils.IsValidBankAccount(bankAccount.Iban, bankAccount.Entity, bankAccount.Office, bankAccount.ControlDigit, bankAccount.AccountNumber);
+                if(!valid)
+                {
+                    dialogService.ShowAlert("Invalid bank account. Check it out!");
+                }
+            }
 
             return valid;
         }

@@ -15,7 +15,10 @@
         private string description;
         private string completeBankAccount;
 
-        public BankAccount() { }
+        public BankAccount()
+        {
+            this.iban = "ES";
+        }
 
         public BankAccount(int id)
         {
