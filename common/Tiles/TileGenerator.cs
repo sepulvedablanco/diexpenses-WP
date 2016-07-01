@@ -22,7 +22,7 @@
             var monthExpensesFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, monthExpenses) + "€";
             var totalAmountFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, totalAmount) + "€";
 
-            string tileId = Guid.NewGuid().ToString();
+            string tileId = GetTileId(create);
             SecondaryTile tile = new SecondaryTile(tileId.ToString(), "diexpenses", "tileArgs", new Uri("ms-appx:///Assets/Wide310x150Logo.png"), TileSize.Wide310x150);
             tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
             tile.VisualElements.Square310x310Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
@@ -155,20 +155,31 @@
                 }
             };
             var xml = content.GetXml();
-            TileUpdater tileUpdater;
+            TileUpdater tileUpdater = TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId.ToString());
             if (create)
             {
-                tileUpdater = TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId.ToString());
+                
             }
             else
             {
-                tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication();
                 tileUpdater.EnableNotificationQueue(true);
                 tileUpdater.Clear();
             }
             tileUpdater.Update(new TileNotification(xml));
             Utils.SaveTileIdInMemory(tileId);
             return true;
+        }
+
+        private static string GetTileId(bool create)
+        {
+            if (create)
+            {
+                return Guid.NewGuid().ToString();
+            }
+            else
+            {
+                return Utils.GetTileId();
+            }
         }
     }
 }
