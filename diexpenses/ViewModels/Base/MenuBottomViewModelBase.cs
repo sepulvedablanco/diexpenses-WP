@@ -8,13 +8,10 @@
     using Views;
     using Windows.UI.StartScreen;
     using Windows.UI.Xaml.Navigation;
-    using Windows.UI.Notifications;
-    using NotificationsExtensions.Tiles;
     using System.Collections.Generic;
     using common.Services.Database;
-    using NotificationsExtensions;
-    using System.Globalization;
     using Services.StorageService;
+    using common.Tiles;
 
     public class MenuBottomViewModelBase : ViewModelBase
     {
@@ -168,6 +165,11 @@
             string tileId = Utils.GetTileId();
 
             IReadOnlyList<SecondaryTile> lstTiles = await SecondaryTile.FindAllForPackageAsync();
+            if(lstTiles == null || lstTiles.Count == 0)
+            {
+                IsPinned = false;
+                return;
+            }
             SecondaryTile secondaryTile = lstTiles[0];
             bool result = await secondaryTile.RequestDeleteAsync();
             if (result)
@@ -178,148 +180,7 @@
 
         private async void PinToStart()
         {
-            var today = DateTime.Today;
-            var monthIncomes = dbService.SelectMonthlAmount(false, today.Year, today.Month);
-            var monthExpenses = dbService.SelectMonthlAmount(true, today.Year, today.Month);
-            var totalAmount = dbService.SelectTotalAmount();
-            var monthIncomesFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, monthIncomes) + "€";
-            var monthExpensesFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, monthExpenses) + "€";
-            var totalAmountFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, totalAmount) + "€";
-
-            string tileId = Guid.NewGuid().ToString();
-            SecondaryTile tile = new SecondaryTile(tileId.ToString(), "diexpenses", "tileArgs", new Uri("ms-appx:///Assets/Wide310x150Logo.png"), TileSize.Wide310x150);
-            tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
-            tile.VisualElements.Square310x310Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
-            var result = await tile.RequestCreateAsync();
-            if (result)
-            {
-                var content = new TileContent()
-                {
-                    Visual = new TileVisual()
-                    {
-                        // TileSmall => only diexpenses icon...
-                        TileMedium = new TileBinding()
-                        {
-                            Content = new TileBindingContentAdaptive()
-                            {
-                                Children = {
-                                    new AdaptiveText()
-                                    {
-                                        Text = "diexpenses",
-                                        HintStyle = AdaptiveTextStyle.Title,
-                                        HintAlign = AdaptiveTextAlign.Center
-                                    },
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Expenses: " + monthExpensesFormatted,
-                                        HintStyle = AdaptiveTextStyle.Body,
-                                        HintAlign = AdaptiveTextAlign.Left
-                                    },
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Incomes: " + monthIncomesFormatted,
-                                        HintStyle = AdaptiveTextStyle.Body,
-                                        HintAlign = AdaptiveTextAlign.Left
-                                    }
-
-                                },
-                                PeekImage = new TilePeekImage
-                                {
-                                    AlternateText = "ou yeah",
-                                    Source = "ms-appdata:///local/tiles/tileImage.svg",
-                                    HintOverlay = 5,
-                                    HintCrop = TilePeekImageCrop.None
-                                }
-                            }
-                        },
-                        TileWide = new TileBinding()
-                        {
-                            Content = new TileBindingContentAdaptive()
-                            {
-                                Children = {
-                                    new AdaptiveText()
-                                    {
-                                        Text = "diexpenses",
-                                        HintStyle = AdaptiveTextStyle.Title,
-                                        HintAlign = AdaptiveTextAlign.Center
-                                    },
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Expenses: " + monthExpensesFormatted,
-                                        HintStyle = AdaptiveTextStyle.Body,
-                                        HintAlign = AdaptiveTextAlign.Left
-                                    },
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Incomes: " + monthIncomesFormatted,
-                                        HintStyle = AdaptiveTextStyle.Body,
-                                        HintAlign = AdaptiveTextAlign.Left
-                                    },
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Total amount: " + totalAmountFormatted,
-                                        HintStyle = AdaptiveTextStyle.Body,
-                                        HintAlign = AdaptiveTextAlign.Left
-                                    }
-                                },
-                                PeekImage = new TilePeekImage
-                                {
-                                    AlternateText = "ou yeah",
-                                    //Source = "ms-appdata:///local/tiles/tileImage.svg",
-                                    Source = "ms-appdata:///local/tiles/home.png",
-                                    HintOverlay = 5,
-                                    HintCrop = TilePeekImageCrop.Circle
-                                    //HintCrop = TilePeekImageCrop.None
-                                }
-                            }
-                        },
-                        TileLarge = new TileBinding()
-                        {
-                            Content = new TileBindingContentAdaptive()
-                            {
-                                Children = {
-                                    new AdaptiveText()
-                                    {
-                                        Text = "diexpenses",
-                                        HintStyle = AdaptiveTextStyle.Title,
-                                        HintAlign = AdaptiveTextAlign.Center
-                                    },
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Expenses: " + monthExpensesFormatted,
-                                        HintStyle = AdaptiveTextStyle.Body,
-                                        HintAlign = AdaptiveTextAlign.Left
-                                    },
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Incomes: " + monthIncomesFormatted,
-                                        HintStyle = AdaptiveTextStyle.Body,
-                                        HintAlign = AdaptiveTextAlign.Left
-                                    },
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Total amount: " + totalAmountFormatted,
-                                        HintStyle = AdaptiveTextStyle.Body,
-                                        HintAlign = AdaptiveTextAlign.Left
-                                    }
-                                },
-                                PeekImage = new TilePeekImage
-                                {
-                                    AlternateText = "ou yeah",
-                                    Source = "ms-appdata:///local/tiles/tileImage.svg",
-                                    HintOverlay = 5,
-                                    HintCrop = TilePeekImageCrop.None
-                                }
-                            }
-                        }
-                    }
-                };
-
-                var xml = content.GetXml();
-                TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId.ToString()).Update(new TileNotification(xml));
-                Utils.SaveTileIdInMemory(tileId);
-                IsPinned = true;
-            }
+            IsPinned = await TileGenerator.Generate(dbService, true);
         }
 
         private void LogoutExecute()

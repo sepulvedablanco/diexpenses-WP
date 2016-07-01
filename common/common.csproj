@@ -127,6 +127,7 @@
     <Compile Include="Services\DiexpensesAPI\IApiService.cs" />
     <Compile Include="Services\NetworkService\INetworkService.cs" />
     <Compile Include="Services\NetworkService\NetworkService.cs" />
+    <Compile Include="Tiles\TileGenerator.cs" />
     <EmbeddedResource Include="Properties\common.rd.xml" />
   </ItemGroup>
   <ItemGroup>
