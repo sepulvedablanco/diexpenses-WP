@@ -28,7 +28,7 @@
             BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
 
             await RetrieveData(apiService, dbService);
-            SendData(dbService);
+            //await SendData(dbService, apiService);
 
             deferral.Complete();
         }
@@ -63,13 +63,21 @@
             dbService.CheckAndInsertMovements(lstMovements);
         }
 
-        private void SendData(DbService dbService)
+        // app to server syncrhonization is not allowed because when you insert an object in the api, this does not return the object id, so, then you can update de apiId in the app.
+        // in a near future the api will be modify to return the inserted object id.
+        /* 
+        private async Task SendData(DbService dbService, ApiService apiService)
         {
-            //IList<Kind> lstKinds = dbService.SelectKinds();
-
-            //IList<Subkind> lstSubinds = dbService.SelectSubkinds();
-
-            //IList<BankAccount> lstBankAccounts = dbService.SelectBankAccounts();
+            IList<Kind> lstKinds = dbService.SelectKindsWithoutApiId();
+            if(lstKinds != null && lstKinds.Count > 0)
+            {
+                for (int i = 0; i < lstKinds.Count; i++)
+                {
+                    await apiService.SaveKind(lstKinds[i].Description);
+                }
+            }
+        
         }
+        */
     }
 }

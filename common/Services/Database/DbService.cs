@@ -399,6 +399,44 @@
         }
         */
 
+        /*
+        public IList<Kind> SelectKindsWithoutApiId()
+        {
+            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
+            {
+                try
+                {
+                    return cnx.Table<Kind>()
+                        .Where(kind => kind.ApiId == null)
+                        .ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        */
+
+        /*
+        public IList<T> SelectWithoutApiId<T>() where T : new()
+        {
+            using (var cnx = new SQLiteConnection(new SQLitePlatformWinRT(), dbPath))
+            {
+                try
+                {
+                    return cnx.Table<T>()
+                        .Where(o => o.ApiId == null)
+                        .ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        */
+
         /* End syncronization task */
 
     }

@@ -32,5 +32,11 @@
         void CheckAndInsertBankAccounts(IList<BankAccount> lstBankAccounts);
 
         void CheckAndInsertMovements(IList<Movement> lstMovements);
+
+        /*
+        IList<Kind> SelectKindsWithoutApiId();
+        */
+
+        /* End syncronization task */
     }
 }

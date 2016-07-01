@@ -19,5 +19,7 @@
         Task<IList<Movement>> GetMovements();
 
         Task<IList<Movement>> GetMovements(int year, int month);
+
+        Task SaveKind(string description);
     }
 }

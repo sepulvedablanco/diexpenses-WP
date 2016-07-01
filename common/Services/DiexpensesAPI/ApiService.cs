@@ -246,6 +246,30 @@
             return lstMovementsResult;
         }
 
+        /*
+        public async Task SaveKind(String description)
+        {
+            Uri kindsURI = new Uri(endpoint + "/user/" + Utils.GetLoggedUserId() + "/financialMovementType");
+
+            HttpClient client = GetDefaultClient(Utils.GetLoggedUserToken());
+
+            string json = JsonConvert.SerializeObject(new Kind(description));
+
+            HttpStringContent stringContent = new HttpStringContent(json, UnicodeEncoding.Utf8, Constants.JSON_HEADER);
+            HttpResponseMessage response = await client.PostAsync(kindsURI, stringContent);
+
+            Debug.WriteLine("Kinds response = " + response.StatusCode);
+
+            if (response.StatusCode != Windows.Web.Http.HttpStatusCode.Created || !response.IsSuccessStatusCode)
+            {
+                
+            }
+
+            string content = await response.Content.ReadAsStringAsync();
+        }
+        */
+
+
         private HttpClient GetDefaultClient(String token)
         {
             HttpClient client = new HttpClient();
