@@ -48,7 +48,15 @@
             return passwordCredential.Password;
         }
 
-        public static bool IsBackGroundTaskRegistered(string taskName)
+        public static void RegisterTaskIfNeeded(string taskName, string entryPoint)
+        {
+            if (!IsBackGroundTaskRegistered(taskName))
+            {
+                RegisterBackgroundTask(taskName, entryPoint);
+            }
+        }
+
+        private static bool IsBackGroundTaskRegistered(string taskName)
         {
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
@@ -60,7 +68,7 @@
             return false;
         }
 
-        public static void RegisterBackgroundTask(string taskName, string entryPoint)
+        private static void RegisterBackgroundTask(string taskName, string entryPoint)
         {
             var builder = new BackgroundTaskBuilder();
             builder.Name = taskName;
