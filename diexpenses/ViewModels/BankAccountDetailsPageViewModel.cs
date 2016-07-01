@@ -1,10 +1,10 @@
 ﻿namespace diexpenses.ViewModels
 {
     using Common;
-    using diexpenses.Entities;
-    using diexpenses.Services;
+    using common.Entities;
+    using Services;
     using diexpenses.ViewModels.Base;
-    using Services.Database;
+    using common.Services.Database;
     using Services.StorageService;
     using System.Diagnostics;
     using System.Text.RegularExpressions;

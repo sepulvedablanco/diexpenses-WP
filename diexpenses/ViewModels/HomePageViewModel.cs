@@ -2,7 +2,7 @@
 {
     using Common;
     using diexpenses.Services;
-    using diexpenses.Services.Database;
+    using common.Services.Database;
     using diexpenses.ViewModels.Base;
     using OxyPlot;
     using OxyPlot.Series;

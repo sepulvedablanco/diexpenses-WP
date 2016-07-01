@@ -1,5 +1,6 @@
-﻿namespace diexpenses.Entities
+﻿namespace common.Entities
 {
+    using Newtonsoft.Json;
     using Base;
     using SQLite.Net.Attributes;
     using SQLiteNetExtensions.Attributes;
@@ -14,7 +15,9 @@
         private DateTime transactionDate;
         private double amount;
         private Geopoint location;
+        [JsonProperty("financialMovementType")]
         private Kind kind;
+        [JsonProperty("financialMovementSubtype")]
         private Subkind subkind;
         private BankAccount bankAccount;
 

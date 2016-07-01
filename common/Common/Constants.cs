@@ -1,9 +1,11 @@
-﻿namespace diexpenses.Common
+﻿namespace common.Common
 {
-    class Constants
+    public class Constants
     {
         public readonly static string IS_LOGGED = "isLogged";
+        public readonly static string IS_FIRST_DATA_SYNCRONIZATION = "isFirstDataSyncronization";
         public readonly static string TILE_ID = "tileId";
+        public readonly static string LOGGED_USER_ID = "loggedUserId";
         public readonly static string LOGGED_USER_NAME = "loggedUserName";
         public readonly static string PASSWORD_CREDENTIAL = "AuthToken";
         public readonly static string JSON_HEADER = "application/json";

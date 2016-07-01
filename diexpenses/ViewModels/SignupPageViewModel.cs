@@ -1,10 +1,10 @@
 ﻿namespace diexpenses.ViewModels
 {
     using diexpenses.Common;
-    using diexpenses.Entities;
+    using common.Entities;
     using diexpenses.Services;
-    using diexpenses.Services.DiexpensesAPI;
-    using diexpenses.Services.NetworkService;
+    using common.Services.DiexpensesAPI;
+    using common.Services.NetworkService;
     using diexpenses.ViewModels.Base;
     using System;
     using System.Diagnostics;

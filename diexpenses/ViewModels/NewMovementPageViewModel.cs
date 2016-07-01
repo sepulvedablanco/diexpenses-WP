@@ -2,8 +2,8 @@
 {
     using diexpenses.Services;
     using diexpenses.ViewModels.Base;
-    using Entities;
-    using Services.Database;
+    using common.Entities;
+    using common.Services.Database;
     using Services.GpsService;
     using Services.StorageService;
     using System.Collections.ObjectModel;

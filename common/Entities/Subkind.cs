@@ -1,6 +1,6 @@
-﻿namespace diexpenses.Entities
+﻿namespace common.Entities
 {
-    using diexpenses.Entities.Base;
+    using common.Entities.Base;
     using SQLite.Net.Attributes;
     using SQLiteNetExtensions.Attributes;
 

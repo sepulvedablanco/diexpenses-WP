@@ -1,8 +1,8 @@
 ﻿namespace diexpenses.ViewModels
 {
-    using diexpenses.Entities;
+    using common.Entities;
     using diexpenses.Services;
-    using diexpenses.Services.Database;
+    using common.Services.Database;
     using diexpenses.ViewModels.Base;
     using Services.StorageService;
     using Windows.UI.Xaml.Navigation;

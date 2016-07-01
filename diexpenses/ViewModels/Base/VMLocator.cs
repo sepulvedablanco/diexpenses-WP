@@ -2,9 +2,9 @@
 {
     using Autofac;
     using Services;
-    using Services.Database;
-    using Services.DiexpensesAPI;
-    using Services.NetworkService;
+    using common.Services.Database;
+    using common.Services.DiexpensesAPI;
+    using common.Services.NetworkService;
     using Services.GpsService;
     using Services.StorageService;
 

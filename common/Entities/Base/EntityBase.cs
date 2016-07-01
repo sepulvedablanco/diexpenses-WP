@@ -1,4 +1,4 @@
-﻿namespace diexpenses.Entities.Base
+﻿namespace common.Entities.Base
 {
     using SQLite.Net.Attributes;
     using System.ComponentModel;

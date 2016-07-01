@@ -1,4 +1,4 @@
-﻿namespace diexpenses.Entities
+﻿namespace common.Entities
 {
     using Newtonsoft.Json;
 

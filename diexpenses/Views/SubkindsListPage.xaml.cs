@@ -1,7 +1,7 @@
 ﻿namespace diexpenses.Views
 {
     using Base;
-    using Entities;
+    using common.Entities;
     using ViewModels;
 
     public sealed partial class SubkindsListPage : MenuBottomViewBase

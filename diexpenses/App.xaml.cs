@@ -1,8 +1,10 @@
-﻿using diexpenses.Services.Database;
+﻿using common.Common;
+using common.Services.Database;
 using diexpenses.ViewModels.Base;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -65,6 +67,13 @@ namespace diexpenses
             var vmLocator = (VMLocator)Current.Resources["Locator"];
             var dbService = vmLocator.Resolve<IDbService>();
             dbService.CreateDb();
+
+            // Register background tasks
+            var syncronizationTaskName = "SyncronizationTask";
+            if (!Utils.IsBackGroundTaskRegistered(syncronizationTaskName))
+            {
+                Utils.RegisterBackgroundTask(syncronizationTaskName, "syncronization.SyncronizationTask");
+            }
 
             if (e.PrelaunchActivated == false)
             {

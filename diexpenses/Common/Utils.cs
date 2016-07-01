@@ -1,6 +1,7 @@
 ﻿namespace diexpenses.Common
 {
-    using diexpenses.Entities;
+    using common.Common;
+    using common.Entities;
     using System;
     using System.Diagnostics;
     using Windows.Security.Credentials;
@@ -13,6 +14,7 @@
         {
             var settings = ApplicationData.Current.LocalSettings;
             settings.Values[Constants.IS_LOGGED] = true;
+            settings.Values[Constants.LOGGED_USER_ID] = user.Id;
             settings.Values[Constants.LOGGED_USER_NAME] = user.Name;
 
             PasswordVault vault = new PasswordVault();
@@ -42,17 +44,6 @@
             Debug.WriteLine("Number of credentials = " + lstPasswordCredential.Count);
             var credential = lstPasswordCredential[0];
             vault.Remove(credential);
-        }
-
-        public static bool UserIsLogged()
-        {
-            var Settings = ApplicationData.Current.LocalSettings;
-            object isLogged = Settings.Values[Constants.IS_LOGGED];
-            if (isLogged == null || !Boolean.Parse(isLogged.ToString()))
-            {
-                return false;
-            }
-            return Boolean.Parse(isLogged.ToString());
         }
 
         public static string GetLoggedUserName()

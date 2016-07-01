@@ -1,6 +1,6 @@
 ﻿namespace diexpenses.Converters
 {
-    using Common;
+    using common.Common;
     using System;
     using System.Globalization;
     using Windows.UI.Xaml.Data;

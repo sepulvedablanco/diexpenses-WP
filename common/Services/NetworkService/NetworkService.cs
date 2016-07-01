@@ -1,4 +1,4 @@
-﻿namespace diexpenses.Services.NetworkService
+﻿namespace common.Services.NetworkService
 {
     using System;
     using Windows.Networking.Connectivity;

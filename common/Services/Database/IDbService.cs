@@ -1,4 +1,4 @@
-﻿namespace diexpenses.Services.Database
+﻿namespace common.Services.Database
 {
     using Entities;
     using System.Collections.Generic;
@@ -23,5 +23,14 @@
 
         bool Delete<T>(T item);
 
+        /* Syncronization task */
+
+        void CheckAndInsertKinds(IList<Kind> lstKinds);
+
+        void CheckAndInsertSubkinds(IList<Subkind> lstSubkinds, int kindId);
+
+        void CheckAndInsertBankAccounts(IList<BankAccount> lstBankAccounts);
+
+        void CheckAndInsertMovements(IList<Movement> lstMovements);
     }
 }

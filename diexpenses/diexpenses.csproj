@@ -102,7 +102,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\CommonKeys.cs" />
-    <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\OpenMenuFlyoutAction.cs" />
     <Compile Include="Common\Utils.cs" />
     <Compile Include="Converters\PinOrUnpinIconConverter.cs" />
@@ -118,24 +117,8 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\TextToCanExecuteConverter.cs" />
-    <Compile Include="Entities\BankAccount.cs" />
-    <Compile Include="Entities\Base\EntityBase.cs" />
-    <Compile Include="Entities\Base\KindBase.cs" />
-    <Compile Include="Entities\Credential.cs" />
-    <Compile Include="Entities\GenericResponse.cs" />
-    <Compile Include="Entities\Kind.cs" />
-    <Compile Include="Entities\Movement.cs" />
-    <Compile Include="Entities\NewUser.cs" />
-    <Compile Include="Entities\Subkind.cs" />
-    <Compile Include="Entities\User.cs" />
-    <Compile Include="Services\Database\DbService.cs" />
-    <Compile Include="Services\Database\IDbService.cs" />
-    <Compile Include="Services\DiexpensesAPI\ApiService.cs" />
-    <Compile Include="Services\DiexpensesAPI\IApiService.cs" />
     <Compile Include="Services\GpsService\GpsService.cs" />
     <Compile Include="Services\GpsService\IGpsService.cs" />
-    <Compile Include="Services\NetworkService\INetworkService.cs" />
-    <Compile Include="Services\NetworkService\NetworkService.cs" />
     <Compile Include="Services\StorageService\IStorageService.cs" />
     <Compile Include="Services\StorageService\StorageService.cs" />
     <Compile Include="ViewModels\SubkindsListPageViewModel.cs" />
@@ -342,11 +325,17 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.13.0">
-      <Name>SQLite for Universal Windows Platform</Name>
-    </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\common\common.csproj">
+      <Project>{bfaf3552-b183-46f5-8dec-1fa8ad2693e8}</Project>
+      <Name>common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\syncronization\syncronization.csproj">
+      <Project>{2000716b-dcef-4d54-8d6d-9ea9d02281eb}</Project>
+      <Name>syncronization</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
