@@ -1,7 +1,6 @@
 ﻿namespace diexpenses.ViewModels.Base
 {
     using common.Common;
-    using Common;
     using Services;
     using System;
     using System.Diagnostics;
@@ -12,22 +11,10 @@
     using Windows.UI.Notifications;
     using NotificationsExtensions.Tiles;
     using System.Collections.Generic;
-    using OxyPlot.Series;
     using common.Services.Database;
-    using OxyPlot;
-    using System.IO;
     using NotificationsExtensions;
     using System.Globalization;
     using Services.StorageService;
-    using Windows.Storage;
-    using Windows.Storage.Streams;
-    using Windows.UI.Xaml.Media.Imaging;
-    using Windows.Graphics.Display;
-    using Windows.Graphics.Imaging;
-    using System.Threading.Tasks;
-    using System.Runtime.InteropServices.WindowsRuntime;
-    using OxyPlot.Windows;
-    using Windows.UI.Xaml.Controls;
 
     public class MenuBottomViewModelBase : ViewModelBase
     {
@@ -51,7 +38,7 @@
             this.dbService = dbService;
             this.storageService = storageService;
 
-            string tileId = Common.Utils.GetTileId();
+            string tileId = Utils.GetTileId();
             isPinned = tileId != null && SecondaryTile.Exists(tileId);
 
             homeCommand = new DelegateCommand(HomeExecute);
@@ -178,7 +165,7 @@
         }
 
         private async void UnpinFromStart() {
-            string tileId = Common.Utils.GetTileId();
+            string tileId = Utils.GetTileId();
 
             IReadOnlyList<SecondaryTile> lstTiles = await SecondaryTile.FindAllForPackageAsync();
             SecondaryTile secondaryTile = lstTiles[0];
@@ -198,22 +185,6 @@
             var monthIncomesFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, monthIncomes) + "€";
             var monthExpensesFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, monthExpenses) + "€";
             var totalAmountFormatted = String.Format(CultureInfo.InvariantCulture, Constants.AMOUNT_FORMAT, totalAmount) + "€";
-
-            PlotModel plotModel = new PlotModel();
-            dynamic series = new PieSeries { StrokeThickness = 2.0, InsideLabelPosition = 0.8, AngleSpan = 360, StartAngle = 0 };
-            series.Slices.Add(new PieSlice("Expenses", monthIncomes) { IsExploded = false, Fill = OxyColors.PaleVioletRed });
-            series.Slices.Add(new PieSlice("Incomes", monthExpenses) { IsExploded = true, Fill = OxyColors.SpringGreen });
-            plotModel.Series.Add(series);
-
-            MemoryStream stream = new MemoryStream();
-            SvgExporter exporter = new SvgExporter { Height = 300, Width = 300, IsDocument = false };
-            exporter.Export(plotModel, stream);
-            StorageFile file = await storageService.CreateFile("tiles", "tileImage.svg", stream);
-
-            /*
-            var pngExporter = new PngExporter { Width = 600, Height = 400, Background = OxyColors.White };
-            pngExporter.Export(plotModel, stream);
-            */
 
             string tileId = Guid.NewGuid().ToString();
             SecondaryTile tile = new SecondaryTile(tileId.ToString(), "diexpenses", "tileArgs", new Uri("ms-appx:///Assets/Wide310x150Logo.png"), TileSize.Wide310x150);
@@ -346,49 +317,9 @@
 
                 var xml = content.GetXml();
                 TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId.ToString()).Update(new TileNotification(xml));
-                Common.Utils.SaveTileIdInMemory(tileId);
+                Utils.SaveTileIdInMemory(tileId);
                 IsPinned = true;
             }
-
-            PlotView pv = new PlotView { Height=300, Width=300, Model=plotModel };
-            IRandomAccessStream stream2 = await RenderToRandomAccessStream(pv);
-            var randomAccessStream = new InMemoryRandomAccessStream();
-            var outputStream = stream2.AsStream();
-
-            StorageFile file2 = await storageService.CreateFile("tiles", "tileImage.png", outputStream as MemoryStream);
-
-/*            RenderTargetBitmap rtb = new RenderTargetBitmap();
-            await rtb.RenderAsync(pv, 300, 300);
-            Image image = new Image();
-            image.Source = rtb;
-            */
-        }
-
-        public async Task<IRandomAccessStream> RenderToRandomAccessStream(Windows.UI.Xaml.UIElement element)
-        {
-            RenderTargetBitmap rtb = new RenderTargetBitmap();
-            await rtb.RenderAsync(element);
-
-            var pixelBuffer = await rtb.GetPixelsAsync();
-            var pixels = pixelBuffer.ToArray();
-
-            // Useful for rendering in the correct DPI
-            var displayInformation = DisplayInformation.GetForCurrentView();
-
-            var stream = new InMemoryRandomAccessStream();
-            var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
-            encoder.SetPixelData(BitmapPixelFormat.Bgra8,
-                                 BitmapAlphaMode.Premultiplied,
-                                 (uint)rtb.PixelWidth,
-                                 (uint)rtb.PixelHeight,
-                                 displayInformation.RawDpiX,
-                                 displayInformation.RawDpiY,
-                                 pixels);
-
-            await encoder.FlushAsync();
-            stream.Seek(0);
-
-            return stream;
         }
 
         private void LogoutExecute()
