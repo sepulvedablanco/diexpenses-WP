@@ -25,7 +25,12 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="syncronization.SyncronizationTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="syncronization.TileSyncronizationTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="syncronization.DataSyncronizationTask">
           <BackgroundTasks>
             <Task Type="timer" />
           </BackgroundTasks>

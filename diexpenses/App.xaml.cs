@@ -69,11 +69,8 @@ namespace diexpenses
             dbService.CreateDb();
 
             // Register background tasks
-            var syncronizationTaskName = "SyncronizationTask";
-            if (!Utils.IsBackGroundTaskRegistered(syncronizationTaskName))
-            {
-                Utils.RegisterBackgroundTask(syncronizationTaskName, "syncronization.SyncronizationTask");
-            }
+            Utils.RegisterTaskIfNeeded("DataSyncronizationTask", "syncronization.DataSyncronizationTask", 30, true);
+            Utils.RegisterTaskIfNeeded("TileSyncronizationTask", "syncronization.TileSyncronizationTask", 15, false);
 
             if (e.PrelaunchActivated == false)
             {

@@ -10,7 +10,7 @@
     using System.Threading.Tasks;
     using Windows.ApplicationModel.Background;
 
-    public sealed class SyncronizationTask : IBackgroundTask
+    public sealed class DataSyncronizationTask : IBackgroundTask
     {
 
         public async void Run(IBackgroundTaskInstance taskInstance)

@@ -5,7 +5,6 @@
     "Microsoft.ApplicationInsights.PersistenceChannel": "1.2.3",
     "Microsoft.ApplicationInsights.WindowsApps": "1.1.1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "NotificationsExtensions.Win10": "14332.0.1",
     "OxyPlot.Core": "2015.1.708-alpha",
     "OxyPlot.Windows": "1.0.0-unstable2100"
   },

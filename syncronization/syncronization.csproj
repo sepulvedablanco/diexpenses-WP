@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2000716B-DCEF-4D54-8D6D-9EA9D02281EB}</ProjectGuid>
+    <ProjectGuid>{DEAEBBF4-9577-444C-9310-E9B36EB13C87}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>syncronization</RootNamespace>
@@ -108,8 +108,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SyncronizationTask.cs" />
+    <Compile Include="DataSyncronizationTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TileSyncronizationTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common\common.csproj">

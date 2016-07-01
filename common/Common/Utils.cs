@@ -48,11 +48,11 @@
             return passwordCredential.Password;
         }
 
-        public static void RegisterTaskIfNeeded(string taskName, string entryPoint)
+        public static void RegisterTaskIfNeeded(string taskName, string entryPoint, uint freshnessTime, bool networkRequested)
         {
             if (!IsBackGroundTaskRegistered(taskName))
             {
-                RegisterBackgroundTask(taskName, entryPoint);
+                RegisterBackgroundTask(taskName, entryPoint, freshnessTime, networkRequested);
             }
         }
 
@@ -68,13 +68,27 @@
             return false;
         }
 
-        private static void RegisterBackgroundTask(string taskName, string entryPoint)
+        private static void RegisterBackgroundTask(string taskName, string entryPoint, uint freshnessTime, bool networkRequested)
         {
             var builder = new BackgroundTaskBuilder();
             builder.Name = taskName;
             builder.TaskEntryPoint = entryPoint;
-            builder.SetTrigger(new TimeTrigger(30, false));
+            builder.IsNetworkRequested = networkRequested;
+            builder.SetTrigger(new TimeTrigger(freshnessTime, false));
             BackgroundTaskRegistration task = builder.Register();
+        }
+
+        public static void SaveTileIdInMemory(String tileId)
+        {
+            var settings = ApplicationData.Current.LocalSettings;
+            settings.Values[Constants.TILE_ID] = tileId;
+        }
+
+        public static string GetTileId()
+        {
+            var settings = ApplicationData.Current.LocalSettings;
+            object tileId = settings.Values[Constants.TILE_ID];
+            return tileId == null ? null : tileId.ToString();
         }
     }
 }

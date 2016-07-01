@@ -22,12 +22,6 @@
             vault.Add(credential);
         }
 
-        public static void SaveTileIdInMemory(String tileId)
-        {
-            var settings = ApplicationData.Current.LocalSettings;
-            settings.Values[Constants.TILE_ID] = tileId;
-        }
-
         public static void DeleteUserDataInMemory()
         {
             var settings = ApplicationData.Current.LocalSettings;
@@ -51,13 +45,6 @@
             var Settings = ApplicationData.Current.LocalSettings;
             object userName = Settings.Values[Constants.LOGGED_USER_NAME];
             return userName == null ? null : userName.ToString();
-        }
-
-        public static string GetTileId()
-        {
-            var settings = ApplicationData.Current.LocalSettings;
-            object tileId = settings.Values[Constants.TILE_ID];
-            return tileId == null ? null : tileId.ToString();
         }
 
         public static bool IsValidNumber(string value, int length)
