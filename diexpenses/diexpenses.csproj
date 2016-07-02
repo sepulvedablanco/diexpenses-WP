@@ -104,6 +104,7 @@
     <Compile Include="Common\CommonKeys.cs" />
     <Compile Include="Common\OpenMenuFlyoutAction.cs" />
     <Compile Include="Common\Utils.cs" />
+    <Compile Include="Converters\LocationToVisibilityConverter.cs" />
     <Compile Include="Converters\PinOrUnpinIconConverter.cs" />
     <Compile Include="Converters\PinOrUnpinLabelConverter.cs" />
     <Compile Include="Converters\DateConverter.cs" />

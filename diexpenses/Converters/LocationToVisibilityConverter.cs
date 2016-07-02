@@ -1,0 +1,25 @@
+﻿namespace diexpenses.Converters
+{
+    using System;
+    using Windows.Devices.Geolocation;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Data;
+
+    public class LocationToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value != null && value is Geopoint)
+            {
+                var location = (Geopoint)value;
+                return location.Position.Latitude != 0 && location.Position.Longitude != 0 ? Visibility.Visible : Visibility.Collapsed;
+            }
+            return Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return true;
+        }
+    }
+}

@@ -30,6 +30,7 @@
             <converters:DateConverter x:Key="DateConverter" />
             <converters:PinOrUnpinLabelConverter x:Key="PinOrUnpinLabelConverter" />
             <converters:PinOrUnpinIconConverter x:Key="PinOrUnpinIconConverter" />
+            <converters:LocationToVisibilityConverter x:Key="LocationToVisibilityConverter" />
 
             <vmlocator:VMLocator x:Name="Locator"></vmlocator:VMLocator>
 

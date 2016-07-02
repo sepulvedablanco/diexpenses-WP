@@ -45,7 +45,7 @@
         </StackPanel>
 
         <!--Start-Map:ExpensePosition-->
-        <maps:MapControl x:Name="mapAddress" Grid.Row="2" ZoomLevel="16" Center="{Binding Movement.Location}"  MapServiceToken="{StaticResource BingMapsKey}" LandmarksVisible="True" >
+        <maps:MapControl x:Name="mapAddress" Visibility="{Binding Movement.Location, Converter={StaticResource LocationToVisibilityConverter}}" Grid.Row="2" ZoomLevel="16" Center="{Binding Movement.Location}"  MapServiceToken="{StaticResource BingMapsKey}" LandmarksVisible="True" >
             <Grid HorizontalAlignment="Left" maps:MapControl.Location="{Binding Movement.Location}" maps:MapControl.NormalizedAnchorPoint="0,1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
