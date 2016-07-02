@@ -90,5 +90,11 @@
             object tileId = settings.Values[Constants.TILE_ID];
             return tileId == null ? null : tileId.ToString();
         }
+
+        public static void DeleteTileId()
+        {
+            var settings = ApplicationData.Current.LocalSettings;
+            settings.Values[Constants.TILE_ID] = null;
+        }
     }
 }

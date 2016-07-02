@@ -27,7 +27,10 @@
 
         private async Task RefreshTile(DbService dbService)
         {
-            await TileGenerator.Generate(dbService, false);
+            if (Utils.GetTileId() != null)
+            {
+                await TileGenerator.Generate(dbService, false);
+            }
         }
     }
 }

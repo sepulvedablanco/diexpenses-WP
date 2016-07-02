@@ -162,7 +162,7 @@
         }
 
         private async void UnpinFromStart() {
-            string tileId = Utils.GetTileId();
+            Utils.DeleteTileId();
 
             IReadOnlyList<SecondaryTile> lstTiles = await SecondaryTile.FindAllForPackageAsync();
             if(lstTiles == null || lstTiles.Count == 0)
