@@ -12,6 +12,20 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="GreaterThan800">
+                    <VisualState.Setters>
+                        <Setter Target="chart.(Width)" Value="450"/>
+                        <Setter Target="chart.(Height)" Value="450"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                        <AdaptiveTrigger MinWindowHeight="800"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -49,7 +63,7 @@
             </TextBlock>
 
             <!--Chart-->
-            <oxy:PlotView Model="{Binding ChartModel, Mode=TwoWay}" Width="250" Height="250" />
+            <oxy:PlotView x:Name="chart" Model="{Binding ChartModel, Mode=TwoWay}" Width="250" Height="250" />
             
             <!--Balance-->
             <TextBlock Name="Balance" Foreground="Black" FontSize="18" Text="{Binding Balance, Mode=OneTime}" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" />
