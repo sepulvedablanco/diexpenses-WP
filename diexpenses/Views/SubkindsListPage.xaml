@@ -17,6 +17,10 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Top"
+                Margin="20" Command="{Binding BackButtonCommand}"
+                Visibility="{Binding ShowBackButton, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        
         <!--Title-->
         <TextBlock Text="Subkinds" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
 

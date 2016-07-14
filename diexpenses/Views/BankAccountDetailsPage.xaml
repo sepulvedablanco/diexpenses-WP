@@ -18,11 +18,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Top"
+                Margin="20" Command="{Binding BackButtonCommand}"
+                Visibility="{Binding ShowBackButton, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
         <!--Title-->
         <TextBlock Text="Bank Account Details" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,0" />
 
         <ScrollViewer Grid.Row="1" Height="600" >
-            <StackPanel Margin="20,10,20,0" StackPanel.VerticalAlignment="Stretch" >
+            <StackPanel Margin="20,10,20,0" StackPanel.VerticalAlignment="Top" >
 
                 <!--Description-->
                 <TextBlock Text="Description" Foreground="Black" FontSize="30"/>

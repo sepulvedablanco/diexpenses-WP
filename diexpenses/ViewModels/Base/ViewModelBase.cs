@@ -9,6 +9,7 @@
 
     public class ViewModelBase : INotifyPropertyChanged
     {
+        private Frame appFrame;
         private bool showBackButton;
         private DelegateCommand backButtonCommand;
 
@@ -19,7 +20,11 @@
             IsBackButtonHardwarePressent();
         }
 
-        public Frame AppFrame;
+        public Frame AppFrame
+        {
+            get { return this.appFrame; }
+            set { this.appFrame = value; }
+        }
 
         public ICommand BackButtonCommand
         {
@@ -48,7 +53,11 @@
 
         public virtual void NavigateTo(NavigationEventArgs e) { }
         public virtual void NavigateFrom(NavigationEventArgs e) { }
-        public virtual void BackButtonExecute() { }
+        public virtual void BackButtonExecute()
+        {
+            if (this.AppFrame.CanGoBack)
+                this.appFrame.GoBack();
+        }
 
         private void IsBackButtonHardwarePressent()
         {
