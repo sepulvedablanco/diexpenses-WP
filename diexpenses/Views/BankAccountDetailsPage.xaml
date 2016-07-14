@@ -11,6 +11,46 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="GreaterThan700">
+                    <VisualState.Setters>
+                        <Setter Target="iban.(Grid.Row)" Value="1"/>
+                        <Setter Target="iban.(Grid.Column)" Value="0"/>
+                        <Setter Target="iban.(Grid.ColumnSpan)" Value="1"/>
+
+                        <Setter Target="entity.(Grid.Row)" Value="1"/>
+                        <Setter Target="entity.(Grid.Column)" Value="1"/>
+                        <Setter Target="entity.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="entity.(Grid.Margin)" Value="20,0,10,0"/>
+
+                        <Setter Target="office.(Grid.Row)" Value="2"/>
+                        <Setter Target="office.(Grid.Column)" Value="0"/>
+                        <Setter Target="office.(Grid.ColumnSpan)" Value="1"/>
+
+                        <Setter Target="controlDigit.(Grid.Row)" Value="2"/>
+                        <Setter Target="controlDigit.(Grid.Column)" Value="1"/>
+                        <Setter Target="controlDigit.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="controlDigit.(Grid.Margin)" Value="20,0,10,0"/>
+
+                        <Setter Target="accountNumber.(Grid.Row)" Value="3"/>
+                        <Setter Target="accountNumber.(Grid.Column)" Value="0"/>
+                        <Setter Target="accountNumber.(Grid.ColumnSpan)" Value="1"/>
+
+                        <Setter Target="balance.(Grid.Row)" Value="3"/>
+                        <Setter Target="balance.(Grid.Column)" Value="1"/>
+                        <Setter Target="balance.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="balance.(Grid.Margin)" Value="20,0,10,0"/>
+
+                        <Setter Target="ActionButton.(Grid.Row)" Value="4"/>
+                        <Setter Target="ActionButton.(Grid.Column)" Value="0"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -26,41 +66,68 @@
         <TextBlock Text="Bank Account Details" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,0" />
 
         <ScrollViewer Grid.Row="1" Height="600" >
-            <StackPanel Margin="20,10,20,0" StackPanel.VerticalAlignment="Top" >
 
-                <!--Description-->
-                <TextBlock Text="Description" Foreground="Black" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Description, Mode=TwoWay}" Margin="0,0,0,10" />
+                <Grid Margin="20,10,20,0" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".50*"/>
+                        <ColumnDefinition Width=".50*"/>
+                    </Grid.ColumnDefinitions>
 
-                <!--IBAN-->
-                <TextBlock Foreground="Black" Text="IBAN" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Iban, Mode=TwoWay}" Margin="0,0,0,20" />
+                    <!--Description-->
+                    <StackPanel x:Name="description" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <TextBlock Text="Description" Foreground="Black" FontSize="30"/>
+                        <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Description, Mode=TwoWay}" Margin="0,0,0,10" />
+                    </StackPanel>
 
-                <!--Entity-->
-                <TextBlock Foreground="Black" Text="Entity" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Entity, Mode=TwoWay}" Margin="0,0,0,20" />
+                    <!--IBAN-->
+                    <StackPanel x:Name="iban" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                        <TextBlock Foreground="Black" Text="IBAN" FontSize="30"/>
+                        <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Iban, Mode=TwoWay}" Margin="0,0,0,20" />
+                    </StackPanel>
 
-                <!--Office-->
-                <TextBlock Foreground="Black" Text="Office" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Office, Mode=TwoWay}" Margin="0,0,0,20" />
+                    <!--Entity-->
+                    <StackPanel x:Name="entity" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                        <TextBlock Foreground="Black" Text="Entity" FontSize="30"/>
+                        <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Entity, Mode=TwoWay}" Margin="0,0,0,20" />
+                    </StackPanel>
 
-                <!--ControlDigit-->
-                <TextBlock Foreground="Black" Text="Control digit" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.ControlDigit, Mode=TwoWay}" Margin="0,0,0,20" />
+                    <!--Office-->
+                    <StackPanel x:Name="office" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                        <TextBlock Foreground="Black" Text="Office" FontSize="30"/>
+                        <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Office, Mode=TwoWay}" Margin="0,0,0,20" />
+                    </StackPanel>
 
-                <!--AccountNumber-->
-                <TextBlock Foreground="Black" Text="Account number" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.AccountNumber, Mode=TwoWay}" Margin="0,0,0,20" />
+                    <!--ControlDigit-->
+                    <StackPanel x:Name="controlDigit" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                        <TextBlock Foreground="Black" Text="Control digit" FontSize="30"/>
+                        <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.ControlDigit, Mode=TwoWay}" Margin="0,0,0,20" />
+                    </StackPanel>
+                    
+                    <!--AccountNumber-->
+                    <StackPanel x:Name="accountNumber" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                        <TextBlock Foreground="Black" Text="Account number" FontSize="30"/>
+                        <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.AccountNumber, Mode=TwoWay}" Margin="0,0,0,20" />
+                    </StackPanel>
 
-                <!--Balance-->
-                <TextBlock Foreground="Black" Text="Balance" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Balance, Mode=TwoWay}" Margin="0,0,0,20" />
+                    <!--Balance-->
+                    <StackPanel x:Name="balance" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+                        <TextBlock Foreground="Black" Text="Balance" FontSize="30"/>
+                        <TextBox BorderBrush="LightGray" Text="{Binding Path=BankAccount.Balance, Mode=TwoWay}" Margin="0,0,0,20" />
+                    </StackPanel>
 
-                <!--Action Button-->
-                <Button x:Name="ActionButton" Content="{Binding BankAccount, Converter={StaticResource ModelToActionConverter}}" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding ActionCommand}" Margin="0,0,0,20" Width="320" Height="40" />
-
-            </StackPanel>
+                    <!--Action Button-->
+                    <Button x:Name="ActionButton" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding BankAccount, Converter={StaticResource ModelToActionConverter}}" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding ActionCommand}" Margin="0,0,0,20" Width="320" Height="40" />
+                </Grid>
         </ScrollViewer>
     </Grid>
-
 </base:MenuBottomViewBase>
