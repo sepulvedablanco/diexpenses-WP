@@ -11,6 +11,46 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core" >
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="GreaterThan700">
+                    <VisualState.Setters>
+                        <Setter Target="concept.(Grid.Row)" Value="1"/>
+                        <Setter Target="concept.(Grid.Column)" Value="0"/>
+                        <Setter Target="concept.(Grid.ColumnSpan)" Value="1"/>
+
+                        <Setter Target="amount.(Grid.Row)" Value="1"/>
+                        <Setter Target="amount.(Grid.Column)" Value="1"/>
+                        <Setter Target="amount.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="amount.(Grid.Margin)" Value="20,0,10,0"/>
+
+                        <Setter Target="kind.(Grid.Row)" Value="2"/>
+                        <Setter Target="kind.(Grid.Column)" Value="0"/>
+                        <Setter Target="kind.(Grid.ColumnSpan)" Value="1"/>
+
+                        <Setter Target="subkind.(Grid.Row)" Value="2"/>
+                        <Setter Target="subkind.(Grid.Column)" Value="1"/>
+                        <Setter Target="subkind.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="subkind.(Grid.Margin)" Value="20,0,10,0"/>
+
+                        <Setter Target="bankAccount.(Grid.Row)" Value="3"/>
+                        <Setter Target="bankAccount.(Grid.Column)" Value="0"/>
+                        <Setter Target="bankAccount.(Grid.ColumnSpan)" Value="1"/>
+
+                        <Setter Target="transactionDate.(Grid.Row)" Value="3"/>
+                        <Setter Target="transactionDate.(Grid.Column)" Value="1"/>
+                        <Setter Target="transactionDate.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="transactionDate.(Grid.Margin)" Value="20,0,10,0"/>
+
+                        <Setter Target="Save.(Grid.Row)" Value="4"/>
+                        <Setter Target="Save.(Grid.Column)" Value="0"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -25,50 +65,73 @@
         <!--Title-->
         <TextBlock Text="New Movement" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
 
-        <ScrollViewer Grid.Row="1" Height="600" >
+        <ScrollViewer Height="600" Grid.Row="1" >
 
-            <StackPanel Grid.Row="0" Margin="20,10,20,0" StackPanel.VerticalAlignment="Top" >
+            <Grid Margin="20,10,20,0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".50*"/>
+                    <ColumnDefinition Width=".50*"/>
+                </Grid.ColumnDefinitions>
 
                 <!--Expense/Incomes-->
-                <ToggleButton Content="{Binding Path=Movement.Expense, Mode=TwoWay, Converter={StaticResource BooleanToExpenseIncomeConverter}}" IsChecked="{Binding Movement.Expense, Mode=TwoWay}" FontSize="20" IsThreeState="False" HorizontalAlignment="Center" Width="320" Height="40" />
+                <ToggleButton Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Path=Movement.Expense, Mode=TwoWay, Converter={StaticResource BooleanToExpenseIncomeConverter}}" IsChecked="{Binding Movement.Expense, Mode=TwoWay}" FontSize="20" IsThreeState="False" HorizontalAlignment="Center" Width="320" Height="40" />
 
                 <!--Concept-->
-                <TextBlock Text="Concept" Foreground="Black" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Movement.Concept, Mode=TwoWay}" Margin="0,0,0,10" />
+                <StackPanel x:Name="concept" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Text="Concept" Foreground="Black" FontSize="30"/>
+                    <TextBox BorderBrush="LightGray" Text="{Binding Movement.Concept, Mode=TwoWay}" Margin="0,0,0,10" />
+                </StackPanel>
 
                 <!--Amount-->
-                <TextBlock Foreground="Black" Text="Amount" FontSize="30"/>
-                <TextBox BorderBrush="LightGray" Text="{Binding Movement.Amount, Mode=TwoWay}" Margin="0,0,0,20" />
+                <StackPanel x:Name="amount" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Foreground="Black" Text="Amount" FontSize="30"/>
+                    <TextBox BorderBrush="LightGray" Text="{Binding Movement.Amount, Mode=TwoWay}" Margin="0,0,0,20" />
+                </StackPanel>
 
                 <!--Kind-->
-                <TextBlock Foreground="Black" Text="Kind" FontSize="30" />
-                <ComboBox Name="KindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Kinds}" DisplayMemberPath="Description" SelectedItem="{Binding Path=Movement.Kind, Mode=TwoWay}" Width="300" >
-                    <i:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="SelectionChanged">
-                            <core:InvokeCommandAction Command="{Binding DataContext.KindChangedCommand, ElementName=KindComboBox}" />
-                        </core:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ComboBox>
+                <StackPanel x:Name="kind" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Foreground="Black" Text="Kind" FontSize="30" />
+                    <ComboBox Name="KindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Kinds}" DisplayMemberPath="Description" SelectedItem="{Binding Path=Movement.Kind, Mode=TwoWay}" Width="300" >
+                        <i:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                <core:InvokeCommandAction Command="{Binding DataContext.KindChangedCommand, ElementName=KindComboBox}" />
+                            </core:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </ComboBox>
+                </StackPanel>
 
                 <!--Subkind-->
-                <TextBlock Foreground="Black" Text="Subkind" FontSize="30"/>
-                <ComboBox Name="SubkindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Subkinds, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=Movement.Subkind, Mode=TwoWay}" SelectedItem="{Binding Path=Movement.Subkind, Mode=TwoWay}" Width="300" />
+                <StackPanel x:Name="subkind" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Foreground="Black" Text="Subkind" FontSize="30"/>
+                    <ComboBox Name="SubkindComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=Subkinds, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=Movement.Subkind, Mode=TwoWay}" SelectedItem="{Binding Path=Movement.Subkind, Mode=TwoWay}" Width="300" />
+                </StackPanel>
 
                 <!--BankAccount-->
-                <TextBlock Foreground="Black" Text="Bank account" FontSize="30"/>
-                <ComboBox Name="BankAccountComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=BankAccounts, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=Movement.BankAccount, Mode=TwoWay}" SelectedItem="{Binding Path=Movement.BankAccount, Mode=TwoWay}" Width="300" />
+                <StackPanel x:Name="bankAccount" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Foreground="Black" Text="Bank account" FontSize="30"/>
+                    <ComboBox Name="BankAccountComboBox" Margin="0,0,0,20" ItemsSource="{Binding Path=BankAccounts, Mode=TwoWay}" DisplayMemberPath="Description" SelectedValue="{Binding Path=Movement.BankAccount, Mode=TwoWay}" SelectedItem="{Binding Path=Movement.BankAccount, Mode=TwoWay}" Width="300" />
+                </StackPanel>
 
                 <!--TransactionDate-->
-                <TextBlock Foreground="Black" Text="Transaction date" FontSize="30"/>
-                <DatePicker Header="" YearVisible="True" Date="{Binding Movement.TransactionDate, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}" Margin="0,0,0,20" />
+                <StackPanel x:Name="transactionDate" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Foreground="Black" Text="Transaction date" FontSize="30"/>
+                    <DatePicker Header="" YearVisible="True" Date="{Binding Movement.TransactionDate, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}" Margin="0,0,0,20" />
+                </StackPanel>
 
                 <!--SaveButton-->
-                <Button x:Name="Save" Content="Save" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding SaveCommand}" Margin="0,0,0,20" Width="320" Height="40" />
+                <Button x:Name="Save" Content="Save" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding SaveCommand}" Margin="0,0,0,20" Width="320" Height="40" />
 
-            </StackPanel>
-
+            </Grid>
         </ScrollViewer>
-
     </Grid>
-
 </base:MenuBottomViewBase>

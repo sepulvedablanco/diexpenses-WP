@@ -12,17 +12,49 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="300"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="GreaterThan600">
+                    <VisualState.Setters>
+                        <Setter Target="movementDetails.(Grid.Row)" Value="1"/>
+                        <Setter Target="movementDetails.(Grid.Column)" Value="0"/>
+                        <Setter Target="movementDetails.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="movementDetails.(VerticalAlignment)" Value="Center"/>
+                        <Setter Target="movementDetails.(HorizontalAlignment)" Value="Center"/>
+
+                        <Setter Target="mapAddress.(Grid.Row)" Value="1"/>
+                        <Setter Target="mapAddress.(Grid.Column)" Value="1"/>
+                        <Setter Target="mapAddress.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="mapAddress.(Height)" Value="400"/>
+                        <Setter Target="mapAddress.(Margin)" Value="0,0,20,0"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1000"/>
+                        <AdaptiveTrigger MinWindowHeight="400"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".40*"/>
+            <ColumnDefinition Width=".60*"/>
+        </Grid.ColumnDefinitions>
 
         <!--Title-->
-        <TextBlock Text="Movement Details" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
+        <TextBlock Text="Movement Details" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
 
-        <StackPanel Grid.Row="1" Margin="20,15,20,0" >
+        <StackPanel x:Name="movementDetails" Grid.Row="1" Grid.ColumnSpan="2" Width="Auto" Margin="20,15,20,0" >
 
             <!--Expense/Concept/Amount-->
             <TextBlock FontSize="20" Foreground="{Binding Path=Movement.Expense, Mode=OneTime, Converter={StaticResource MovementToColorConverter}}" FontWeight="Bold" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis" Margin="0,0,0,10" >
@@ -40,12 +72,12 @@
             </TextBlock>
 
             <!--BankAccount-->
-            <ContentControl ContentTemplate="{StaticResource BankAccountsListTemplate}" Content="{Binding Path=Movement.BankAccount}" />
+            <ContentControl ContentTemplate="{StaticResource BankAccountsListTemplate}" Content="{Binding Path=Movement.BankAccount}" Width="Auto" />
             
         </StackPanel>
 
         <!--Start-Map:ExpensePosition-->
-        <maps:MapControl x:Name="mapAddress" Visibility="{Binding Movement.Location, Converter={StaticResource LocationToVisibilityConverter}}" Grid.Row="2" ZoomLevel="16" Center="{Binding Movement.Location}"  MapServiceToken="{StaticResource BingMapsKey}" LandmarksVisible="True" >
+        <maps:MapControl x:Name="mapAddress" Visibility="{Binding Movement.Location, Converter={StaticResource LocationToVisibilityConverter}}" Grid.Row="2" Grid.ColumnSpan="2" ZoomLevel="16" Center="{Binding Movement.Location}"  MapServiceToken="{StaticResource BingMapsKey}" LandmarksVisible="True" >
             <Grid HorizontalAlignment="Left" maps:MapControl.Location="{Binding Movement.Location}" maps:MapControl.NormalizedAnchorPoint="0,1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

@@ -18,7 +18,7 @@
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1000"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <i:Interaction.Behaviors>

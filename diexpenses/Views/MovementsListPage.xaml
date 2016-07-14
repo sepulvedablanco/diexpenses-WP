@@ -30,7 +30,7 @@
 
         <Button Content="Add new movement" Grid.Row="1" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" Background="#FF30DABB" Command="{Binding NewMovementCommand}" Margin="0,10,0,10" Width="320" Height="40" />
 
-        <ComboBox Name="YearComboBox" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Path=Years}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}" HorizontalAlignment="Center" >
+        <ComboBox Name="YearComboBox" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Path=Years}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}" HorizontalAlignment="Right" Margin="0,0,10,0" >
             <i:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="SelectionChanged">
                     <core:InvokeCommandAction Command="{Binding DataContext.YearChangedCommand, ElementName=YearComboBox}" />
@@ -38,7 +38,7 @@
             </i:Interaction.Behaviors>
         </ComboBox>
 
-        <ComboBox Name="MonthComboBox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Path=Months}" SelectedIndex="{Binding SelectedMonth, Mode=TwoWay}" HorizontalAlignment="Center" >
+        <ComboBox Name="MonthComboBox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Path=Months}" SelectedIndex="{Binding SelectedMonth, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,0,0,0" >
             <i:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="SelectionChanged">
                     <core:InvokeCommandAction Command="{Binding DataContext.MonthChangedCommand, ElementName=MonthComboBox}" />
