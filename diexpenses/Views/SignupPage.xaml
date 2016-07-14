@@ -11,6 +11,19 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="GreaterThan500">
+                    <VisualState.Setters>
+                        <Setter Target="title.(Margin)" Value="0,30,0,30"/>
+                        <Setter Target="title.(FontSize)" Value="50"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="500"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,7 +31,7 @@
         </Grid.RowDefinitions>
 
         <!--Title-->
-        <TextBlock Text="Create account" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
+        <TextBlock x:Name="title" Text="Create account" Grid.Row="0" FontWeight="Bold" Foreground="DarkSlateBlue" FontSize="30" HorizontalAlignment="Center" Margin="20,15,20,10" />
 
         <StackPanel Grid.Row="1" Margin="20,0">
 
